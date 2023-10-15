@@ -1,9 +1,14 @@
+package simulador;
 import java.io.Console;
+import java.util.ArrayList;
+
+import piscifactoria.Piscifactoria;
 
 public class Simulador {
     private int numeroDias = 0;
     private int numeroPiscifactorias = 0;
     private String nombreEmpresa = "";
+    private ArrayList<Piscifactoria> piscifactorías = new ArrayList<Piscifactoria>();
 
     public static void main(String[] args) {
         mostrarMenu();
