@@ -15,15 +15,15 @@ public class Banco {
         this.monedas = monedas;
     }
 
+    /**
+     * Comprobación de si tiene dinero para hacer compra o no
+     * @param cantidad coste de una acción a realizar
+     * @return si tiene las suficientes monedas para realizar la compra
+     */
     public boolean comprobarMonedero(int cantidad){
         if(this.monedas >= cantidad){
-            monedas -= cantidad;
-            System.out.println("Gastaste " + cantidad + " monedas y ahora tienes " + monedas + " monedas.");
             return true;
-        }else{
-            monedas += cantidad;
-            System.out.println("Ganaste " + cantidad + " monedas y ahora tienes " + monedas + " monedas.");
-            return false;
         }
+        return false;
     }       
 }
