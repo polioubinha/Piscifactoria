@@ -13,7 +13,7 @@ public class Monedas{
 
     // Método para obtener la instancia, si no existe, la crea
     public static Monedas getInstance(){
-        if(instance==null){
+        if(instance == null){
             instance = new Monedas(1000);
         }
         return instance;
