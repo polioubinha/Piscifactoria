@@ -30,14 +30,10 @@ public class Monedas{
     }
 
     //Metodo para comprobar si hay se puede realizar la compra con la cantidad indicada
-    public boolean comprobarCompra(int precio){
-        if(cantidad >= precio){
-            return true;
-        }else{
-            return false;
-        }
+    public boolean comprobarCompra(int precio) {
+        return cantidad >= precio;
     }
-
+    
     // Método para realizar la compra, resta el precio de la cantidad de monedas
     public void compra(int precio){
         this.cantidad -= precio;

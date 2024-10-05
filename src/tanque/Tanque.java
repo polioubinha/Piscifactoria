@@ -71,12 +71,17 @@ public class Tanque<T extends Pez> {
         }
     }
 
+    /*
+     * Método para eliminar un pez muerto
+     * 
+     * @return true si se ha eliminado un pez, false si no
+     */
     public boolean eliminarMuerto(){
         Iterator<Pez> it = this.peces.iterator();
 
         while(it.hasNext()){
             Pez pez = it.next();
-            if(!pez.isVivo() == false){
+            if(!pez.isVivo()){
                 it.remove();
                 return true;
             }

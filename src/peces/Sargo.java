@@ -51,39 +51,29 @@ public class Sargo extends Omnivoro{
         return this.sexo ? "Macho" : "Hembra";
     }
     
+    public static void datos() {
+        PecesDatos datos = AlmacenPropiedades.SARGO;
 
-    public void showStatus(){
+        System.out.println("------------");
+        System.out.println("Nombre común: " + datos.getNombre());
+        System.out.println("Nombre científico: " + datos.getCientifico());
+        System.out.println("Tipo: " + datos.getTipo());
+        System.out.println("Coste: " + datos.getCoste());
+        System.out.println("Precio venta: " + datos.getMonedas());
+        System.out.println("Huevos: " + datos.getHuevos());
+        System.out.println("Ciclo: "+ datos.getCiclo());
+        System.out.println("Madurez: " + datos.getMadurez());
+        System.out.println("Óptimo: " + datos.getOptimo());
+    }
+    
+    public void showStatus() {
         System.out.println("------" + this.datos.getNombre() + "------");
-        System.out.println("Edad: " + this.edad + "dias");
-        if(this.sexo){
-            System.out.println("Sexo: Macho");
-        }else{
-            System.out.println("Sexo: Hembra");
-        }
-
-        if(this.vivo){
-            System.out.println("Vivo: Si");
-        }else{
-            System.out.println("Vivo: No");
-        }
-
-        if(this.maduro){
-            System.out.println("Adulto: Si");
-        }else{
-            System.out.println("Adulto: No");
-        }
-
-        if(this.ciclo == 0){
-            System.out.println("Fertil: Si");
-        }else{
-            System.out.println("Fertil: No");
-        }
-
-        if(this.alimentado){
-            System.out.println("Alimentado: Si");
-        }else{
-            System.out.println("Alimentado: No");
-        }
+        System.out.println("Edad: " + this.edad + " días");
+        System.out.println("Sexo: " + (this.sexo ? "Macho" : "Hembra"));
+        System.out.println("Vivo: " + (this.vivo ? "Si" : "No"));
+        System.out.println("Adulto: " + (this.maduro ? "Si" : "No"));
+        System.out.println("Fertil: " + (this.ciclo == 0 ? "Si" : "No"));
+        System.out.println("Alimentado: " + (this.alimentado ? "Si" : "No"));
     }
     
     public void comprobarMadurez(int edad) {

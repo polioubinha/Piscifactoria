@@ -16,7 +16,7 @@ public class Carnivoro extends Pez{
             if(tanque.hasDead()){
                 this.alimentado = true;
                 if(r.nextBoolean()){
-                    tanque.removeDead();
+                    tanque.eliminarMuerto();
                 }
             }else{
                 if(piscifactoria.getAlmacen() != 0){
