@@ -88,5 +88,9 @@ public class Tanque<T extends Pez> {
         }
         return false;
     }
-
+public void manejarReproduccion() {
+    for (Pez pez : this.peces) {
+        pez.reproducirse(this);
+    }
+}
 }
