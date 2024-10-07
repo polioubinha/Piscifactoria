@@ -1,4 +1,12 @@
+package peces;
+
+import java.util.Random;
+import piscifactoria.Piscifactoria;
+import propiedades.PecesDatos;
+import tanque.Tanque;
+
 public abstract class Pez{
+    protected PecesDatos datos;
     protected int ciclo;
     protected int edad;
     protected boolean vivo = true;
@@ -91,4 +99,55 @@ public abstract class Pez{
             return "Hembra";
         }
     }
+
+    public boolean coprobacionMadurez(int edad){
+        if(edad >= this.datos.getMadurez()){
+            this.setMaduro(true);
+        }else{
+            this.setMaduro(false);
+        }
+        return alimentado;
+    }
+
+    public void grow(Tanque tanque, Piscifactoria piscifactoria, Boolean almacenCentral){
+        Random r = new Random();
+        if(this.vivo){
+            comer(tanque, piscifactoria, almacenCentral);  
+            
+            if(!this.maduro && r.nextDouble() < 0.05){
+                this.vivo = false;
+            }
+
+            if(!this.alimentado){
+                this.vivo = false;
+            }
+
+            if(this.vivo){
+                this.edad++;
+                System.out.println(this.edad);
+                this.coprobacionMadurez(this.edad);
+            }
+        }
+        this.alimentado = true;
+    }
+
+    public boolean reproducirse(){
+        if(this.maduro && this.edad % this.datos.getCiclo() == 0){
+            if(!this.sexo){
+                this.ciclo = this.datos.getCiclo();
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            this.ciclo--;
+            return false;
+        }
+    }
+    
+    public void comer(Tanque tanque, Piscifactoria pisc, Boolean almacenCen) {
+    }
+
+
+    
 }
