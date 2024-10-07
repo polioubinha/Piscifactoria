@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import peces.Pez;
+import piscifactoria.Piscifactoria;
 
 public class Tanque<T extends Pez> {
     ArrayList<Pez> peces = new ArrayList<>();
@@ -87,6 +88,24 @@ public class Tanque<T extends Pez> {
             }
         }
         return false;
+    }
+
+    public void nextFood(Piscifactoria piscifactoria, Boolean almCentral) {
+        for(Pez pez :peces){
+            if(pez.isVivo()){
+                pez.grow(this, piscifactoria, almCentral);
+            }
+        }
+    }
+
+    public void nextDayReproduccion() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'nextDayReproduccion'");
+    }
+
+    public void venderOptimos() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'venderOptimos'");
     }
 
 }

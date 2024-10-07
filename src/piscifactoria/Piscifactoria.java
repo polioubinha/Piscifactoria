@@ -1,5 +1,8 @@
 package piscifactoria;
 
+import java.util.ArrayList;
+
+import peces.Pez;
 import tanque.Tanque;
 
 public class Piscifactoria {
@@ -74,12 +77,55 @@ public class Piscifactoria {
         }
     }
 
+    public void nextDay(Boolean almCentral){
+        for(int i=0; i < this.tanques.size(); i++){
+            if(this.almacen != 0){
+                this.tanques.get(i).nextFood(this, almCentral);
+                this.tanques.get(i).nextDayReproduccion();
+            }
+            this.tanques.get(i).venderOptimos();
+            System.out.println("Piscifactoria " + this.nombre + ": " + this.tanques.get(i).getVendidos() + " peces vendidos por " + this.tanques.get(i).getGanancias() + " monedas");
+        }
+        this.gananciasDiarias();
+    }
+
+    private void gananciasDiarias() {
+        int ganancias = 0;
+        int cantidad = 0;
+
+        for (Tanque<Pez> tanque : tanques) {
+            cantidad += tanque.getVendidos();
+            ganancias += tanque.getGanancias();
+        }
+        System.out.println("Piscifactoria " + this.nombre + ": " + ganancias + " monedas de ganancia"); 
+    }
+
     public void showStatus(){
         System.out.println("===============" + this.nombre + "===============");
         System.out.println("Tanques: " + this.tanques.size());
-        System.out.println("Ocupacion: " + this.pecesTotales() + "/" + this.capacidadTotal() + " (" + this.porcentaje(this.pecesTotales(), this.capacidadTotal()) + "%)");
+        System.out.println("Ocupacion: " + this.totalPeces() + "/" + this.capacidadTotal() + " (" + this.porcentaje(this.totalPeces(), this.capacidadTotal()) + "%)");
     }
 
+
+    /*
+     * Devuelve la cantidad total de peces en la piscifactoria
+     * 
+     * @return cantidad total de peces
+     */
+    public int totalPeces(){
+        int cantidad = 0;
+
+        for (Tanque<Pez> tanque : tanques){
+            cantidad += tanque.getPeces().size();
+        }
+        return cantidad;
+    }
+
+    /*
+     * Devuelve la capacidad total de la piscifactoria
+     * 
+     * @return capacidad total de la piscifactoria
+     */
     public int capacidadTotal(){
         int cantidad = 0;
 
@@ -88,5 +134,9 @@ public class Piscifactoria {
         }
 
         return cantidad;
+    }
+
+    public double porcentaje(int cantidad, int total){
+        return (cantidad * 100) / total;
     }
 }
