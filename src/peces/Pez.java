@@ -131,19 +131,31 @@ public abstract class Pez{
         this.alimentado = true;
     }
 
-    public boolean reproducirse(){
-        if(this.maduro && this.edad % this.datos.getCiclo() == 0){
-            if(!this.sexo){
-                this.ciclo = this.datos.getCiclo();
-                return true;
-            }else{
-                return false;
+public boolean reproducirse(Tanque tanque) {
+    if(this.maduro && this.ciclo <= 0) {
+        if(!this.sexo) {
+            boolean machoPresente = false;
+            for(Pez pez : tanque.getPeces()) {
+                if(pez.isSexo() && pez.isMaduro() && pez.isVivo()) {
+                    machoPresente = true;
+                    break;
+                }
+            }        
+            if(machoPresente) {
+                this.ciclo = this.datos.getCiclo(); 
+                return true;  
+            } else {
+                return false; 
             }
-        }else{
-            this.ciclo--;
-            return false;
+        } else {
+            return false; //esto es si es macho no se reproduce
         }
+    } else {
+        // Si el pez no madura o no ha cumplido el ciclo de reproduccion que le hemos puesto.
+        this.ciclo--;  // Decrementamos el ciclo para que pueda reproducirse en el futuro
+        return false;
     }
+}
     
     public void comer(Tanque tanque, Piscifactoria pisc, Boolean almacenCen) {
     }
