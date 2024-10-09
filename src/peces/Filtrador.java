@@ -4,6 +4,7 @@ import java.util.Random;
 
 import almacenCentral.AlmacenCentral;
 import piscifactoria.Piscifactoria;
+import tanque.Tanque;
 
 public class Filtrador extends Pez{
     
