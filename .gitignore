@@ -1,7 +1,4 @@
-/.vscode
-/.idea
-<<<<<<< HEAD
-/.DS_Store
-=======
->>>>>>> origin/poli
-/bin
+.vscode
+.idea
+.DS_Store
+bin
