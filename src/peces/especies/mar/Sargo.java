@@ -1,4 +1,4 @@
-package peces.especies;
+package peces.especies.mar;
 
 import peces.Omnivoro;
 import propiedades.AlmacenPropiedades;

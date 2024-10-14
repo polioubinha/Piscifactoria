@@ -1,4 +1,4 @@
-package peces.especies;
+package peces.especies.rio;
 
 import peces.Filtrador;
 import propiedades.AlmacenPropiedades;
