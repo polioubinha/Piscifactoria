@@ -1,22 +1,22 @@
-package peces.especies;
+package peces.especies.mar;
 
-import peces.Filtrador;
+import peces.Omnivoro;
 import propiedades.AlmacenPropiedades;
 import propiedades.PecesDatos;
 
-public class TilapiaDelNilo extends Filtrador{
-    private final PecesDatos datos = AlmacenPropiedades.TILAPIA_NILO;
+public class Sargo extends Omnivoro{
+    private final PecesDatos datos = AlmacenPropiedades.SARGO;
 
-    public PecesDatos getDatos(){
+    public PecesDatos getDatos() {
         return datos;
     }
 
-    public TilapiaDelNilo(boolean sexo){
+    public Sargo(boolean sexo) {
         this.sexo = sexo;
         this.ciclo = this.datos.getCiclo();
     }
 
-    public boolean isAlimentado(){
+    public boolean isAlimentado() {
         return alimentado;
     }
 
@@ -51,9 +51,9 @@ public class TilapiaDelNilo extends Filtrador{
     public String getSexo() {
         return this.sexo ? "Macho" : "Hembra";
     }
-
-    public static void datos(){
-        PecesDatos datos = AlmacenPropiedades.TILAPIA_NILO;
+    
+    public static void datos() {
+        PecesDatos datos = AlmacenPropiedades.SARGO;
 
         System.out.println("------------");
         System.out.println("Nombre común: " + datos.getNombre());
@@ -66,7 +66,7 @@ public class TilapiaDelNilo extends Filtrador{
         System.out.println("Madurez: " + datos.getMadurez());
         System.out.println("Óptimo: " + datos.getOptimo());
     }
-
+    
     public void showStatus() {
         System.out.println("------" + this.datos.getNombre() + "------");
         System.out.println("Edad: " + this.edad + " días");
@@ -80,10 +80,12 @@ public class TilapiaDelNilo extends Filtrador{
     public void comprobarMadurez(int edad) {
         this.setMaduro(this.edad >= this.datos.getMadurez());
     }
+    
 
     public boolean esOptimo() {
         return this.edad == this.datos.getOptimo();
     }
+    
 
     public boolean reproducirse() {
         if (this.maduro && this.edad % this.datos.getCiclo() == 0 && !this.sexo) {
@@ -94,4 +96,5 @@ public class TilapiaDelNilo extends Filtrador{
         this.ciclo--;
         return false;
     }
+    
 }

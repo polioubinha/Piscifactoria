@@ -1,22 +1,22 @@
-package peces.especies;
+package peces.especies.rio;
 
-import peces.Carnivoro;
+import peces.Filtrador;
 import propiedades.AlmacenPropiedades;
 import propiedades.PecesDatos;
 
-public class SalmonChinook extends Carnivoro{
-    private final PecesDatos datos = AlmacenPropiedades.SALMON_CHINOOK;
+public class TilapiaDelNilo extends Filtrador{
+    private final PecesDatos datos = AlmacenPropiedades.TILAPIA_NILO;
 
     public PecesDatos getDatos(){
         return datos;
     }
 
-    public SalmonChinook(boolean sexo){
-        this.sexo=sexo;
-        this.ciclo=this.datos.getCiclo();
+    public TilapiaDelNilo(boolean sexo){
+        this.sexo = sexo;
+        this.ciclo = this.datos.getCiclo();
     }
 
-    public boolean isAlimentado() {
+    public boolean isAlimentado(){
         return alimentado;
     }
 
@@ -51,9 +51,9 @@ public class SalmonChinook extends Carnivoro{
     public String getSexo() {
         return this.sexo ? "Macho" : "Hembra";
     }
-    
-    public static void datos() {
-        PecesDatos datos = AlmacenPropiedades.SALMON_CHINOOK;
+
+    public static void datos(){
+        PecesDatos datos = AlmacenPropiedades.TILAPIA_NILO;
 
         System.out.println("------------");
         System.out.println("Nombre común: " + datos.getNombre());
@@ -66,7 +66,7 @@ public class SalmonChinook extends Carnivoro{
         System.out.println("Madurez: " + datos.getMadurez());
         System.out.println("Óptimo: " + datos.getOptimo());
     }
-    
+
     public void showStatus() {
         System.out.println("------" + this.datos.getNombre() + "------");
         System.out.println("Edad: " + this.edad + " días");
@@ -80,12 +80,10 @@ public class SalmonChinook extends Carnivoro{
     public void comprobarMadurez(int edad) {
         this.setMaduro(this.edad >= this.datos.getMadurez());
     }
-    
 
     public boolean esOptimo() {
         return this.edad == this.datos.getOptimo();
     }
-    
 
     public boolean reproducirse() {
         if (this.maduro && this.edad % this.datos.getCiclo() == 0 && !this.sexo) {

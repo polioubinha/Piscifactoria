@@ -1,17 +1,17 @@
-package peces.especies;
+package peces.especies.rio;
 
-import peces.Filtrador;
+import peces.Carnivoro;
 import propiedades.AlmacenPropiedades;
 import propiedades.PecesDatos;
 
-public class ArenqueDelAtlantico extends Filtrador{
-    private final PecesDatos datos = AlmacenPropiedades.ARENQUE_ATLANTICO;
+public class Pejerrey extends Carnivoro{
+    private final PecesDatos datos = AlmacenPropiedades.PEJERREY;
 
     public PecesDatos getDatos(){
         return datos;
     }
 
-    public ArenqueDelAtlantico(boolean sexo){
+    public Pejerrey(boolean sexo){
         this.sexo=sexo;
         this.ciclo=this.datos.getCiclo();
     }
@@ -53,7 +53,7 @@ public class ArenqueDelAtlantico extends Filtrador{
     }
 
     public static void datos(){
-        PecesDatos datos = AlmacenPropiedades.ARENQUE_ATLANTICO;
+        PecesDatos datos = AlmacenPropiedades.PEJERREY;
         System.out.println("------------");
         System.out.println("Nombre común: " + datos.getNombre());
         System.out.println("Nombre científico: " + datos.getCientifico());

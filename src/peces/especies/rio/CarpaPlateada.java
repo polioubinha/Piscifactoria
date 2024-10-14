@@ -1,19 +1,19 @@
-package peces.especies;
+package peces.especies.rio;
 
-import peces.Omnivoro;
+import peces.Filtrador;
 import propiedades.AlmacenPropiedades;
 import propiedades.PecesDatos;
 
-public class Sargo extends Omnivoro{
-    private final PecesDatos datos = AlmacenPropiedades.SARGO;
+public class CarpaPlateada extends Filtrador{
+    private final PecesDatos datos = AlmacenPropiedades.CARPA_PLATEADA;
 
-    public PecesDatos getDatos() {
+    public PecesDatos getDatos(){
         return datos;
     }
 
-    public Sargo(boolean sexo) {
-        this.sexo = sexo;
-        this.ciclo = this.datos.getCiclo();
+    public CarpaPlateada(boolean sexo){
+        this.sexo=sexo;
+        this.ciclo=this.datos.getCiclo();
     }
 
     public boolean isAlimentado() {
@@ -53,7 +53,7 @@ public class Sargo extends Omnivoro{
     }
     
     public static void datos() {
-        PecesDatos datos = AlmacenPropiedades.SARGO;
+        PecesDatos datos = AlmacenPropiedades.CARPA_PLATEADA;
 
         System.out.println("------------");
         System.out.println("Nombre común: " + datos.getNombre());
@@ -96,5 +96,4 @@ public class Sargo extends Omnivoro{
         this.ciclo--;
         return false;
     }
-    
 }
