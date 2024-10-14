@@ -1,21 +1,22 @@
-package peces;
+package peces.especies;
 
+import peces.Filtrador;
 import propiedades.AlmacenPropiedades;
 import propiedades.PecesDatos;
 
-public class Sargo extends Omnivoro{
-    private final PecesDatos datos = AlmacenPropiedades.SARGO;
+public class TilapiaDelNilo extends Filtrador{
+    private final PecesDatos datos = AlmacenPropiedades.TILAPIA_NILO;
 
-    public PecesDatos getDatos() {
+    public PecesDatos getDatos(){
         return datos;
     }
 
-    public Sargo(boolean sexo) {
+    public TilapiaDelNilo(boolean sexo){
         this.sexo = sexo;
         this.ciclo = this.datos.getCiclo();
     }
 
-    public boolean isAlimentado() {
+    public boolean isAlimentado(){
         return alimentado;
     }
 
@@ -50,9 +51,9 @@ public class Sargo extends Omnivoro{
     public String getSexo() {
         return this.sexo ? "Macho" : "Hembra";
     }
-    
-    public static void datos() {
-        PecesDatos datos = AlmacenPropiedades.SARGO;
+
+    public static void datos(){
+        PecesDatos datos = AlmacenPropiedades.TILAPIA_NILO;
 
         System.out.println("------------");
         System.out.println("Nombre común: " + datos.getNombre());
@@ -65,7 +66,7 @@ public class Sargo extends Omnivoro{
         System.out.println("Madurez: " + datos.getMadurez());
         System.out.println("Óptimo: " + datos.getOptimo());
     }
-    
+
     public void showStatus() {
         System.out.println("------" + this.datos.getNombre() + "------");
         System.out.println("Edad: " + this.edad + " días");
@@ -79,12 +80,10 @@ public class Sargo extends Omnivoro{
     public void comprobarMadurez(int edad) {
         this.setMaduro(this.edad >= this.datos.getMadurez());
     }
-    
 
     public boolean esOptimo() {
         return this.edad == this.datos.getOptimo();
     }
-    
 
     public boolean reproducirse() {
         if (this.maduro && this.edad % this.datos.getCiclo() == 0 && !this.sexo) {
@@ -95,5 +94,4 @@ public class Sargo extends Omnivoro{
         this.ciclo--;
         return false;
     }
-    
 }
