@@ -109,7 +109,7 @@ public abstract class Pez{
         return alimentado;
     }
 
-    public void grow(Tanque tanque, Piscifactoria piscifactoria, Boolean almacenCentral){
+    public void grow(Tanque<Pez> tanque, Piscifactoria piscifactoria, Boolean almacenCentral){
         Random r = new Random();
         if(this.vivo){
             comer(tanque, piscifactoria, almacenCentral);  
@@ -131,7 +131,7 @@ public abstract class Pez{
         this.alimentado = true;
     }
 
-public boolean reproducirse(Tanque tanque) {
+public boolean reproducirse(Tanque<Pez> tanque) {
     if(this.maduro && this.ciclo <= 0) {
         if(!this.sexo) {
             boolean machoPresente = false;
@@ -157,7 +157,7 @@ public boolean reproducirse(Tanque tanque) {
     }
 }
     
-    public void comer(Tanque tanque, Piscifactoria pisc, Boolean almacenCen) {
+    public void comer(Tanque<Pez> tanque, Piscifactoria pisc, Boolean almacenCen) {
     }
 
 
