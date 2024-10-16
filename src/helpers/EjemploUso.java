@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main {
+public class EjemploUso {
     public static void main(String[] args) {
         MenuHelper menuHelper = new MenuHelper();
         InputHelper inputHelper = new InputHelper();
