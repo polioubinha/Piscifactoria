@@ -15,6 +15,10 @@ public abstract class Pez{
     protected boolean maduro = false;
     
 
+    public PecesDatos getDatos(){
+        return datos;
+    }
+
     /*
      * Comprobamos si el pez esta alimentado
      * 
@@ -100,7 +104,12 @@ public abstract class Pez{
         }
     }
 
-    public boolean coprobacionMadurez(int edad){
+    /*
+     * Comprobación de madurez del pez
+     * 
+     * @return true si es maduro, false si no lo es
+     */
+    public boolean comprobacionMadurez(int edad){
         if(edad >= this.datos.getMadurez()){
             this.setMaduro(true);
         }else{
@@ -109,6 +118,12 @@ public abstract class Pez{
         return alimentado;
     }
 
+    /*
+     * Comprobación de crecimiento del pez en base a la comida
+     * 
+     * @param tanque El tanque al que pertecene el pez
+     * @param piscifactoria Piscifactoria a la que pertenece el pez
+     */
     public void grow(Tanque tanque, Piscifactoria piscifactoria, Boolean almacenCentral){
         Random r = new Random();
         if(this.vivo){
@@ -119,44 +134,80 @@ public abstract class Pez{
             }
 
             if(!this.alimentado){
-                this.vivo = false;
+                this.muerte();
             }
 
             if(this.vivo){
                 this.edad++;
                 System.out.println(this.edad);
-                this.coprobacionMadurez(this.edad);
+                this.comprobacionMadurez(this.edad);
             }
         }
-        this.alimentado = true;
+        this.alimentado = false;
     }
 
-public boolean reproducirse(Tanque tanque) {
-    if(this.maduro && this.ciclo <= 0) {
-        if(!this.sexo) {
-            boolean machoPresente = false;
-            for(Pez pez : tanque.getPeces()) {
-                if(pez.isSexo() && pez.isMaduro() && pez.isVivo()) {
-                    machoPresente = true;
-                    break;
+    /*
+     * El pez tiene un 50% de posibilidades de morir
+     */
+    public void muerte(){
+        Random muerte = new Random();
+
+        if(muerte.nextBoolean()){
+            this.setVivo(false);
+        }
+    }
+
+
+    /*
+     * Comprueba si el pez es optimo para reproducirse
+     * 
+     * @return true si el pez está optimo para reproducirse, false si no lo está.
+     */
+    public boolean reproducirse(Tanque tanque) {
+        if(this.maduro && this.ciclo <= 0) {
+            if(!this.sexo) {
+                boolean machoPresente = false;
+
+                for(Pez pez : tanque.getPeces()) {
+                    if(pez.isSexo() && pez.isMaduro() && pez.isVivo()) {
+                        machoPresente = true;
+                        break;
+                    }
+                }        
+                if(machoPresente) {
+                    this.ciclo = this.datos.getCiclo(); 
+                    return true;  
+                } else {
+                    return false; 
                 }
-            }        
-            if(machoPresente) {
-                this.ciclo = this.datos.getCiclo(); 
-                return true;  
             } else {
-                return false; 
+                return false; //esto es si es macho no se reproduce
             }
         } else {
-            return false; //esto es si es macho no se reproduce
+            // Si el pez no madura o no ha cumplido el ciclo de reproduccion que le hemos puesto.
+            this.ciclo--;  // Decrementamos el ciclo para que pueda reproducirse en el futuro
+            return false;
         }
-    } else {
-        // Si el pez no madura o no ha cumplido el ciclo de reproduccion que le hemos puesto.
-        this.ciclo--;  // Decrementamos el ciclo para que pueda reproducirse en el futuro
-        return false;
     }
-}
+
+    /*
+     * Comprobar si el pez es óptimo para vender
+     * 
+     * @return true si es optimo, false si no lo es
+     */
+    public boolean isOptimo() {
+        return this.edad == this.datos.getOptimo();
+    }
+   
+
+    /*
+     * Se muestra el estado actual del pez
+     */
+    public void showStatus(){}
     
+    /*
+     * Verifica si el pez pudo comer
+     */
     public void comer(Tanque tanque, Piscifactoria pisc, Boolean almacenCen) {
     }
 

@@ -2,6 +2,7 @@ package piscifactoria;
 
 import java.util.ArrayList;
 
+import monedero.Monedas;
 import peces.Pez;
 import tanque.Tanque;
 
@@ -97,7 +98,8 @@ public class Piscifactoria {
             cantidad += tanque.getVendidos();
             ganancias += tanque.getGanancias();
         }
-        System.out.println("Piscifactoria " + this.nombre + ": " + ganancias + " monedas de ganancia"); 
+        System.out.println("Piscifactoria " + this.nombre + ": " + cantidad + " peces vendidos por " + ganancias
+        + " monedas totales");
     }
 
     public void showStatus(){
@@ -138,5 +140,47 @@ public class Piscifactoria {
 
     public double porcentaje(int cantidad, int total){
         return (cantidad * 100) / total;
+    }
+
+    /*
+     * Se muestra la lista de tanques de la piscifactoría
+     */
+    public void listTanks(){
+        for(int i = 0; i < this.tanques.size(); i++){
+            if(this.tanques.get(i).getPeces().size() == 0){
+                System.out.println(i + " tanque vacío");
+            }else{
+                System.out.println(i + ", pez: " + this.tanques.get(i).getPeces().get(0).getDatos().getNombre());
+            }
+        }
+    }
+
+    /*
+     * Compra de un nuevo tanque de peces en la piscifactoria
+     */
+    public void comprarTanque(){
+        if(this.rio){
+            if(Monedas.getInstance().comprobarCompra(150 * this.tanques.size())){
+                if(this.tanques.size() < 10){
+                    Monedas.getInstance().compra(150 * this.tanques.size());
+                    this.tanques.add(new Tanque<Pez>(25));
+                }else{
+                    System.out.println("No se puede comprar un tanque nuevo. Has alcanzado el límite.");
+                }
+            }else{
+                System.out.println("No tienes dinero suficiente");
+            }
+        }else{
+            if(Monedas.getInstance().comprobarCompra(600 * this.tanques.size())){
+                if(this.tanques.size() < 10){
+                    Monedas.getInstance().compra(600 * this.tanques.size());
+                    this.tanques.add(new Tanque<Pez>(100));
+                }else{
+                    System.out.println("No se puede comprar un tanque nuevo. Has alcanzado el límite.");
+                }
+            }else{
+                System.out.println("No tienes dinero suficiente");
+            }
+        }
     }
 }
