@@ -10,7 +10,7 @@ public class Piscifactoria {
     private final boolean rio;
     private String nombre = "";
     private int almacen;
-    private int alamacenMax;
+    private int almacenMax;
     private ArrayList<Tanque<Pez>> tanques = new ArrayList<>();
 
     /*
@@ -25,12 +25,12 @@ public class Piscifactoria {
             this.nombre = nombre;
             this.tanques.add(new Tanque<Pez>(25));
             this.almacen = 25;
-            this.alamacenMax = 25;
+            this.almacenMax = 25;
         }else{
             this.nombre = nombre;
             this.tanques.add(new Tanque<Pez>(100));
             this.almacen = 100;
-            this.alamacenMax = 100;
+            this.almacenMax = 100;
         }
     }
 
@@ -55,11 +55,11 @@ public class Piscifactoria {
     }
 
     public int getAlamacenMax() {
-        return alamacenMax;
+        return almacenMax;
     }
 
     public void setAlamacenMax(int alamacenMax) {
-        this.alamacenMax = alamacenMax;
+        this.almacenMax = alamacenMax;
     }
 
     public ArrayList<Tanque<Pez>> getTanques() {
@@ -102,12 +102,67 @@ public class Piscifactoria {
         + " monedas totales");
     }
 
-    public void showStatus(){
-        System.out.println("===============" + this.nombre + "===============");
+    public void showStatus() {
+        System.out.println("==========" + this.nombre + "==========");
         System.out.println("Tanques: " + this.tanques.size());
-        System.out.println("Ocupacion: " + this.totalPeces() + "/" + this.capacidadTotal() + " (" + this.porcentaje(this.totalPeces(), this.capacidadTotal()) + "%)");
+        System.out.println("Ocupacion: " + this.totalPeces() + "/" + this.capacidadTotal() + " ("
+                + this.porcentaje(this.totalPeces(), this.capacidadTotal()) + "%)");
+        System.out.println("Peces vivos: " + this.pecesVivos() + "/" + this.totalPeces() + " ("
+                + this.porcentaje(this.pecesVivos(), this.totalPeces()) + "%)");
+        System.out.println("Peces alimentados: " + this.totalAlimentados() + "/" + this.pecesVivos() + " ("
+                + this.porcentaje(this.totalAlimentados(), this.pecesVivos()) + "%)");
+        System.out.println("Peces adultos: " + this.adultosTotales() + "/" + this.pecesVivos() + " ("
+                + this.porcentaje(this.adultosTotales(), this.pecesVivos()) + "%)");
+        System.out.println("Hembras/Machos: " + this.totalHembras() + "/" + this.totalMachos());
+        System.out.println("Almacen de comida actual: " + this.almacen + "/" + this.almacenMax + " ("
+                + this.porcentaje(this.almacen, this.almacenMax) + "%)");
     }
 
+
+    /*
+     * Obtiene la cantidad total de peces adultos de la piscifactoria
+     * 
+     * @return cantidad total de peces adultos
+     */
+    public int adultosTotales(){
+        int cantidad = 0;
+
+        for(Tanque<Pez> tanque: tanques){
+            cantidad += tanque.adultos();
+        }
+
+        return cantidad;
+    }
+
+    /*
+     * Obtiene la cantidad total de hembras de la piscifactoria
+     * 
+     * @return cantidad total de hembras
+     */
+    public int totalHembras(){
+        int cantidad = 0;
+
+        for(Tanque<Pez> tanque: tanques){
+            cantidad += tanque.hembras();
+        }
+
+        return cantidad;
+    }
+
+    /*
+     * Obtiene la cantidad total de machos de la piscifactoria
+     * 
+     * @return cantidad total de machos
+     */
+    public int totalMachos(){
+        int cantidad = 0;
+
+        for(Tanque<Pez> tanque: tanques){
+            cantidad += tanque.machos();
+        }
+
+        return cantidad;
+    }
 
     /*
      * Devuelve la cantidad total de peces en la piscifactoria
@@ -120,6 +175,32 @@ public class Piscifactoria {
         for (Tanque<Pez> tanque : tanques){
             cantidad += tanque.getPeces().size();
         }
+        return cantidad;
+    }
+
+    /*
+     * @return La cantidad total de peces vivos en la piscifactoria
+     */
+    public int pecesVivos(){
+        int cantidad = 0;
+
+        for(Tanque<Pez> tanque : tanques){
+            cantidad += tanque.vivos();
+        }
+
+        return cantidad;
+    }
+
+    /*
+     * @return Cantidad total de peces alimentados de la piscifactoría
+     */
+    public int totalAlimentados(){
+        int cantidad = 0;
+
+        for(Tanque<Pez> tanque : tanques){
+            cantidad += tanque.alimentados();
+        }
+
         return cantidad;
     }
 
