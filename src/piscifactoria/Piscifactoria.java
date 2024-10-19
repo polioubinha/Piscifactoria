@@ -102,6 +102,11 @@ public class Piscifactoria {
         + " monedas totales");
     }
 
+    /**
+     * Muestra el estado actual del sistema de piscifactoría, incluyendo la cantidad de tanques, 
+     * ocupación, cantidad de peces vivos, alimentados y adultos, así como la distribución de 
+     * sexos y el estado del almacen de comida.
+     */
     public void showStatus() {
         System.out.println("==========" + this.nombre + "==========");
         System.out.println("Tanques: " + this.tanques.size());
@@ -263,5 +268,30 @@ public class Piscifactoria {
                 System.out.println("No tienes dinero suficiente");
             }
         }
+    }
+
+    public void limpiarTanques() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'limpiarTanques'");
+    }
+
+    public void vaciarTanques() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'vaciarTanques'");
+    }
+
+    public void nuevoDia() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'nuevoDia'");
+    }
+
+    public void venderAdultos() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'venderAdultos'");
+    }
+
+    public void upgradeFood() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'upgradeFood'");
     }
 }

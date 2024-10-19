@@ -37,6 +37,9 @@ public class Tanque<T extends Pez> {
         return peces;
     }
 
+    /*
+     * Método para mostrar el estado del tanque
+     */
     public void showStatus() {
         System.out.println("Ocupación: " + this.peces.size() + "/" + this.capacidad + " ("
                 + this.porcentaje(this.peces.size(), this.capacidad) + "%)");
@@ -49,6 +52,9 @@ public class Tanque<T extends Pez> {
         System.out.println("Hembras/Machos: " + this.hembras() + "/" + this.machos());
     }
 
+    /*
+     * Estado de cada pez en el tanque
+     */
     public void showFishStatus(){
         for(Pez pez : peces){
             pez.showStatus();
@@ -100,6 +106,11 @@ public class Tanque<T extends Pez> {
         return cantidad;
     }
 
+    /*
+     * Verifica si hay peces muestos en el tanque
+     * 
+     * @return true si hay peces muertos, false si no los hay
+     */
     public boolean hasDead(){
         if(muertos != 0){
             this.pecesMuertos.removeAll(pecesMuertos);
@@ -166,6 +177,11 @@ public class Tanque<T extends Pez> {
         return hembras;
     }
 
+    /*
+     * Calcula el sexo del nuevo pez en relación a la cantidad del tanque
+     * 
+     * @return true si se tiene que crear un macho, false si tiene que ser hembra
+     */
     public boolean sexoNuevoPez(){
         int machos = this.machos();
         int hembras = this.hembras();
@@ -177,10 +193,10 @@ public class Tanque<T extends Pez> {
         return machos < hembras;
     }
 
-    public void nextFood(Piscifactoria piscifactoria, Boolean almCentral) {
+    public void nextFood(Piscifactoria piscifactoria, Boolean almacenCentral) {
         for(Pez pez :peces){
             if(pez.isVivo()){
-                pez.grow(this, piscifactoria, almCentral);
+                pez.grow(this, piscifactoria, almacenCentral);
             }
         }
     }
