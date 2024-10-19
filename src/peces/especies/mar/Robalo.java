@@ -1,60 +1,59 @@
-package peces.especies;
+package peces.especies.mar;
 
 import peces.Carnivoro;
 import propiedades.AlmacenPropiedades;
 import propiedades.PecesDatos;
 
-public class SalmonChinook extends Carnivoro{
-    private final PecesDatos datos = AlmacenPropiedades.SALMON_CHINOOK;
+public class Robalo extends Carnivoro{
+    private final PecesDatos datos = AlmacenPropiedades.ROBALO;
 
     public PecesDatos getDatos(){
         return datos;
     }
 
-    public SalmonChinook(boolean sexo){
-        this.sexo=sexo;
-        this.ciclo=this.datos.getCiclo();
+    public Robalo(boolean sexo){
+        this.sexo = sexo;
+        this.ciclo = this.datos.getCiclo();
     }
 
-    public boolean isAlimentado() {
+    public boolean isAlimentado(){
         return alimentado;
     }
 
-    public int getEdad() {
+    public int getEdad(){
         return edad;
     }
 
-    public void setEdad(int edad) {
-        this.edad = edad;
+    public void setEdad(int edad){
+        this.edad=edad;
     }
 
-    public boolean isVivo() {
+    public boolean isVivo(){
         return vivo;
     }
 
-    public void setVivo(boolean vivo) {
-        this.vivo = vivo;
+    public void setVivo(boolean vivo){
+        this.vivo=vivo;
     }
 
-    public boolean isMaduro() {
+    public boolean isMaduro(){
         return maduro;
     }
 
-    public void setMaduro(boolean maduro) {
-        this.maduro = maduro;
+    public void setMaduro(boolean maduro){
+        this.maduro=maduro;
     }
 
-    public boolean isSexo() {
+    public boolean isSexo(){
         return sexo;
     }
 
-    public String getSexo() {
+    public String getSexo(){
         return this.sexo ? "Macho" : "Hembra";
     }
-    
-    public static void datos() {
-        PecesDatos datos = AlmacenPropiedades.SALMON_CHINOOK;
 
+    public static void datos(){
+        PecesDatos datos = AlmacenPropiedades.ROBALO;
         System.out.println("------------");
         System.out.println("Nombre común: " + datos.getNombre());
         System.out.println("Nombre científico: " + datos.getCientifico());
@@ -62,12 +61,12 @@ public class SalmonChinook extends Carnivoro{
         System.out.println("Coste: " + datos.getCoste());
         System.out.println("Precio venta: " + datos.getMonedas());
         System.out.println("Huevos: " + datos.getHuevos());
-        System.out.println("Ciclo: "+ datos.getCiclo());
+        System.out.println("Ciclo: " + datos.getCiclo());
         System.out.println("Madurez: " + datos.getMadurez());
         System.out.println("Óptimo: " + datos.getOptimo());
     }
-    
-    public void showStatus() {
+
+    public void showStatus(){
         System.out.println("------" + this.datos.getNombre() + "------");
         System.out.println("Edad: " + this.edad + " días");
         System.out.println("Sexo: " + (this.sexo ? "Macho" : "Hembra"));
@@ -76,23 +75,20 @@ public class SalmonChinook extends Carnivoro{
         System.out.println("Fertil: " + (this.ciclo == 0 ? "Si" : "No"));
         System.out.println("Alimentado: " + (this.alimentado ? "Si" : "No"));
     }
-    
-    public void comprobarMadurez(int edad) {
+
+    public void comprobarMadurez(int edad){
         this.setMaduro(this.edad >= this.datos.getMadurez());
     }
-    
 
-    public boolean esOptimo() {
-        return this.edad == this.datos.getOptimo();
+    public boolean esOptimo(){
+        return this.edad==this.datos.getOptimo();
     }
-    
 
-    public boolean reproducirse() {
-        if (this.maduro && this.edad % this.datos.getCiclo() == 0 && !this.sexo) {
-            this.ciclo = this.datos.getCiclo();
+    public boolean reproducirse(){
+        if(this.maduro && this.edad % this.datos.getCiclo()==0 && !this.sexo){
+            this.ciclo=this.datos.getCiclo();
             return true;
         }
-        
         this.ciclo--;
         return false;
     }
