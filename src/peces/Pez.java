@@ -5,7 +5,7 @@ import piscifactoria.Piscifactoria;
 import propiedades.PecesDatos;
 import tanque.Tanque;
 
-public abstract class Pez{
+public abstract class Pez {
     protected PecesDatos datos;
     protected int ciclo;
     protected int edad;
@@ -13,14 +13,13 @@ public abstract class Pez{
     protected boolean sexo = false;
     protected boolean alimentado = true;
     protected boolean maduro = false;
-    
 
     /*
      * Comprobamos si el pez esta alimentado
      * 
      * @return true si está alimentado, false si no
      */
-    public boolean isAlimentado(){
+    public boolean isAlimentado() {
         return alimentado;
     }
 
@@ -28,8 +27,8 @@ public abstract class Pez{
      * Obtenemos la edad del pez
      * 
      * @return edad del pez
-    */
-    public int getEdad(){
+     */
+    public int getEdad() {
         return edad;
     }
 
@@ -37,8 +36,8 @@ public abstract class Pez{
      * Establecemos la edad del pez
      * 
      * @param edad del pez
-    */
-    public void setEdad(int edad){
+     */
+    public void setEdad(int edad) {
         this.edad = edad;
     }
 
@@ -47,7 +46,7 @@ public abstract class Pez{
      * 
      * @return true si está vivo, false si no
      */
-    public boolean isVivo(){
+    public boolean isVivo() {
         return vivo;
     }
 
@@ -56,7 +55,7 @@ public abstract class Pez{
      * 
      * @param vivo true si está vivo, false si no
      */
-    public void setVivo(boolean vivo){
+    public void setVivo(boolean vivo) {
         this.vivo = vivo;
     }
 
@@ -74,7 +73,7 @@ public abstract class Pez{
      * 
      * @return true si está maduro, false si no
      */
-    public void setMaduro(boolean fertil){
+    public void setMaduro(boolean fertil) {
         this.maduro = fertil;
     }
 
@@ -92,37 +91,37 @@ public abstract class Pez{
      * 
      * @param sexo true si es macho, false si es hembra
      */
-    public String getSexo(){
-        if(this.sexo){
+    public String getSexo() {
+        if (this.sexo) {
             return "Macho";
-        }else{
+        } else {
             return "Hembra";
         }
     }
 
-    public boolean coprobacionMadurez(int edad){
-        if(edad >= this.datos.getMadurez()){
+    public boolean coprobacionMadurez(int edad) {
+        if (edad >= this.datos.getMadurez()) {
             this.setMaduro(true);
-        }else{
+        } else {
             this.setMaduro(false);
         }
         return alimentado;
     }
 
-    public void grow(Tanque<Pez> tanque, Piscifactoria piscifactoria, Boolean almacenCentral){
+    public void grow(Tanque<Pez> tanque, Piscifactoria piscifactoria, Boolean almacenCentral) {
         Random r = new Random();
-        if(this.vivo){
-            comer(tanque, piscifactoria, almacenCentral);  
-            
-            if(!this.maduro && r.nextDouble() < 0.05){
+        if (this.vivo) {
+            comer(tanque, piscifactoria, almacenCentral);
+
+            if (!this.maduro && r.nextDouble() < 0.05) {
                 this.vivo = false;
             }
 
-            if(!this.alimentado){
+            if (!this.alimentado) {
                 this.vivo = false;
             }
 
-            if(this.vivo){
+            if (this.vivo) {
                 this.edad++;
                 System.out.println(this.edad);
                 this.coprobacionMadurez(this.edad);
@@ -131,35 +130,24 @@ public abstract class Pez{
         this.alimentado = true;
     }
 
-public boolean reproducirse(Tanque<Pez> tanque) {
-    if(this.maduro && this.ciclo <= 0) {
-        if(!this.sexo) {
-            boolean machoPresente = false;
-            for(Pez pez : tanque.getPeces()) {
-                if(pez.isSexo() && pez.isMaduro() && pez.isVivo()) {
-                    machoPresente = true;
-                    break;
-                }
-            }        
-            if(machoPresente) {
-                this.ciclo = this.datos.getCiclo(); 
-                return true;  
+    public boolean reproducirse() {
+        boolean machoPresente = this.sexo;
+        if (this.maduro && this.ciclo <= 0) {
+            if (!this.sexo && machoPresente)  {
+                this.ciclo = this.datos.getCiclo();
+                    return true;
             } else {
-                return false; 
+                    return false;
+                }
+            } else {
+                this.ciclo--; // Decrementamos el ciclo para que pueda reproducirse en el futuro
+            return false; // esto es si es macho no se reproduce
             }
-        } else {
-            return false; //esto es si es macho no se reproduce
-        }
-    } else {
-        // Si el pez no madura o no ha cumplido el ciclo de reproduccion que le hemos puesto.
-        this.ciclo--;  // Decrementamos el ciclo para que pueda reproducirse en el futuro
-        return false;
-    }
-}
+        } 
     
+
     public void comer(Tanque<Pez> tanque, Piscifactoria pisc, Boolean almacenCen) {
     }
-
 
     
 }
