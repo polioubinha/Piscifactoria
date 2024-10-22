@@ -1,17 +1,21 @@
 package tanque;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
+import monedero.Monedas;
 import peces.Pez;
+import piscifactoria.Piscifactoria;
 
 public class Tanque<T extends Pez> {
     ArrayList<Pez> peces = new ArrayList<>();
     int capacidad;
+    ArrayList<Integer> pecesMuertos = new ArrayList<>();
     int vendidos = 0;
     int muertos = 0;
     int ganancias = 0;
-    ArrayList<Integer> pecesMuertos = new ArrayList<>();
 
     public Tanque(int capacidad){
         this.capacidad = capacidad;
@@ -33,6 +37,9 @@ public class Tanque<T extends Pez> {
         return peces;
     }
 
+    /*
+     * Método para mostrar el estado del tanque
+     */
     public void showStatus() {
         System.out.println("Ocupación: " + this.peces.size() + "/" + this.capacidad + " ("
                 + this.porcentaje(this.peces.size(), this.capacidad) + "%)");
@@ -43,16 +50,67 @@ public class Tanque<T extends Pez> {
         System.out.println("Peces adultos: " + this.adultos() + "/" + this.vivos() + " ("
                 + this.porcentaje(this.adultos(), this.vivos()) + "%)");
         System.out.println("Hembras/Machos: " + this.hembras() + "/" + this.machos());
-        System.out.println("Fértiles:" + this.fertiles() + "/" + this.vivos() + " ("
-                + this.porcentaje(this.fertiles(), this.vivos()) + "%)");
     }
 
-    public void fishStatus(){
+    /*
+     * Estado de cada pez en el tanque
+     */
+    public void showFishStatus(){
         for(Pez pez : peces){
             pez.showStatus();
         }
     }
 
+    /**
+     * Calcula el porcentaje en función de dos números enteros.
+     *
+     * @param numero1 El primer número.
+     * @param numero2 El segundo número (denominador).
+     * @return El porcentaje calculado, redondeado a un decimal.
+     */
+    public double porcentaje(int numero1, int numero2) {
+        if (numero2 == 0) {
+            return 0.0; // Evitamos la división por cero
+        }
+
+        return Math.round(((double) numero1 / numero2) * 1000) / 10.0;
+    }
+
+    public int vivos() {
+        int cantidad = 0;
+        for (Pez pez : peces) {
+            if (pez.isVivo()) {
+                cantidad++;
+            }
+        }
+        return cantidad;
+    }
+
+    public int alimentados() {
+        int cantidad = 0;
+        for (Pez pez : peces) {
+            if (pez.isAlimentado() && pez.isVivo()) {
+                cantidad++;
+            }
+        }
+        return cantidad;
+    }
+
+    public int adultos() {
+        int cantidad = 0;
+        for (Pez pez : peces) {
+            if (pez.isMaduro() && pez.isVivo()) {
+                cantidad++;
+            }
+        }
+        return cantidad;
+    }
+
+    /*
+     * Verifica si hay peces muestos en el tanque
+     * 
+     * @return true si hay peces muertos, false si no los hay
+     */
     public boolean hasDead(){
         if(muertos != 0){
             this.pecesMuertos.removeAll(pecesMuertos);
@@ -76,21 +134,163 @@ public class Tanque<T extends Pez> {
      * 
      * @return true si se ha eliminado un pez, false si no
      */
-    public boolean eliminarMuerto(){
-        Iterator<Pez> it = this.peces.iterator();
-
-        while(it.hasNext()){
-            Pez pez = it.next();
-            if(!pez.isVivo()){
+    public boolean eliminarMuerto() {
+        for (Iterator<Pez> it = peces.iterator(); it.hasNext();) {
+            if (!it.next().isVivo()) {
                 it.remove();
                 return true;
             }
         }
         return false;
+    }    
+
+    /*
+     * Retorna la cantidad de machos del tanque
+     * 
+     * @return Cantidad de machos vivos en el tanque
+     */
+    public int machos(){
+        int machos = 0;
+
+        for(Pez pez : peces){
+            if(pez.isSexo() && pez.isVivo()){
+                machos++;
+            }
+        }
+        return machos;
     }
-public void manejarReproduccion() {
-    for (Pez pez : this.peces) {
-        pez.reproducirse(this);
+
+    /*
+     * Retorna la cantidad de hembras del tanque
+     * 
+     * @return Cantidad de hembras vivas en el tanque
+     */
+    public int hembras(){
+        int hembras = 0;
+
+        for(Pez pez: peces){
+            if(!pez.isSexo() && pez.isVivo()){
+                hembras++;
+            }
+        }
+
+        return hembras;
     }
-}
+
+    /*
+     * Calcula el sexo del nuevo pez en relación a la cantidad del tanque
+     * 
+     * @return true si se tiene que crear un macho, false si tiene que ser hembra
+     */
+    public boolean sexoNuevoPez(){
+        int machos = this.machos();
+        int hembras = this.hembras();
+
+        if(machos == 0 && hembras == 0){
+            return true;
+        }
+
+        return machos < hembras;
+    }
+
+    public void nextFood(Piscifactoria piscifactoria, Boolean almacenCentral) {
+        for(Pez pez :peces){
+            if(pez.isVivo()){
+                pez.grow(this, piscifactoria, almacenCentral);
+            }
+        }
+    }
+
+    public void comprarPez(){
+        Pez nuevoPez = this.createNewInstance(this.peces.get(0).getClass());
+        if(Monedas.getInstance().comprobarCompra(nuevoPez.getDatos().getCoste())){
+            Monedas.getInstance().compra(nuevoPez.getDatos().getCoste());
+            this.peces.add(nuevoPez);
+        }else{
+            System.out.println("No tienes monedas suficientes para realizar la compra.");
+        }
+    }
+
+    /*
+     * Se crea una instancia de un pez
+     * 
+     * @param tipoPez Clase del pez a crear
+     * @return La instancia del pez indicado
+     */
+    public Pez createNewInstance(Class<? extends Pez> tipoPez){
+        try {
+            Constructor<? extends Pez> contructor = tipoPez.getDeclaredConstructor(boolean.class);
+            return contructor.newInstance(this.sexoNuevoPez());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void nextDayReproduccion() {
+        int capacidadDisponible = this.capacidad - this.peces.size();
+        List<Pez> nuevosPeces = new ArrayList<>();
+
+        for(Pez pez : peces){
+            if(pez.isVivo() && capacidadDisponible > 0){
+                if(pez.isMaduro() && pez.reproducirse(null)){
+                    int huevos = pez.getDatos().getHuevos();
+
+                    if(huevos <= capacidadDisponible){
+                        for(int i= 0; i < huevos; i++){
+                            Pez nuevoPez = this.createNewInstance(pez.getClass());
+                            nuevosPeces.add(nuevoPez);
+                            capacidadDisponible++;
+                        }
+                    }else{
+                        for(int i = 0; i< capacidadDisponible;i++){
+                            Pez nPez = this.createNewInstance(pez.getClass());
+                            nuevosPeces.add(nPez);
+                            capacidadDisponible--;
+                        }
+                    }
+                }
+            }
+        }
+        peces.addAll(nuevosPeces);
+    }
+
+    /*
+     * Venta de peces optimos del tanque
+     */
+    public void venderOptimos() {
+        Iterator<Pez> iterator = this.peces.iterator();
+        this.vendidos = 0;
+        this.ganancias = 0;
+
+        while(iterator.hasNext()){
+            Pez pez = iterator.next();
+            if(pez.isOptimo() && pez.isVivo()){
+                Monedas.getInstance().venta(pez.getDatos().getMonedas());
+                this.vendidos++;
+                this.ganancias += pez.getDatos().getMonedas();
+                iterator.remove();
+            }
+        }
+    }
+
+    /*
+     * Venta de los peces adultos del tanque
+     */
+    public void venderAdultos(){
+        Iterator<Pez> iterator = this.peces.iterator();
+        this.vendidos = 0;
+        this.ganancias = 0;
+
+        while(iterator.hasNext()){
+            Pez pez = iterator.next();
+            if(pez.isMaduro() && pez.isVivo()){
+                Monedas.getInstance().venta(pez.getDatos().getMonedas());
+                this.vendidos++;
+                this.ganancias += pez.getDatos().getMonedas();
+                iterator.remove();
+            }
+        }
+    }
+
 }

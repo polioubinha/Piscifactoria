@@ -1,7 +1,9 @@
+package helpers;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main {
+public class EjemploUso {
     public static void main(String[] args) {
         MenuHelper menuHelper = new MenuHelper();
         InputHelper inputHelper = new InputHelper();
@@ -23,7 +25,7 @@ public class Main {
         mainMenuOptions.add("Pasar varios días");
         mainMenuOptions.add("Salir");
 
-        // Mostrar el menú principal y ejecutar la lógica basada en la selección del usuario
+        // Esto son pruebas para los helpers NO ES CODIGO UTIL, solo para hacer pruebas.
         while (true) {
             int option = menuHelper.showMenu(mainMenuOptions, "Menú Principal");
 
@@ -35,7 +37,7 @@ public class Main {
                     System.out.println("Mostrando estado general...");
                     break;
                 case 7:
-                    // Comprar comida con el InputHelper usando BufferedReader
+                    
                     int cantidad = inputHelper.getIntInput("Ingrese la cantidad de comida a comprar (5, 10, 25): ", 5, 25);
                     System.out.println("Has comprado " + cantidad + " unidades de comida.");
                     break;

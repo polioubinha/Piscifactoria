@@ -45,7 +45,7 @@ public class Omnivoro extends Pez{
                     this.alimentado = true;
                     piscifactoria.setAlmacen(piscifactoria.getAlmacen()-1);
                 }else if (almacenCentral) {
-                    AlmacenCentral.getInstance().setCapacidad(almacenCentral.getInstance().getCapacidad() - 1);
+                    AlmacenCentral.getInstance().setCapacidad(AlmacenCentral.getInstance().getCapacidad() - 1);
                     this.alimentado = true;
                 }
             }
