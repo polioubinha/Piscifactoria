@@ -10,29 +10,55 @@ import peces.Pez;
 import piscifactoria.Piscifactoria;
 
 public class Tanque<T extends Pez> {
-    ArrayList<Pez> peces = new ArrayList<>();
-    int capacidad;
-    ArrayList<Integer> pecesMuertos = new ArrayList<>();
-    int vendidos = 0;
-    int muertos = 0;
-    int ganancias = 0;
+    /** Peces del tanque */
+    private ArrayList<Pez> peces = new ArrayList<>();
+    /** Capacidad del tanque */
+    private int capacidad;
+    /** Peces muertos */
+    private ArrayList<Integer> pecesMuertos = new ArrayList<>();
+    /** Cantidad de peces vendidos */
+    private int vendidos = 0;
+    /** Cantidad de peces muertos */
+    private int muertos = 0;
+    /** Cantidad de ganancias */
+    private int ganancias = 0;
 
+    /**
+     * Constructor de la clase tanque
+     * @param capacidad capacidad del tanque
+     */
     public Tanque(int capacidad){
         this.capacidad = capacidad;
     }
 
+    /**
+     * Devuelve la capacidad del tanque
+     * @return capacidad del tanque 
+     */
     public int getCapacidad(){
         return capacidad;
     }
 
+    /**
+     * Devuelve las ganancias del tanque 
+     * @return ganancias del tanque
+     */
     public int getGanancias(){
         return ganancias;
     }
 
+    /**
+     * Devuelve la cantidad de peces vendidos
+     * @return cantidad de peces vendidos
+     */
     public int getVendidos(){
         return vendidos;
     }
 
+    /**
+     * Devuelve los peces del tanque 
+     * @return peces del tanque 
+     */
     public ArrayList<Pez> getPeces(){
         return peces;
     }
@@ -76,6 +102,10 @@ public class Tanque<T extends Pez> {
         return Math.round(((double) numero1 / numero2) * 1000) / 10.0;
     }
 
+    /**
+     * Devuelve numero de peces vivos
+     * @return cantidad de peces vivos
+     */
     public int vivos() {
         int cantidad = 0;
         for (Pez pez : peces) {
@@ -86,6 +116,10 @@ public class Tanque<T extends Pez> {
         return cantidad;
     }
 
+    /**
+     * Devuelve el numero de peces alimentados
+     * @return cantidad de peces alimentados
+     */
     public int alimentados() {
         int cantidad = 0;
         for (Pez pez : peces) {
@@ -96,6 +130,10 @@ public class Tanque<T extends Pez> {
         return cantidad;
     }
 
+    /**
+     * Devuelve el número de peces adultos
+     * @return cantidad de peces adultos
+     */
     public int adultos() {
         int cantidad = 0;
         for (Pez pez : peces) {
@@ -201,6 +239,9 @@ public class Tanque<T extends Pez> {
         }
     }
 
+    /**
+     * Realiza la compra de un pez
+     */
     public void comprarPez(){
         Pez nuevoPez = this.createNewInstance(this.peces.get(0).getClass());
         if(Monedas.getInstance().comprobarCompra(nuevoPez.getDatos().getCoste())){
