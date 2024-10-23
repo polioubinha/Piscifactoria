@@ -302,7 +302,7 @@ public class Piscifactoria {
     }
 
     public void upgradeFood() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'upgradeFood'");
+        almacenMax += (this.rio ? 25 : 100);  // Aumenta el almacén según el tipo de piscifactoría
+        System.out.println("Almacén de comida de la piscifactoría " + nombre + " mejorado. Capacidad actual: " + almacenMax);
     }
 }
