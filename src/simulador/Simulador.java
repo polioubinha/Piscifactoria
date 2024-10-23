@@ -5,22 +5,14 @@ import java.util.Scanner;
 
 import almacenCentral.AlmacenCentral;
 import monedero.Monedas;
-import peces.especies.dobles.Dorada;
-import peces.especies.dobles.TruchaArcoiris;
-import peces.especies.mar.ArenqueDelAtlantico;
-import peces.especies.mar.Besugo;
-import peces.especies.mar.Caballa;
-import peces.especies.mar.Robalo;
-import peces.especies.mar.Sargo;
-import peces.especies.rio.Carpa;
-import peces.especies.rio.CarpaPlateada;
-import peces.especies.rio.Pejerrey;
-import peces.especies.rio.SalmonChinook;
-import peces.especies.rio.TilapiaDelNilo;
+import peces.especies.dobles.*;
+import peces.especies.mar.*;
+import peces.especies.rio.*;
 import piscifactoria.Piscifactoria;
 import propiedades.AlmacenPropiedades;
 
 public class Simulador {
+    /** Array con los nombres de los peces */
     private final String[] peces = {
         AlmacenPropiedades.DORADA.getNombre(),
         AlmacenPropiedades.TRUCHA_ARCOIRIS.getNombre(),
@@ -35,9 +27,13 @@ public class Simulador {
         AlmacenPropiedades.SALMON_CHINOOK.getNombre(),
         AlmacenPropiedades.TILAPIA_NILO.getNombre()
     };
+    /** Piscifactorías del sistema */
     private ArrayList<Piscifactoria> piscifactorias = new ArrayList<>();
+    /** Almacen central */
     private boolean almacenCentral = false;
+    /** Scanner para pedir cosas por teclado */
     private static Scanner sc = new Scanner(System.in);
+    /** Días transcurridos */
     private int dias = 0;
 
 
@@ -420,7 +416,7 @@ public class Simulador {
             if(Monedas.getInstance().comprobarCompra(this.rio() * 500)){
                 Monedas.getInstance().compra(this.rio() * 500);
                 String nombrePisci = nombrePiscifactoria();
-                this.piscifactorias.add(new Piscifactoria(tipo, nombrePisci))
+                this.piscifactorias.add(new Piscifactoria(tipo, nombrePisci));
             }else{
                 System.out.println("No tienes las suficientes monedas para realizar la compra.");
             }
