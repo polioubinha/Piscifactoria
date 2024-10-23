@@ -271,18 +271,29 @@ public class Piscifactoria {
     }
 
     public void limpiarTanques() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'limpiarTanques'");
+        for(Tanque<Pez> tanque: tanques){
+            tanque.limpiarTanque();
+        }      
+  
     }
 
     public void vaciarTanques() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'vaciarTanques'");
+        for(Tanque<Pez> tanque: tanques){
+            tanque.vaciarTanque();
+        }      
     }
 
-    public void nuevoDia() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'nuevoDia'");
+    public void nextDay() {
+        for (int i = 0; i < this.tanques.size(); i++) {
+            if (this.almacen != 0) {
+                this.almacen -= this.tanques.get(i).nuevoDiaComer(this.almacen);
+                this.tanques.get(i).nuevodiaReproduccion();
+            }
+                this.tanques.get(i).venderOptimos();
+                System.out.println("Piscifactoría " + this.nombre + ": " + this.tanques.get(i).getVendidos() + " peces vendidos por "
+                + this.tanques.get(i).getGanancias() + " monedas." );
+        }
+                this.gananciasDiarias();
     }
 
     public void venderAdultos() {
