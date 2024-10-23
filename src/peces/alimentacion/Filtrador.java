@@ -1,8 +1,9 @@
-package peces;
+package peces.alimentacion;
 
 import java.util.Random;
 
 import almacenCentral.AlmacenCentral;
+import peces.Pez;
 import piscifactoria.Piscifactoria;
 import tanque.Tanque;
 

@@ -1,37 +1,16 @@
-package peces;
+package peces.alimentacion;
 
 import java.util.Random;
 
 import almacenCentral.AlmacenCentral;
+import peces.Pez;
 import piscifactoria.Piscifactoria;
 import tanque.Tanque;
 
-public class Omnivoro extends Pez{
-    private boolean noComer(){
-        Random r = new Random();
-        return r.nextInt(1,4) == 1;
-    }
+public class Carnivoro extends Pez{
 
     @Override
-    public void grow(Tanque tanque, Piscifactoria piscifactoria, Boolean almacenCentral){
-        if(!this.noComer()){
-            this.edad++;
-        }else{
-            super.grow(tanque, piscifactoria, almacenCentral);
-        }
-    }
-
-    /*
-     * Método para alimentar al pez
-     * 
-     * @param tanque tanque en el que se encuentra el pez
-     * @param piscifactoria piscifactoria en la que se encuentra el pez
-     * @param almacenCentral si el pez se alimenta del almacen central
-     * 
-     * @return true si se ha alimentado, false si no
-     */
-    @Override
-    public void comer(Tanque tanque, Piscifactoria piscifactoria, Boolean almacenCentral){
+    public void comer(Piscifactoria piscifactoria, Tanque tanque, Boolean almacenCentral) {
         Random r = new Random();
 
         if(this.alimentado == false){
@@ -53,7 +32,7 @@ public class Omnivoro extends Pez{
     }
 
     @Override
-    public boolean reproducirse(){
+    public boolean reproducirse() {
         return super.reproducirse();
-    }
+    }    
 }
