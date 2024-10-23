@@ -9,7 +9,13 @@ public class MenuHelper {
         this.scanner = new Scanner(System.in);
     }
 
-    // Método para mostrar un menú y obtener la opción seleccionada
+    
+    /**
+     * Muestra un menú y obtiene la opción seleccionada
+     * @param options
+     * @param title
+     * @return
+     */
     public int showMenu(List<String> options, String title) {
         System.out.println("\n" + title);
         for (int i = 0; i < options.size(); i++) {
@@ -20,7 +26,11 @@ public class MenuHelper {
         return getValidOption(options.size());
     }
 
-    // Método que valida que la opción seleccionada sea válida
+    /**
+     * Valida que la opción seleccionada sea válida
+     * @param maxOption
+     * @return
+     */
     private int getValidOption(int maxOption) {
         int choice;
         while (true) {

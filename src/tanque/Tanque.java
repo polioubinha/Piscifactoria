@@ -37,7 +37,7 @@ public class Tanque<T extends Pez> {
         return peces;
     }
 
-    /*
+    /**
      * Método para mostrar el estado del tanque
      */
     public void showStatus() {
@@ -52,7 +52,7 @@ public class Tanque<T extends Pez> {
         System.out.println("Hembras/Machos: " + this.hembras() + "/" + this.machos());
     }
 
-    /*
+    /**
      * Estado de cada pez en el tanque
      */
     public void showFishStatus(){
@@ -106,7 +106,7 @@ public class Tanque<T extends Pez> {
         return cantidad;
     }
 
-    /*
+    /**
      * Verifica si hay peces muestos en el tanque
      * 
      * @return true si hay peces muertos, false si no los hay
@@ -129,7 +129,7 @@ public class Tanque<T extends Pez> {
         }
     }
 
-    /*
+    /**
      * Método para eliminar un pez muerto
      * 
      * @return true si se ha eliminado un pez, false si no
@@ -144,7 +144,7 @@ public class Tanque<T extends Pez> {
         return false;
     }    
 
-    /*
+    /**
      * Retorna la cantidad de machos del tanque
      * 
      * @return Cantidad de machos vivos en el tanque
@@ -160,7 +160,7 @@ public class Tanque<T extends Pez> {
         return machos;
     }
 
-    /*
+    /**
      * Retorna la cantidad de hembras del tanque
      * 
      * @return Cantidad de hembras vivas en el tanque
@@ -177,7 +177,7 @@ public class Tanque<T extends Pez> {
         return hembras;
     }
 
-    /*
+    /**
      * Calcula el sexo del nuevo pez en relación a la cantidad del tanque
      * 
      * @return true si se tiene que crear un macho, false si tiene que ser hembra
@@ -211,7 +211,7 @@ public class Tanque<T extends Pez> {
         }
     }
 
-    /*
+    /**
      * Se crea una instancia de un pez
      * 
      * @param tipoPez Clase del pez a crear
@@ -255,7 +255,7 @@ public class Tanque<T extends Pez> {
         peces.addAll(nuevosPeces);
     }
 
-    /*
+    /**
      * Venta de peces optimos del tanque
      */
     public void venderOptimos() {
@@ -274,7 +274,7 @@ public class Tanque<T extends Pez> {
         }
     }
 
-    /*
+    /**
      * Venta de los peces adultos del tanque
      */
     public void venderAdultos(){

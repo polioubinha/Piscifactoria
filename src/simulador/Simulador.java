@@ -53,7 +53,7 @@ public class Simulador {
     }
 
     
-    /*
+    /**
      * Menú principal del simulador
      */
     public void menu() {
@@ -90,7 +90,7 @@ public class Simulador {
         }
     }
 
-    /*
+    /**
      * Limpia los peces muertos de los tanques de las piscifactorias
      */
     public void cleanTank(){
@@ -100,7 +100,7 @@ public class Simulador {
         }
     }
 
-    /*
+    /**
      * Vacía los tanques de las piscifactorias
      */
     public void emptyTank(){
@@ -120,7 +120,7 @@ public class Simulador {
         }
     }
 
-    /*
+    /**
      * Proporciona al usuario la posibilidad de obtener datos
      * de los peces disponibles
      */
@@ -331,7 +331,7 @@ public class Simulador {
         }
     }
 
-    /*
+    /**
      * Proporciona las piscifactorías disponibles
      */
     private void selecPisc() {
@@ -350,7 +350,7 @@ public class Simulador {
         }
     }
 
-    /*
+    /**
      * Proporciona al usuario un menu para seleccionar el tipo de piscifactoría
      * 
      * @return true si es piscifactoria de rio, false si es de mar
@@ -409,7 +409,7 @@ public class Simulador {
         return numero;
     }
 
-    /*
+    /**
      * Crea una nueva piscifactoria (rio o mar)
      * Si no tiene ninguna de mar, se añade un costo de 500 monedas
      * 
@@ -445,7 +445,7 @@ public class Simulador {
         }
     }
 
-    /*
+    /**
      * Se le pide al usuario introducir el nombre de la piscifactoría
      * 
      * @return El nombre de la piscifactoría

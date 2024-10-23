@@ -11,7 +11,11 @@ public class InputHelper {
         this.reader = new BufferedReader(new InputStreamReader(System.in));
     }
 
-    // Método para obtener un input de tipo String
+    /**
+     * Obtiene un input de tipo String
+     * @param prompt 
+     * @return
+     */
     public String getStringInput(String prompt) {
         String input = null;
         while (true) {
@@ -29,7 +33,13 @@ public class InputHelper {
         }
     }
 
-    // Método para obtener un número entero
+    /**
+     * Obtiene un input de tipo int
+     * @param prompt
+     * @param minValue
+     * @param maxValue
+     * @return
+     */
     public int getIntInput(String prompt, int minValue, int maxValue) {
         int value = 0;
         while (true) {
@@ -50,7 +60,11 @@ public class InputHelper {
         }
     }
 
-    // Método para obtener una confirmación (Sí/No)
+    /**
+     * Obtiene un input de tipo Si/No
+     * @param prompt
+     * @return
+     */
     public boolean getYesNoInput(String prompt) {
         String input = null;
         while (true) {

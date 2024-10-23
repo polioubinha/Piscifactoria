@@ -22,7 +22,7 @@ public class Omnivoro extends Pez{
         }
     }
 
-    /*
+    /**
      * Método para alimentar al pez
      * 
      * @param tanque tanque en el que se encuentra el pez
