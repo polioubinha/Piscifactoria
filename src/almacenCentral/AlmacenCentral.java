@@ -46,8 +46,12 @@ public class AlmacenCentral {
      * 
      * @param capacidad del almacen
      */
-    public void setCapacidad(int capacidad){
-        this.capacidad = capacidad;
+    public void setCapacidad(int capacidad) {
+        if (capacidad <= capacidadMax) {
+            this.capacidad = capacidad;
+        } else {
+            this.capacidad = capacidadMax;
+        }
     }
 
     /**
@@ -91,8 +95,13 @@ public class AlmacenCentral {
      * 
      * @param cantidad de comida a agregar
      */
-    public void agregarComida(int cantidad){
-        this.capacidad += cantidad;
+    public void agregarComida(int capacidad) {
+        if (this.capacidad + capacidad > this.capacidadMax) {
+            this.capacidad = this.capacidadMax;
+            System.out.println("El almacén está lleno. No se puede agregar más comida.");
+        } else {
+            this.capacidad += capacidad;
+        }
     }
 
     /**
@@ -114,23 +123,25 @@ public class AlmacenCentral {
      * 
      * @param cantidad de comida a comprar
      */
-    public void comprarComida(int cantidad){
+    public void comprarComida(int cantidad) {
         int coste;
-        if(cantidad <= 25){
+        if (cantidad <= 25) {
             coste = cantidad;
-        }else{
+        } else {
             coste = cantidad - (cantidad / 25) * 5;
         }
 
-        if(Monedas.getInstance().comprobarCompra(coste)){
-            this.capacidad -= cantidad;
-            Monedas.getInstance().compra(coste);
-            if(this.capacidad > this.capacidadMax){
-                this.capacidad = this.capacidadMax;
+        if (Monedas.getInstance().comprobarCompra(coste)) {
+            if (this.capacidad + cantidad > this.capacidadMax) {
+                System.out.println("No se puede comprar tanta comida, el almacén alcanzaría su capacidad máxima.");
+            } else {
+                this.capacidad += cantidad;
+                Monedas.getInstance().compra(coste);
+                System.out.println("Has comprado " + cantidad + " de comida.");
             }
-            System.out.println("Has comprado " + cantidad + " de comida");
-        }else{
-            System.out.println("No tienes suficientes monedas");
+        } else {
+            System.out.println("No tienes suficientes monedas para comprar la comida.");
         }
     }
 }
+

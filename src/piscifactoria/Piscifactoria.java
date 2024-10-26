@@ -2,6 +2,11 @@ package piscifactoria;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.List;
+import java.util.Arrays;
+
+import helpers.InputHelper;
+import helpers.MenuHelper;
 import monedero.Monedas;
 import peces.Pez;
 import peces.especies.dobles.Dorada;
@@ -423,94 +428,87 @@ public class Piscifactoria {
             }
         }
     }
-    public void opcionPez() {
-        Scanner sc = new Scanner(System.in);
-    
-        System.out.println("Seleccione un tanque para añadir el pez:");
-        for (int i = 0; i < tanques.size(); i++) {
-            System.out.println((i + 1) + ". Tanque " + (i + 1));  
-        }
-        int tanque = sc.nextInt() - 1; 
-        sc.nextLine();  
-    
-        System.out.println("Selecciona el tipo de pez para añadir:");
-        System.out.println("1. Carpa");
-        System.out.println("2. Carpa Plateada");
-        System.out.println("3. Pejerrey");
-        System.out.println("4. Salmón Chinook");
-        System.out.println("5. Tilapia del Nilo");
-        System.out.println("6. Dorada");
-        System.out.println("7. Trucha Arcoiris");
-    
-        int tipoPez = sc.nextInt();
-        sc.nextLine();  
-    
-        // Validación de selección de tanque y tipo de pez
-        if (tanque >= 0 && tanque < tanques.size() && tipoPez >= 1 && tipoPez <= 7) {
-            addFish(tanque, tipoPez);  // Llama al método addFish con los parámetros enteros
-        } else {
-            System.out.println("Opción de tanque o tipo de pez no válida.");
-        }
-        
-        sc.close();
+    public void opcionPez(MenuHelper menuHelper, InputHelper inputHelper) {
+    List<String> tanqueOptions = new ArrayList<>();
+    for (int i = 0; i < tanques.size(); i++) {
+        tanqueOptions.add("Tanque " + (i + 1));
     }
+
+    int tanque = menuHelper.showMenu(tanqueOptions, "Seleccione un tanque para añadir el pez") - 1;
+
+    List<String> pezOptions;
+    if (rio) {
+        pezOptions = Arrays.asList("Carpa", "Carpa Plateada", "Pejerrey", "Salmón Chinook", "Tilapia del Nilo", "Dorada", "Trucha Arcoiris");
+    } else {
+        pezOptions = Arrays.asList("Arenque del Atlántico", "Besugo", "Caballa", "Robalo", "Sargo", "Dorada", "Trucha Arcoiris");
+    }
+
+    int tipoPez = menuHelper.showMenu(pezOptions, "Seleccione el tipo de pez para añadir");
+
+    if (tanque >= 0 && tanque < tanques.size() && tipoPez >= 1 && tipoPez <= pezOptions.size()) {
+        addFish(tanque, tipoPez);
+    } else {
+        System.out.println("Selección de tanque o tipo de pez no válida.");
+    }
+}
+
     
     
     
-    public void newFish() {
-        Scanner scanner = new Scanner(System.in);
-        int opcion = 0;
-        int pez = 0;
-        boolean salida = false;
+    
+public void newFish(MenuHelper menuHelper, InputHelper inputHelper) {
+    boolean salida = false;
 
-        try {
-            do {
-                this.listTanks();
+    try {
+        do {
+            // Mostrar lista de tanques
+            this.listTanks();
 
-                System.out.print("Selecciona un tanque: ");
-                try {
-                    opcion = Integer.parseInt(scanner.nextLine());
+            // Selección del tanque
+            System.out.println("Seleccione el tanque donde desea añadir el pez:");
+            int opcion = menuHelper.showMenu(new ArrayList<>(Arrays.asList("Seleccionar tanque", "Cancelar")), "Seleccionar tanque");
 
-                    if (opcion < 0 || opcion >= this.tanques.size()) {
-                        System.out.println("Opción no válida, introduce uno de los valores mostrados.");
-                    } else {
-                        if (!this.tanques.get(opcion).getPeces().isEmpty()) {
-                            try {
-                                this.tanques.get(opcion).comprarPez();
-                                salida = true;
-                            } catch (Exception e) {
-                                System.out.println("Error al comprar pez: " + e.getMessage());
-                            }
-                        } else {
-                            do {
-                                this.opcionPez();
-                                System.out.print("Selecciona el tipo de pez (1-7): ");
-                                try {
-                                    pez = Integer.parseInt(scanner.nextLine());
-
-                                    if (pez > 0 && pez < 8) {
-                                        this.addFish(opcion, pez);
-                                        salida = true;
-                                    } else {
-                                        System.out.println("Opción no válida, introduce una de las opciones mostradas.");
-                                    }
-                                } catch (NumberFormatException e) {
-                                    System.out.println("Opción no válida, introduce una de las opciones mostradas.");
-                                }
-                            } while (pez < 1 || pez > 7);
-                        }
+            if (opcion >= 0 && opcion < this.tanques.size()) {
+                if (this.tanques.get(opcion).getPeces().isEmpty()) {
+                    this.opcionPez(menuHelper, inputHelper);
+                    salida = true;
+                } else {
+                    // Confirmación de compra de pez adicional en tanque existente
+                    boolean confirmarCompra = inputHelper.getYesNoInput("¿Desea añadir un pez en el tanque seleccionado?");
+                    if (confirmarCompra) {
+                        this.tanques.get(opcion).comprarPez();
                     }
-                } catch (NumberFormatException e) {
-                    System.out.println("Opción no válida, introduce un número.");
+                    salida = true;
                 }
-            } while (!salida);
-        } catch (Exception e) {
-            System.out.println("Ocurrió un error inesperado: " + e.getMessage());
-        } finally {
-            scanner.close();
+            } else {
+                System.out.println("Opción de tanque no válida, introduce una opción válida.");
+            }
+        } while (!salida);
+    } catch (Exception e) {
+        System.out.println("Ocurrió un error inesperado: " + e.getMessage());
+    }
+}
+
+    public void addComida(int cantidad){
+        int coste;
+        if(cantidad <= 25){
+            coste = cantidad;
+        }else{
+            coste = cantidad - (cantidad / 25) *5;
+        }
+
+        if(Monedas.getInstance().comprobarCompra(coste)){
+            this.almacen += cantidad;
+            Monedas.getInstance().compra(coste);
+
+            if(this.almacen > this.almacenMax){
+                this.almacen = this.almacenMax;
+            }
+            System.out.println("Añadida " + cantidad + " de comida.");
+        }else{
+            System.out.println("No tienes las suficientes monedas para realizar la compra.");
         }
     }
-
 
 
 }

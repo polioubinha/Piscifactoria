@@ -3,12 +3,25 @@ package helpers;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 
 public class InputHelper {
     private BufferedReader reader;
+    private Scanner scanner;
 
     public InputHelper() {
         this.reader = new BufferedReader(new InputStreamReader(System.in));
+        this.scanner = new Scanner(System.in); // Instancia de Scanner
+    }
+
+    public Scanner getScanner() {
+        return scanner; // Método para obtener el Scanner
+    }
+
+    public void closeScanner() {
+        if (scanner != null) {
+            scanner.close(); // Método para cerrar el Scanner
+        }
     }
 
     /**

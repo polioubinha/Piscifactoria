@@ -9,7 +9,7 @@ import monedero.Monedas;
 import peces.Pez;
 import piscifactoria.Piscifactoria;
 import stats.Stats;
-
+import almacenCentral.AlmacenCentral;
 public class Tanque<T extends Pez> {
     /** Peces del tanque */
     private ArrayList<Pez> peces = new ArrayList<>();
@@ -347,6 +347,27 @@ public class Tanque<T extends Pez> {
             System.out.println("No se ha podido realizar la comprar, no tienes las suficientes monedas.");
         }
     }
+    public void opcionPez(){
+        if(this.rio){
+            System.out.println("====== PECES RIO ======");
+            System.out.println("1.- Carpa");
+            System.out.println("2.- Carpa Plateada");
+            System.out.println("3.- Pejerrey");
+            System.out.println("4.- Salmon Chinook");
+            System.out.println("5.- Tilapia Del Nilo");
+            System.out.println("6.- Dorada");
+            System.out.println("7.- Trucha Arcoiris");
+        }else{
+            System.out.println("====== PECES MAR ======");
+            System.out.println("1.- Arenque del Atlántico");
+            System.out.println("2.- Besugo");
+            System.out.println("3.- Caballa");
+            System.out.println("4.- Robalo");
+            System.out.println("5.- Sargo");
+            System.out.println("6.- Dorada");
+            System.out.println("7.- Trucha Arcoiris");
+        }
+    }
     public void vaciarTanque() {
         this.peces.removeAll(peces);
     }
@@ -389,9 +410,6 @@ public class Tanque<T extends Pez> {
         }
     }
 
-    public int nuevoDiaComer(int almacen) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'nuevoDiaComer'");
-    }
+    
 
 }

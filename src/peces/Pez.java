@@ -1,9 +1,12 @@
 package peces;
 
 import java.util.Random;
+
+import almacenCentral.AlmacenCentral;
 import piscifactoria.Piscifactoria;
 import propiedades.PecesDatos;
 import tanque.Tanque;
+import almacenCentral.AlmacenCentral;
 
 public abstract class Pez {
     protected PecesDatos datos;
@@ -195,8 +198,27 @@ public abstract class Pez {
     /**
      * Verifica si el pez pudo comer
      */
-    public void comer(Tanque tanque, Piscifactoria pisc, Boolean almacenCen) {
+    public void comer(Tanque<?> tanque) {
+        if (this.vivo && !this.alimentado) {
+            // Intentamos primero que el pez coma del tanque
+            if (tanque.getAlmacen() > 0) {
+                tanque.setAlmacen(tanque.getAlmacen() - 1); 
+                this.alimentado = true;
+                System.out.println("El pez ha comido del tanque y está alimentado.");
+            } 
+            else if (AlmacenCentral.getInstance().getCapacidad() > 0) {
+                AlmacenCentral.getInstance().setCapacidad(AlmacenCentral.getInstance().getCapacidad() - 1);
+                this.alimentado = true;
+                System.out.println("El pez ha comido del Almacen Central y está alimentado.");
+            } 
+            else {
+                System.out.println("No hay suficiente comida en el tanque ni en el Almacen Central.");
+            }
+        } else if (this.alimentado) {
+            System.out.println("Este pez ya ha comido hoy.");
+        } else {
+            System.out.println("El pez está muerto y no puede comer.");
+        }
     }
-
     
 }

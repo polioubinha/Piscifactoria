@@ -1,15 +1,16 @@
 package helpers;
+
 import java.util.Scanner;
 import java.util.List;
 
 public class MenuHelper {
     private Scanner scanner;
 
-    public MenuHelper() {
-        this.scanner = new Scanner(System.in);
+    // Constructor que recibe un Scanner externo
+    public MenuHelper(Scanner scanner) {
+        this.scanner = scanner;
     }
 
-    
     /**
      * Muestra un menú y obtiene la opción seleccionada
      * @param options
