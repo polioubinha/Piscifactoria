@@ -367,17 +367,7 @@ public class Tanque<T extends Pez> {
             }
         }
     }
-
-    public void limpiarTanque() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'limpiarTanque'");
-    }
-
-    public void vaciarTanque() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'vaciarTanque'");
-    }
-
+    
     public int nuevoDiaComer(int almacen) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'nuevoDiaComer'");
