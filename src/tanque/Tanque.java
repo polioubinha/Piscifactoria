@@ -368,14 +368,25 @@ public class Tanque<T extends Pez> {
         }
     }
 
-    public void limpiarTanque() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'limpiarTanque'");
-    }
+    public void addComida(int cantidad){
+        int coste;
+        if(cantidad <= 25){
+            coste = cantidad;
+        }else{
+            coste = cantidad - (cantidad / 25) *5;
+        }
 
-    public void vaciarTanque() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'vaciarTanque'");
+        if(Monedas.getInstance().comprobarCompra(coste)){
+            this.almacen += cantidad;
+            Monedas.getInstance().compra(coste);
+
+            if(this.almacen > this.almacenMax){
+                this.almacen = this.almacenMax;
+            }
+            System.out.println("Añadida " + cantidad + " de comida.");
+        }else{
+            System.out.println("No tienes las suficientes monedas para realizar la compra.");
+        }
     }
 
     public int nuevoDiaComer(int almacen) {
