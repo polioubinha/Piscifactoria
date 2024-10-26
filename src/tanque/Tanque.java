@@ -8,6 +8,7 @@ import java.util.List;
 import monedero.Monedas;
 import peces.Pez;
 import piscifactoria.Piscifactoria;
+import stats.Stats;
 
 public class Tanque<T extends Pez> {
     ArrayList<Pez> peces = new ArrayList<>();
@@ -240,12 +241,14 @@ public class Tanque<T extends Pez> {
                         for(int i= 0; i < huevos; i++){
                             Pez nuevoPez = this.createNewInstance(pez.getClass());
                             nuevosPeces.add(nuevoPez);
+                            Stats.getInstancia().registrarNacimiento(nuevoPez.getDatos().getNombre());
                             capacidadDisponible++;
                         }
                     }else{
                         for(int i = 0; i< capacidadDisponible;i++){
                             Pez nPez = this.createNewInstance(pez.getClass());
                             nuevosPeces.add(nPez);
+                            Stats.getInstancia().registrarNacimiento(nPez.getDatos().getNombre());
                             capacidadDisponible--;
                         }
                     }
@@ -289,6 +292,37 @@ public class Tanque<T extends Pez> {
                 this.vendidos++;
                 this.ganancias += pez.getDatos().getMonedas();
                 iterator.remove();
+            }
+        }
+    }
+    public void comprarPez(Pez pez){
+        if(Monedas.getInstance().comprobarCompra(pez.getDatos().getCoste())){
+            Monedas.getInstance().compra(pez.getDatos().getCoste());;
+            this.peces.add(pez);
+            System.out.println("- Se ha comprado " + pez.getDatos().getNombre() +
+             "(" + pez.getSexo() + ") por " + pez.getDatos().getCoste() +
+              " monedas y se ha añadido al tanque en la piscifactoria");
+        }else{
+            System.out.println("No se ha podido realizar la comprar, no tienes las suficientes monedas.");
+        }
+    }
+    public void vaciarTanque() {
+        this.peces.removeAll(peces);
+    }
+    public void limpiarTanque() {
+        if (this.hasDead()) {
+            Iterator<Integer> iterator = pecesMuertos.iterator();
+            while (iterator.hasNext()) {
+                int muerto = iterator.next();
+                this.peces.remove((int) muerto);
+                iterator.remove();
+            }
+        }
+    }
+    public void nuevoDiaComer(Piscifactoria piscifactoria, Boolean almacenCentral) {
+        for(Pez pez : peces){
+            if(pez.isVivo()){
+                pez.grow(null, piscifactoria, almacenCentral);
             }
         }
     }
