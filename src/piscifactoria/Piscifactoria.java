@@ -1,9 +1,21 @@
 package piscifactoria;
 
 import java.util.ArrayList;
-
+import java.util.Scanner;
 import monedero.Monedas;
 import peces.Pez;
+import peces.especies.dobles.Dorada;
+import peces.especies.dobles.TruchaArcoiris;
+import peces.especies.mar.ArenqueDelAtlantico;
+import peces.especies.mar.Besugo;
+import peces.especies.mar.Caballa;
+import peces.especies.mar.Robalo;
+import peces.especies.mar.Sargo;
+import peces.especies.rio.Carpa;
+import peces.especies.rio.CarpaPlateada;
+import peces.especies.rio.Pejerrey;
+import peces.especies.rio.SalmonChinook;
+import peces.especies.rio.TilapiaDelNilo;
 import tanque.Tanque;
 
 public class Piscifactoria {
@@ -283,18 +295,7 @@ public class Piscifactoria {
         }      
     }
 
-    public void nextDay() {
-        for (int i = 0; i < this.tanques.size(); i++) {
-            if (this.almacen != 0) {
-                this.almacen -= this.tanques.get(i).nuevoDiaComer(this.almacen);
-                this.tanques.get(i).nuevodiaReproduccion();
-            }
-                this.tanques.get(i).venderOptimos();
-                System.out.println("Piscifactoría " + this.nombre + ": " + this.tanques.get(i).getVendidos() + " peces vendidos por "
-                + this.tanques.get(i).getGanancias() + " monedas." );
-        }
-                this.gananciasDiarias();
-    }
+   
 
     public void venderAdultos() {
         // TODO Auto-generated method stub
@@ -302,7 +303,157 @@ public class Piscifactoria {
     }
 
     public void upgradeFood() {
-        almacenMax += (this.rio ? 25 : 100);  // Aumenta el almacén según el tipo de piscifactoría
-        System.out.println("Almacén de comida de la piscifactoría " + nombre + " mejorado. Capacidad actual: " + almacenMax);
+        if(this.rio){
+            if(Monedas.getInstance().comprobarCompra(100)){
+                if(this.almacenMax < 250){
+                    Monedas.getInstance().compra(100);
+                    this.almacenMax += 25;
+                    System.out.println("Se ha mejorado la piscifactoría " + 
+                        this.nombre +". La capacidad se ha aumentado hasta " + 
+                        this.almacenMax + " por 100 monedas."
+                    );
+                }else{
+                    System.out.println("No se puede aumentar la capacidad de la piscifactoría.");
+                }
+            }else{
+                System.out.println("No tienes las monedas suificientes para realizar la mejora.");
+            }
+        }else{
+            if(Monedas.getInstance().comprobarCompra(200)){
+                if(this.almacenMax < 1000){
+                    Monedas.getInstance().compra(200);
+                    this.almacenMax += 100;
+                    System.out.println("Se ha mejorado la piscifactoría " + 
+                        this.nombre +". La capacidad se ha aumentado hasta " + 
+                        this.almacenMax + " por 200 monedas."
+                    );
+                }else{
+                    System.out.println("No se puede aumentar la capacidad de la piscifactoría.");
+                }
+            }else{
+                System.out.println("No tienes las monedas suificientes para realizar la mejora.");
+            }
+        }
     }
+   public void addFish(int tanque, int pez){
+        if(this.rio){
+            if(this.tanques.get(tanque).getPeces().size() < this.tanques.get(tanque).getCapacidad()){
+                switch(pez){
+                    case 1:
+                        this.tanques.get(tanque).comprarPez(new Carpa(this.tanques.get(tanque).sexoNuevoPez()));
+                        break;
+                    case 2:
+                        this.tanques.get(tanque).comprarPez(new CarpaPlateada(this.tanques.get(tanque).sexoNuevoPez()));
+                        break;
+                    case 3:
+                        this.tanques.get(tanque).comprarPez(new Pejerrey(this.tanques.get(tanque).sexoNuevoPez()));
+                        break;
+                    case 4:
+                        this.tanques.get(tanque).comprarPez(new SalmonChinook(this.tanques.get(tanque).sexoNuevoPez()));
+                        break;
+                    case 5:
+                        this.tanques.get(tanque).comprarPez(new TilapiaDelNilo(this.tanques.get(tanque).sexoNuevoPez()));
+                        break;
+                    case 6:
+                        this.tanques.get(tanque).comprarPez(new Dorada(this.tanques.get(tanque).sexoNuevoPez()));
+                        break;
+                    case 7:
+                        this.tanques.get(tanque).comprarPez(new TruchaArcoiris(this.tanques.get(tanque).sexoNuevoPez()));
+                        break;
+                    default:
+                        break;
+                }
+            }else{
+                System.out.println("El tanque está completo. No se pueden añadir más peces.");
+            }
+        }else{
+            if(this.tanques.get(tanque).getPeces().size() < this.tanques.get(tanque).getCapacidad()){
+                switch (pez) {
+                    case 1:
+                        this.tanques.get(tanque).comprarPez(new ArenqueDelAtlantico(this.tanques.get(tanque).sexoNuevoPez()));
+                        break;
+                    case 2:
+                        this.tanques.get(tanque).comprarPez(new Besugo(this.tanques.get(tanque).sexoNuevoPez()));
+                        break;
+                    case 3:
+                        this.tanques.get(tanque).comprarPez(new Caballa(this.tanques.get(tanque).sexoNuevoPez()));
+                        break;
+                    case 4:
+                        this.tanques.get(tanque).comprarPez(new Robalo(this.tanques.get(tanque).sexoNuevoPez()));
+                        break;
+                    case 5:
+                        this.tanques.get(tanque).comprarPez(new Sargo(this.tanques.get(tanque).sexoNuevoPez()));
+                        break;
+                    case 6:
+                        this.tanques.get(tanque).comprarPez(new Dorada(this.tanques.get(tanque).sexoNuevoPez()));
+                        break;
+                    case 7:
+                        this.tanques.get(tanque).comprarPez(new TruchaArcoiris(this.tanques.get(tanque).sexoNuevoPez()));
+                        break;
+                    default:
+                        break;
+                }
+            }else{
+                System.out.println("El tanque está completo. No se pueden añadir más peces.");
+            }
+        }
+    }
+   
+   
+   
+   
+    public void newFish() {
+        Scanner scanner = new Scanner(System.in);
+        int opcion = 0;
+        int pez = 0;
+        boolean salida = false;
+
+        try {
+            do {
+                this.listTanks();
+
+                System.out.print("Selecciona un tanque: ");
+                try {
+                    opcion = Integer.parseInt(scanner.nextLine());
+
+                    if (opcion < 0 || opcion >= this.tanques.size()) {
+                        System.out.println("Opción no válida, introduce uno de los valores mostrados.");
+                    } else {
+                        if (!this.tanques.get(opcion).getPeces().isEmpty()) {
+                            try {
+                                this.tanques.get(opcion).comprarPez();
+                                salida = true;
+                            } catch (Exception e) {
+                                System.out.println("Error al comprar pez: " + e.getMessage());
+                            }
+                        } else {
+                            do {
+                                this.opcionPez();
+                                System.out.print("Selecciona el tipo de pez (1-7): ");
+                                try {
+                                    pez = Integer.parseInt(scanner.nextLine());
+
+                                    if (pez > 0 && pez < 8) {
+                                        this.addFish(opcion, pez);
+                                        salida = true;
+                                    } else {
+                                        System.out.println("Opción no válida, introduce una de las opciones mostradas.");
+                                    }
+                                } catch (NumberFormatException e) {
+                                    System.out.println("Opción no válida, introduce una de las opciones mostradas.");
+                                }
+                            } while (pez < 1 || pez > 7);
+                        }
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Opción no válida, introduce un número.");
+                }
+            } while (!salida);
+        } catch (Exception e) {
+            System.out.println("Ocurrió un error inesperado: " + e.getMessage());
+        }
+    }
+
+
+
 }
