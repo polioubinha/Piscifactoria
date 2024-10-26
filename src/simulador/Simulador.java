@@ -45,24 +45,49 @@ public class Simulador {
     public static void main(String[] args) {
         Simulador simulador = new Simulador();
         int salida = 0;
-
-        try{
+    
+        try {
             simulador.init();
             do {
                 salida = 0;
-                System.out.println("Dia: " + simulador.getDias());
+                System.out.println("\n===============================");
+                System.out.println("            Día: " + simulador.getDias());
+                System.out.println("===============================\n");
+                
                 if (simulador.getDias() == 0) {
-                    System.out.println("Bienvenido a " + simulador.getNombreEmpresa() + ", que desea hacer?");
+                    System.out.println("¡Bienvenido a " + simulador.getNombreEmpresa() + "!");
                 } else {
-                    System.out.println("Bienvenido de nuevo a " + simulador.getNombreEmpresa() + ", que desea hacer?");
+                    System.out.println("¡Bienvenido de nuevo a " + simulador.getNombreEmpresa() + "!");
                 }
-                simulador.menu();
-                try{
+                System.out.println("¿Qué desea hacer?");
+                
+                // Mostrar menú de opciones
+                System.out.println("\n--- Menú ---");
+                System.out.println("1. Mostrar estado general");
+                System.out.println("2. Gestionar piscina");
+                System.out.println("3. Opción 3...");
+                System.out.println("4. Mostrar estadísticas");
+                System.out.println("5. Mostrar ictio");
+                System.out.println("6. Avanzar un día");
+                System.out.println("7. Agregar comida");
+                System.out.println("8. Agregar pez");
+                System.out.println("9. Vender");
+                System.out.println("10. Limpiar tanque");
+                System.out.println("11. Vaciar tanque");
+                System.out.println("12. Mejorar instalaciones");
+                System.out.println("13. Avanzar varios días");
+                System.out.println("14. Salir");
+                System.out.print("\nIntroduce tu opción: ");
+                
+                try {
                     salida = Integer.parseInt(sc.nextLine());
-                }catch(NumberFormatException e){
-                    System.out.println("¡Error! Introduce un valor numérico.");
+                } catch (NumberFormatException e) {
+                    System.out.println("\n¡Error! Introduce un valor numérico válido.");
+                    continue;
                 }
-                switch(salida){
+    
+                System.out.println("\n-------------------------------");
+                switch (salida) {
                     case 1:
                         simulador.showGeneralStatus();
                         break;
@@ -79,7 +104,7 @@ public class Simulador {
                         simulador.showIctio();
                         break;
                     case 6:
-                        simulador.nuevoDia(1);
+                        simulador.nextDay(1);
                         break;
                     case 7:
                         simulador.addFood();
@@ -88,7 +113,7 @@ public class Simulador {
                         simulador.addFish();
                         break;
                     case 9:
-                        simulador.venderPeces();
+                        simulador.sell();
                         break;
                     case 10:
                         simulador.cleanTank();
@@ -104,22 +129,26 @@ public class Simulador {
                         System.out.print("¿Cuántos días quieres avanzar? ");
                         try {
                             avanzarDias = Integer.parseInt(sc.nextLine());
-                            simulador.nuevoDia(avanzarDias);
+                            simulador.nextDay(avanzarDias);
                         } catch (NumberFormatException e) {
-                            System.out.println("Introduce un valor numérico.");
+                            System.out.println("\nIntroduce un valor numérico válido.");
                         }
                         break;
+                    case 14:
+                        System.out.println("\n¡Gracias por jugar! ¡Hasta la próxima!");
+                        break;
                     default:
+                        System.out.println("\nOpción no válida. Inténtalo de nuevo.");
                         break;
                 }
-            }while(salida != 14);
-        }catch(IllegalStateException e){
-            System.out.println(e.getMessage());
-        }finally{
+            } while (salida != 14);
+        } catch (IllegalStateException e) {
+            System.out.println("\n" + e.getMessage());
+        } finally {
             sc.close();
         }
     }
-
+    
     public void init(){
         System.out.print("Introduce el nombre de la empresa: ");
         String nombre = sc.nextLine();
@@ -249,11 +278,11 @@ public class Simulador {
         }
     }
 
-    public void nuevoDia(int dias){
+    public void nextDay(int dias){
         for(int i=0; i < dias; i++){
             for(Piscifactoria piscifactoria : piscifactorias){
                 //Añadir metodo para pasar días en la piscifactoria
-                piscifactoria.nuevoDia();
+                piscifactoria.nextDay(this.almacenCentral);
             }
             this.dias++;
         }
@@ -321,7 +350,7 @@ public class Simulador {
         } while (opcion < 1 || opcion > peces.length);
     }
 
-    public void venderPeces(){
+    public void sell(){
         for(Piscifactoria piscifactoria : piscifactorias){
             //Añadir método para vender los peces adultos de las piscifactorias
             piscifactoria.venderAdultos();
@@ -425,7 +454,7 @@ public class Simulador {
     public void newDay(int días){
         for(int i=0; i < dias; i++){
             for(Piscifactoria piscifactoria : piscifactorias){
-                piscifactoria.nextDay();
+                piscifactoria.nextDay(this.almacenCentral);
             }
             this.dias++;
         }
