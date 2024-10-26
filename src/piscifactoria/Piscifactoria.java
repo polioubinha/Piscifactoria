@@ -423,6 +423,26 @@ public class Piscifactoria {
             }
         }
     }
+    public void addComida(int cantidad){
+        int coste;
+        if(cantidad <= 25){
+            coste = cantidad;
+        }else{
+            coste = cantidad - (cantidad / 25) *5;
+        }
+
+        if(Monedas.getInstance().comprobarCompra(coste)){
+            this.almacen += cantidad;
+            Monedas.getInstance().compra(coste);
+
+            if(this.almacen > this.almacenMax){
+                this.almacen = this.almacenMax;
+            }
+            System.out.println("Añadida " + cantidad + " de comida.");
+        }else{
+            System.out.println("No tienes las suficientes monedas para realizar la compra.");
+        }
+    }
     public void opcionPez() {
         Scanner sc = new Scanner(System.in);
     

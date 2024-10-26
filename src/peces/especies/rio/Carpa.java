@@ -3,6 +3,7 @@ package peces.especies.rio;
 import java.util.Random;
 
 import almacenCentral.AlmacenCentral;
+import peces.Pez;
 import peces.alimentacion.Omnivoro;
 import piscifactoria.Piscifactoria;
 import propiedades.AlmacenPropiedades;
@@ -101,7 +102,7 @@ public class Carpa extends Omnivoro{
     //REVISAR METODO COMER
 
     @Override
-    public void comer(Tanque tanque, Piscifactoria piscifactoria, Boolean almacenCentral){
+    public void comer(Tanque<? extends Pez> tanque, Piscifactoria piscifactoria, boolean almacenCentral) {
         Random r = new Random();
 
         if(this.alimentado == false){

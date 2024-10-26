@@ -1,6 +1,8 @@
 package peces;
 
 import java.util.Random;
+
+import almacenCentral.AlmacenCentral;
 import piscifactoria.Piscifactoria;
 import propiedades.PecesDatos;
 import tanque.Tanque;
@@ -123,7 +125,7 @@ public abstract class Pez {
      * @param tanque El tanque al que pertecene el pez
      * @param piscifactoria Piscifactoria a la que pertenece el pez
      */
-    public void grow(Tanque tanque, Piscifactoria piscifactoria, Boolean almacenCentral){
+    public void grow(Tanque<? extends Pez> tanque, Piscifactoria piscifactoria, Boolean almacenCentral){
         Random r = new Random();
         if (this.vivo) {
             comer(tanque, piscifactoria, almacenCentral);
@@ -195,8 +197,22 @@ public abstract class Pez {
     /**
      * Verifica si el pez pudo comer
      */
-    public void comer(Tanque tanque, Piscifactoria pisc, Boolean almacenCen) {
+    public void comer(Tanque<? extends Pez> tanque, Piscifactoria piscifactoria, boolean almacenCentral) {
+        if (piscifactoria.getAlmacen() > 0) {
+            piscifactoria.setAlmacen(piscifactoria.getAlmacen() - 1);
+            this.alimentado = true;
+            System.out.println("El pez " + this.getDatos().getNombre() + " se ha alimentado del tanque.");
+        } 
+        else if (AlmacenCentral.getInstance().getCapacidad() > 0) {
+            AlmacenCentral.getInstance().setCapacidad(AlmacenCentral.getInstance().getCapacidad() - 1);
+            this.alimentado = true;
+            System.out.println("El pez " + this.getDatos().getNombre() + " se ha alimentado del Almacén Central.");
+        } else {
+            this.alimentado = false;
+            System.out.println("El pez " + this.getDatos().getNombre() + " no pudo alimentarse debido a la falta de comida.");
+        }
     }
+}
+
 
     
-}

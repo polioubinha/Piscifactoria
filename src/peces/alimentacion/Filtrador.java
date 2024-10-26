@@ -10,7 +10,7 @@ import tanque.Tanque;
 public class Filtrador extends Pez{
     
     @Override
-    public void grow(Tanque<Pez> tanque, Piscifactoria piscifactoria, Boolean almacenCentral){
+    public void grow(Tanque<? extends Pez> tanque, Piscifactoria piscifactoria, Boolean almacenCentral) {
         Random r = new Random();
         if(r.nextBoolean()){
             this.edad++;
@@ -20,7 +20,7 @@ public class Filtrador extends Pez{
     }
 
     @Override
-    public void comer(Tanque<Pez> tanque, Piscifactoria piscifactoria, Boolean almacenCentral){
+    public void comer(Tanque<? extends Pez> tanque, Piscifactoria piscifactoria, boolean almacenCentral) {
         if(this.alimentado == false){
             
             if(piscifactoria.getAlmacen() != 0){

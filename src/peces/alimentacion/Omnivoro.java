@@ -14,7 +14,7 @@ public class Omnivoro extends Pez{
     }
 
     @Override
-    public void grow(Tanque<Pez> tanque, Piscifactoria piscifactoria, Boolean almacenCentral){
+    public void grow(Tanque<? extends Pez> tanque, Piscifactoria piscifactoria, Boolean almacenCentral) {
         if(!this.noComer()){
             this.edad++;
         }else{
@@ -32,7 +32,7 @@ public class Omnivoro extends Pez{
      * @return true si se ha alimentado, false si no
      */
     @Override
-    public void comer(Tanque<Pez> tanque, Piscifactoria piscifactoria, Boolean almacenCentral){
+    public void comer(Tanque<? extends Pez> tanque, Piscifactoria piscifactoria, boolean almacenCentral) {
         Random r = new Random();
 
         if(this.alimentado == false){
