@@ -5,12 +5,17 @@ import java.util.Random;
 import almacenCentral.AlmacenCentral;
 import peces.Pez;
 import piscifactoria.Piscifactoria;
+import propiedades.PecesDatos;
 import tanque.Tanque;
 
 public class Filtrador extends Pez{
     
+    public Filtrador(PecesDatos datos) {
+        super(datos);
+    }
+
     @Override
-    public void grow(Tanque<Pez> tanque, Piscifactoria piscifactoria, Boolean almacenCentral){
+    public void grow(Tanque tanque, Piscifactoria piscifactoria, Boolean almacenCentral){
         Random r = new Random();
         if(r.nextBoolean()){
             this.edad++;
@@ -20,7 +25,8 @@ public class Filtrador extends Pez{
     }
 
     @Override
-    public void comer(Tanque<Pez> tanque, Piscifactoria piscifactoria, Boolean almacenCentral){
+    public void comer(Tanque tanque, Piscifactoria piscifactoria, Boolean almacenCentral){
+        
         if(this.alimentado == false){
             
             if(piscifactoria.getAlmacen() != 0){

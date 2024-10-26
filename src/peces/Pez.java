@@ -1,6 +1,7 @@
 package peces;
 
 import java.util.Random;
+
 import piscifactoria.Piscifactoria;
 import propiedades.PecesDatos;
 import tanque.Tanque;
@@ -172,8 +173,8 @@ public abstract class Pez {
                     return false;
                 }
             } else {
-                this.ciclo--; // Decrementamos el ciclo para que pueda reproducirse en el futuro
-            return false; // esto es si es macho no se reproduce
+                this.ciclo--; 
+                return false;
             }
         } 
 

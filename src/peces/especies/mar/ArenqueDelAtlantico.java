@@ -1,8 +1,10 @@
 package peces.especies.mar;
 
 import peces.alimentacion.Filtrador;
+import piscifactoria.Piscifactoria;
 import propiedades.AlmacenPropiedades;
 import propiedades.PecesDatos;
+import tanque.Tanque;
 
 public class ArenqueDelAtlantico extends Filtrador{
     private final PecesDatos datos = AlmacenPropiedades.ARENQUE_ATLANTICO;
@@ -92,4 +94,5 @@ public class ArenqueDelAtlantico extends Filtrador{
         this.ciclo--;
         return false;
     }
+
 }

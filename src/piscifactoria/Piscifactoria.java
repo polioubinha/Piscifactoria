@@ -312,6 +312,28 @@ public class Piscifactoria {
         }      
     }
 
+    public void opcionPez(){
+        if(this.rio){
+            System.out.println("====== PECES RIO ======");
+            System.out.println("1.- Carpa");
+            System.out.println("2.- Carpa Plateada");
+            System.out.println("3.- Pejerrey");
+            System.out.println("4.- Salmon Chinook");
+            System.out.println("5.- Tilapia Del Nilo");
+            System.out.println("6.- Dorada");
+            System.out.println("7.- Trucha Arcoiris");
+        }else{
+            System.out.println("====== PECES MAR ======");
+            System.out.println("1.- Arenque del Atlántico");
+            System.out.println("2.- Besugo");
+            System.out.println("3.- Caballa");
+            System.out.println("4.- Robalo");
+            System.out.println("5.- Sargo");
+            System.out.println("6.- Dorada");
+            System.out.println("7.- Trucha Arcoiris");
+        }
+    }
+
    
 
     public void venderAdultos() {
@@ -465,6 +487,29 @@ public class Piscifactoria {
             } while (!salida);
         } catch (Exception e) {
             System.out.println("Ocurrió un error inesperado: " + e.getMessage());
+        }finally{
+            scanner.close();
+        }
+    }
+
+    public void addComida(int cantidad){
+        int coste;
+        if(cantidad <= 25){
+            coste = cantidad;
+        }else{
+            coste = cantidad - (cantidad / 25) *5;
+        }
+
+        if(Monedas.getInstance().comprobarCompra(coste)){
+            this.almacen += cantidad;
+            Monedas.getInstance().compra(coste);
+
+            if(this.almacen > this.almacenMax){
+                this.almacen = this.almacenMax;
+            }
+            System.out.println("Añadida " + cantidad + " de comida.");
+        }else{
+            System.out.println("No tienes las suficientes monedas para realizar la compra.");
         }
     }
 
