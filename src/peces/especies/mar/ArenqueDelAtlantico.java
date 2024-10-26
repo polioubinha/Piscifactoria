@@ -1,6 +1,6 @@
 package peces.especies.mar;
 
-import peces.Filtrador;
+import peces.alimentacion.Filtrador;
 import propiedades.AlmacenPropiedades;
 import propiedades.PecesDatos;
 

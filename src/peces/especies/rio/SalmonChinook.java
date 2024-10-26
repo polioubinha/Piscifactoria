@@ -1,6 +1,6 @@
 package peces.especies.rio;
 
-import peces.Carnivoro;
+import peces.alimentacion.Carnivoro;
 import propiedades.AlmacenPropiedades;
 import propiedades.PecesDatos;
 

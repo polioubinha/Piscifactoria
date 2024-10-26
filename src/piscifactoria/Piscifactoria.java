@@ -19,13 +19,18 @@ import peces.especies.rio.TilapiaDelNilo;
 import tanque.Tanque;
 
 public class Piscifactoria {
+    /** Piscifactoria de rio o de mar */
     private final boolean rio;
+    /** Nombre de la piscifactoria */
     private String nombre = "";
+    /** Cantidad del almacén */
     private int almacen;
+    /** Cantidad maxima del almacen */
     private int almacenMax;
+    /** Tanques de la piscifactoria */
     private ArrayList<Tanque<Pez>> tanques = new ArrayList<>();
 
-    /*
+    /**
      * Constructor de la piscifactoria
      * 
      * @param rio true si es un rio, false si es de mar
@@ -136,7 +141,7 @@ public class Piscifactoria {
     }
 
 
-    /*
+    /**
      * Obtiene la cantidad total de peces adultos de la piscifactoria
      * 
      * @return cantidad total de peces adultos
@@ -236,6 +241,12 @@ public class Piscifactoria {
         return cantidad;
     }
 
+    /**
+     * Calcula un porcentaje 
+     * @param cantidad 
+     * @param total 
+     * @return porcentaje calculado
+     */
     public double porcentaje(int cantidad, int total){
         if(total == 0){
             return 0.0;

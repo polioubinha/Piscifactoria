@@ -5,23 +5,15 @@ import java.util.Scanner;
 
 import almacenCentral.AlmacenCentral;
 import monedero.Monedas;
-import peces.especies.dobles.Dorada;
-import peces.especies.dobles.TruchaArcoiris;
-import peces.especies.mar.ArenqueDelAtlantico;
-import peces.especies.mar.Besugo;
-import peces.especies.mar.Caballa;
-import peces.especies.mar.Robalo;
-import peces.especies.mar.Sargo;
-import peces.especies.rio.Carpa;
-import peces.especies.rio.CarpaPlateada;
-import peces.especies.rio.Pejerrey;
-import peces.especies.rio.SalmonChinook;
-import peces.especies.rio.TilapiaDelNilo;
+import peces.especies.dobles.*;
+import peces.especies.mar.*;
+import peces.especies.rio.*;
 import piscifactoria.Piscifactoria;
 import propiedades.AlmacenPropiedades;
 import stats.Stats;
 
 public class Simulador {
+    /** Array con los nombres de los peces */
     private final String[] peces = {
         AlmacenPropiedades.DORADA.getNombre(),
         AlmacenPropiedades.TRUCHA_ARCOIRIS.getNombre(),
@@ -36,9 +28,13 @@ public class Simulador {
         AlmacenPropiedades.SALMON_CHINOOK.getNombre(),
         AlmacenPropiedades.TILAPIA_NILO.getNombre()
     };
+    /** Piscifactorías del sistema */
     private ArrayList<Piscifactoria> piscifactorias = new ArrayList<>();
+    /** Almacen central */
     private boolean almacenCentral = false;
+    /** Scanner para pedir cosas por teclado */
     private static Scanner sc = new Scanner(System.in);
+    /** Días transcurridos */
     private int dias = 0;
     private String nombreEmpresa = "";
 
@@ -175,8 +171,16 @@ public class Simulador {
         this.nombreEmpresa = nombreEmpresa;
     }
 
+    public String getNombreEmpresa() {
+        return nombreEmpresa;
+    }
+
+    public void setNombreEmpresa(String nombreEmpresa) {
+        this.nombreEmpresa = nombreEmpresa;
+    }
+
     
-    /*
+    /**
      * Menú principal del simulador
      */
     public void menu() {
@@ -268,7 +272,7 @@ public class Simulador {
         }
     }
 
-    /*
+    /**
      * Vacía los tanques de las piscifactorias
      */
     public void emptyTank(){
@@ -288,7 +292,7 @@ public class Simulador {
         }
     }
 
-    /*
+    /**
      * Proporciona al usuario la posibilidad de obtener datos
      * de los peces disponibles
      */
@@ -602,7 +606,7 @@ public class Simulador {
         }
     }
 
-    /*
+    /**
      * Proporciona las piscifactorías disponibles
      */
     private void selecPisc() {
@@ -621,7 +625,7 @@ public class Simulador {
         }
     }
 
-    /*
+    /**
      * Proporciona al usuario un menu para seleccionar el tipo de piscifactoría
      * 
      * @return true si es piscifactoria de rio, false si es de mar
@@ -680,7 +684,7 @@ public class Simulador {
         return numero;
     }
 
-    /*
+    /**
      * Crea una nueva piscifactoria (rio o mar)
      * Si no tiene ninguna de mar, se añade un costo de 500 monedas
      * 
@@ -716,7 +720,7 @@ public class Simulador {
         }
     }
 
-    /*
+    /**
      * Se le pide al usuario introducir el nombre de la piscifactoría
      * 
      * @return El nombre de la piscifactoría

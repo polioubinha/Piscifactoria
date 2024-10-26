@@ -3,7 +3,7 @@ package peces.especies.rio;
 import java.util.Random;
 
 import almacenCentral.AlmacenCentral;
-import peces.Omnivoro;
+import peces.alimentacion.Omnivoro;
 import piscifactoria.Piscifactoria;
 import propiedades.AlmacenPropiedades;
 import propiedades.PecesDatos;

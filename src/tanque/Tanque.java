@@ -11,34 +11,60 @@ import piscifactoria.Piscifactoria;
 import stats.Stats;
 
 public class Tanque<T extends Pez> {
-    ArrayList<Pez> peces = new ArrayList<>();
-    int capacidad;
-    ArrayList<Integer> pecesMuertos = new ArrayList<>();
-    int vendidos = 0;
-    int muertos = 0;
-    int ganancias = 0;
+    /** Peces del tanque */
+    private ArrayList<Pez> peces = new ArrayList<>();
+    /** Capacidad del tanque */
+    private int capacidad;
+    /** Peces muertos */
+    private ArrayList<Integer> pecesMuertos = new ArrayList<>();
+    /** Cantidad de peces vendidos */
+    private int vendidos = 0;
+    /** Cantidad de peces muertos */
+    private int muertos = 0;
+    /** Cantidad de ganancias */
+    private int ganancias = 0;
 
+    /**
+     * Constructor de la clase tanque
+     * @param capacidad capacidad del tanque
+     */
     public Tanque(int capacidad){
         this.capacidad = capacidad;
     }
 
+    /**
+     * Devuelve la capacidad del tanque
+     * @return capacidad del tanque 
+     */
     public int getCapacidad(){
         return capacidad;
     }
 
+    /**
+     * Devuelve las ganancias del tanque 
+     * @return ganancias del tanque
+     */
     public int getGanancias(){
         return ganancias;
     }
 
+    /**
+     * Devuelve la cantidad de peces vendidos
+     * @return cantidad de peces vendidos
+     */
     public int getVendidos(){
         return vendidos;
     }
 
+    /**
+     * Devuelve los peces del tanque 
+     * @return peces del tanque 
+     */
     public ArrayList<Pez> getPeces(){
         return peces;
     }
 
-    /*
+    /**
      * Método para mostrar el estado del tanque
      */
     public void showStatus() {
@@ -53,7 +79,7 @@ public class Tanque<T extends Pez> {
         System.out.println("Hembras/Machos: " + this.hembras() + "/" + this.machos());
     }
 
-    /*
+    /**
      * Estado de cada pez en el tanque
      */
     public void showFishStatus(){
@@ -77,6 +103,10 @@ public class Tanque<T extends Pez> {
         return Math.round(((double) numero1 / numero2) * 1000) / 10.0;
     }
 
+    /**
+     * Devuelve numero de peces vivos
+     * @return cantidad de peces vivos
+     */
     public int vivos() {
         int cantidad = 0;
         for (Pez pez : peces) {
@@ -87,6 +117,10 @@ public class Tanque<T extends Pez> {
         return cantidad;
     }
 
+    /**
+     * Devuelve el numero de peces alimentados
+     * @return cantidad de peces alimentados
+     */
     public int alimentados() {
         int cantidad = 0;
         for (Pez pez : peces) {
@@ -97,6 +131,10 @@ public class Tanque<T extends Pez> {
         return cantidad;
     }
 
+    /**
+     * Devuelve el número de peces adultos
+     * @return cantidad de peces adultos
+     */
     public int adultos() {
         int cantidad = 0;
         for (Pez pez : peces) {
@@ -107,7 +145,7 @@ public class Tanque<T extends Pez> {
         return cantidad;
     }
 
-    /*
+    /**
      * Verifica si hay peces muestos en el tanque
      * 
      * @return true si hay peces muertos, false si no los hay
@@ -130,7 +168,7 @@ public class Tanque<T extends Pez> {
         }
     }
 
-    /*
+    /**
      * Método para eliminar un pez muerto
      * 
      * @return true si se ha eliminado un pez, false si no
@@ -145,7 +183,7 @@ public class Tanque<T extends Pez> {
         return false;
     }    
 
-    /*
+    /**
      * Retorna la cantidad de machos del tanque
      * 
      * @return Cantidad de machos vivos en el tanque
@@ -161,7 +199,7 @@ public class Tanque<T extends Pez> {
         return machos;
     }
 
-    /*
+    /**
      * Retorna la cantidad de hembras del tanque
      * 
      * @return Cantidad de hembras vivas en el tanque
@@ -178,7 +216,7 @@ public class Tanque<T extends Pez> {
         return hembras;
     }
 
-    /*
+    /**
      * Calcula el sexo del nuevo pez en relación a la cantidad del tanque
      * 
      * @return true si se tiene que crear un macho, false si tiene que ser hembra
@@ -202,6 +240,9 @@ public class Tanque<T extends Pez> {
         }
     }
 
+    /**
+     * Realiza la compra de un pez
+     */
     public void comprarPez(){
         Pez nuevoPez = this.createNewInstance(this.peces.get(0).getClass());
         if(Monedas.getInstance().comprobarCompra(nuevoPez.getDatos().getCoste())){
@@ -212,7 +253,7 @@ public class Tanque<T extends Pez> {
         }
     }
 
-    /*
+    /**
      * Se crea una instancia de un pez
      * 
      * @param tipoPez Clase del pez a crear
@@ -258,7 +299,7 @@ public class Tanque<T extends Pez> {
         peces.addAll(nuevosPeces);
     }
 
-    /*
+    /**
      * Venta de peces optimos del tanque
      */
     public void venderOptimos() {
@@ -277,7 +318,7 @@ public class Tanque<T extends Pez> {
         }
     }
 
-    /*
+    /**
      * Venta de los peces adultos del tanque
      */
     public void venderAdultos(){

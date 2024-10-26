@@ -1,8 +1,9 @@
-package peces;
+package peces.alimentacion;
 
 import java.util.Random;
 
 import almacenCentral.AlmacenCentral;
+import peces.Pez;
 import piscifactoria.Piscifactoria;
 import tanque.Tanque;
 
@@ -21,7 +22,7 @@ public class Omnivoro extends Pez{
         }
     }
 
-    /*
+    /**
      * Método para alimentar al pez
      * 
      * @param tanque tanque en el que se encuentra el pez

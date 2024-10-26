@@ -4,12 +4,12 @@ import estadisticas.Estadisticas;
 
 public class Stats extends Estadisticas{
 
-    /*
+    /**
      * Instacia única de la clase Stats
      */
     private static Stats instance = null;
 
-    /*
+    /**
      * Constructor privado que crea una instancia de Stats con los nombres
      * de las características especificadas
      * 
@@ -20,7 +20,7 @@ public class Stats extends Estadisticas{
     }
 
 
-    /*
+    /**
      * Obtiene la instancia de Stats. Si no existe, crea una nueva
      * 
      * @param nombres Array que representa los nombres de las estadísticas
@@ -33,7 +33,7 @@ public class Stats extends Estadisticas{
     }
 
 
-    /*
+    /**
      * Obtiene la instancia de Stats
      * 
      * @return La instancia de Stats, si no existe devuelve null

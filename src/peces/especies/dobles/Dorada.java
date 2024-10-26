@@ -1,6 +1,6 @@
 package peces.especies.dobles;
 
-import peces.Omnivoro;
+import peces.alimentacion.Omnivoro;
 import propiedades.AlmacenPropiedades;
 import propiedades.PecesDatos;
 
