@@ -1,16 +1,17 @@
 package peces.especies.rio;
 
-import java.util.Random;
-
-import almacenCentral.AlmacenCentral;
 import peces.alimentacion.Omnivoro;
-import piscifactoria.Piscifactoria;
 import propiedades.AlmacenPropiedades;
 import propiedades.PecesDatos;
-import tanque.Tanque;
 
 public class Carpa extends Omnivoro{
     private final PecesDatos datos = AlmacenPropiedades.CARPA;
+    protected int edad = 0;
+    protected boolean maduro = false;
+    protected boolean sexo = false;
+    protected boolean vivo = true;
+    protected int ciclo = 0;
+    protected boolean alimentado = true;
 
     public PecesDatos getDatos(){
         return datos;
@@ -81,11 +82,11 @@ public class Carpa extends Omnivoro{
         System.out.println("Alimentado: " + (this.alimentado ? "Si" : "No"));
     }
 
-    public void comprobarMadurez(int edad){
+    public void comprobacionMadurez(int edad){
         this.setMaduro(this.edad >= this.datos.getMadurez());
     }
 
-    public boolean esOptimo(){
+    public boolean isOptimo(){
         return this.edad==this.datos.getOptimo();
     }
 
@@ -93,32 +94,9 @@ public class Carpa extends Omnivoro{
         if(this.maduro && this.edad % this.datos.getCiclo()==0 && !this.sexo){
             this.ciclo=this.datos.getCiclo();
             return true;
-        }
-        this.ciclo--;
-        return false;
-    }
-
-    //REVISAR METODO COMER
-
-    @Override
-    public void comer(Tanque tanque, Piscifactoria piscifactoria, Boolean almacenCentral){
-        Random r = new Random();
-
-        if(this.alimentado == false){
-            if(tanque.hasDead()){
-                this.alimentado = true;
-                if(r.nextBoolean()){
-                    tanque.eliminarMuerto();
-                }
-            }else{
-                if(piscifactoria.getAlmacen() != 0){
-                    this.alimentado = true;
-                    piscifactoria.setAlmacen(piscifactoria.getAlmacen()-2);
-                }else if (almacenCentral) {
-                    AlmacenCentral.getInstance().setCapacidad(AlmacenCentral.getInstance().getCapacidad() - 2);
-                    this.alimentado = true;
-                }
-            }
+        }else{
+            this.ciclo--;
+            return false;
         }
     }
 }

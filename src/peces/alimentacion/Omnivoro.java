@@ -8,6 +8,7 @@ import piscifactoria.Piscifactoria;
 import tanque.Tanque;
 
 public abstract class Omnivoro extends Pez{
+
     private boolean noComer(){
         Random r = new Random();
         return r.nextInt(1,4) == 1;

@@ -10,10 +10,6 @@ import tanque.Tanque;
 
 public class Filtrador extends Pez{
     
-    public Filtrador(PecesDatos datos) {
-        super(datos);
-    }
-
     @Override
     public void grow(Tanque tanque, Piscifactoria piscifactoria, Boolean almacenCentral){
         Random r = new Random();

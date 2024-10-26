@@ -6,6 +6,12 @@ import propiedades.PecesDatos;
 
 public class CarpaPlateada extends Filtrador{
     private final PecesDatos datos = AlmacenPropiedades.CARPA_PLATEADA;
+    protected int edad = 0;
+    protected boolean maduro = false;
+    protected boolean sexo = false;
+    protected boolean vivo = true;
+    protected int ciclo = 0;
+    protected boolean alimentado = true;
 
     public PecesDatos getDatos(){
         return datos;
@@ -77,12 +83,12 @@ public class CarpaPlateada extends Filtrador{
         System.out.println("Alimentado: " + (this.alimentado ? "Si" : "No"));
     }
     
-    public void comprobarMadurez(int edad) {
+    public void comprobacionMadurez(int edad) {
         this.setMaduro(this.edad >= this.datos.getMadurez());
     }
     
 
-    public boolean esOptimo() {
+    public boolean isOptimo() {
         return this.edad == this.datos.getOptimo();
     }
     

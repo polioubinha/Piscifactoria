@@ -8,8 +8,8 @@ import tanque.Tanque;
 
 public abstract class Pez {
     protected PecesDatos datos;
-    protected int ciclo;
-    protected int edad;
+    protected int ciclo = 0;
+    protected int edad = 0;
     protected boolean vivo = true;
     protected boolean sexo = false;
     protected boolean alimentado = true;
@@ -109,13 +109,12 @@ public abstract class Pez {
      * 
      * @return true si es maduro, false si no lo es
      */
-    public boolean comprobacionMadurez(int edad){
+    public void comprobacionMadurez(int edad){
         if(edad >= this.datos.getMadurez()){
             this.setMaduro(true);
         } else {
             this.setMaduro(false);
         }
-        return alimentado;
     }
 
     /**
@@ -157,6 +156,14 @@ public abstract class Pez {
         }
     }
 
+    public boolean eliminarPez() {
+        Random comer = new Random();
+        if (comer.nextBoolean()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     /**
      * Comprueba si el pez es optimo para reproducirse
@@ -164,9 +171,8 @@ public abstract class Pez {
      * @return true si el pez está optimo para reproducirse, false si no lo está.
      */
     public boolean reproducirse() {
-        boolean machoPresente = this.sexo;
         if (this.maduro && this.ciclo <= 0) {
-            if (!this.sexo && machoPresente)  {
+            if (!this.sexo)  {
                 this.ciclo = this.datos.getCiclo();
                     return true;
             } else {
@@ -184,7 +190,11 @@ public abstract class Pez {
      * @return true si es optimo, false si no lo es
      */
     public boolean isOptimo() {
-        return this.edad == this.datos.getOptimo();
+        if (this.edad == this.datos.getOptimo()) {
+            return true;
+        } else {
+            return false;
+        }
     }
    
 

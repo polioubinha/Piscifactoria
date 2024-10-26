@@ -1,5 +1,6 @@
 package piscifactoria;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.Scanner;
 import monedero.Monedas;
@@ -95,10 +96,10 @@ public class Piscifactoria {
         }
     }
 
-    public void nextDay(Boolean almCentral){
+    public void nextDay(Boolean almacenCentral){
         for(int i=0; i < this.tanques.size(); i++){
             if(this.almacen != 0){
-                this.tanques.get(i).nextFood(this, almCentral);
+                this.tanques.get(i).nextFood(this, almacenCentral);
                 this.tanques.get(i).nextDayReproduccion();
             }
             this.tanques.get(i).venderOptimos();
@@ -263,9 +264,9 @@ public class Piscifactoria {
     public void listTanks(){
         for(int i = 0; i < this.tanques.size(); i++){
             if(this.tanques.get(i).getPeces().size() == 0){
-                System.out.println(i + " tanque vacío");
+                System.out.println(i + ". Tanque vacío");
             }else{
-                System.out.println(i + ", pez: " + this.tanques.get(i).getPeces().get(0).getDatos().getNombre());
+                System.out.println(i + ". Pez: " + this.tanques.get(i).getPeces().get(0).getDatos().getNombre());
             }
         }
     }
@@ -332,13 +333,12 @@ public class Piscifactoria {
             System.out.println("6.- Dorada");
             System.out.println("7.- Trucha Arcoiris");
         }
-    }
-
-   
+    }   
 
     public void venderAdultos() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'venderAdultos'");
+        for(Tanque<Pez> tanque : tanques){
+            tanque.venderAdultos();
+        }
     }
 
     public void upgradeFood() {
@@ -439,7 +439,7 @@ public class Piscifactoria {
     }
    
     public void newFish() {
-        Scanner scanner = new Scanner(System.in);
+        Console c = System.console();
         int opcion = 0;
         int pez = 0;
         boolean salida = false;
@@ -447,10 +447,9 @@ public class Piscifactoria {
         try {
             do {
                 this.listTanks();
-
                 System.out.print("Selecciona un tanque: ");
                 try {
-                    opcion = Integer.parseInt(scanner.nextLine());
+                    opcion = Integer.parseInt(c.readLine());
 
                     if (opcion < 0 || opcion >= this.tanques.size()) {
                         System.out.println("Opción no válida, introduce uno de los valores mostrados.");
@@ -467,7 +466,7 @@ public class Piscifactoria {
                                 this.opcionPez();
                                 System.out.print("Selecciona el tipo de pez (1-7): ");
                                 try {
-                                    pez = Integer.parseInt(scanner.nextLine());
+                                    pez = Integer.parseInt(c.readLine());
 
                                     if (pez > 0 && pez < 8) {
                                         this.addFish(opcion, pez);
@@ -487,8 +486,6 @@ public class Piscifactoria {
             } while (!salida);
         } catch (Exception e) {
             System.out.println("Ocurrió un error inesperado: " + e.getMessage());
-        }finally{
-            scanner.close();
         }
     }
 

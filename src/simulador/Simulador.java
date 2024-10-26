@@ -426,7 +426,9 @@ public class Simulador {
         int piscifactoria = 0;
         boolean salida = false;
         do{
+            System.out.println("====== PISCIFACTORÍAS ======");
             this.selecPisc();
+            System.out.print("Selecciona una piscifactoría: ");
             piscifactoria = Integer.parseInt(sc.nextLine());
             if (piscifactoria < 0 || piscifactoria > this.piscifactorias.size()) {
                 System.out.println("Índice incorrecto, inserta un valor de los indicados");
@@ -547,7 +549,7 @@ public class Simulador {
 
             if (pisc < 1 || pisc > this.piscifactorias.size()) {
                 System.out.println("Inserta un valor válido");
-                continue; // Continúa el bucle si la opción es inválida
+                continue; 
             }
 
             int mejoraOpcion;
