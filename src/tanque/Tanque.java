@@ -233,7 +233,7 @@ public class Tanque<T extends Pez> {
 
         for(Pez pez : peces){
             if(pez.isVivo() && capacidadDisponible > 0){
-                if(pez.isMaduro() && pez.reproducirse(null)){
+                if(pez.isMaduro() && pez.reproducirse()){
                     int huevos = pez.getDatos().getHuevos();
 
                     if(huevos <= capacidadDisponible){
@@ -291,6 +291,21 @@ public class Tanque<T extends Pez> {
                 iterator.remove();
             }
         }
+    }
+
+    public void limpiarTanque() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'limpiarTanque'");
+    }
+
+    public void vaciarTanque() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'vaciarTanque'");
+    }
+
+    public int nuevoDiaComer(int almacen) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'nuevoDiaComer'");
     }
 
 }

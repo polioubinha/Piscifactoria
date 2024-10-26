@@ -54,7 +54,7 @@ public class Piscifactoria {
         this.almacen = almacen;
     }
 
-    public int getAlamacenMax() {
+    public int getAlmacenMax() {
         return almacenMax;
     }
 
@@ -225,7 +225,13 @@ public class Piscifactoria {
     }
 
     public double porcentaje(int cantidad, int total){
-        return (cantidad * 100) / total;
+        if(total == 0){
+            return 0.0;
+        }
+
+        double porcentaje = (double) cantidad/total * 100;
+        porcentaje = Math.round(porcentaje * 100) / 10.0;
+        return porcentaje;
     }
 
     /*
@@ -283,11 +289,32 @@ public class Piscifactoria {
         }      
     }
 
+    public void addComida(int cantidad){
+        int coste;
+        if(cantidad <= 25){
+            coste = cantidad;
+        }else{
+            coste = cantidad - (cantidad / 25) *5;
+        }
+
+        if(Monedas.getInstance().comprobarCompra(coste)){
+            this.almacen += cantidad;
+            Monedas.getInstance().compra(coste);
+
+            if(this.almacen > this.almacenMax){
+                this.almacen = this.almacenMax;
+            }
+            System.out.println("Añadida " + cantidad + " de comida.");
+        }else{
+            System.out.println("No tienes las suficientes monedas para realizar la compra.");
+        }
+    }
+
     public void nextDay() {
         for (int i = 0; i < this.tanques.size(); i++) {
             if (this.almacen != 0) {
                 this.almacen -= this.tanques.get(i).nuevoDiaComer(this.almacen);
-                this.tanques.get(i).nuevodiaReproduccion();
+                this.tanques.get(i).nextDayReproduccion();
             }
                 this.tanques.get(i).venderOptimos();
                 System.out.println("Piscifactoría " + this.nombre + ": " + this.tanques.get(i).getVendidos() + " peces vendidos por "
@@ -304,5 +331,15 @@ public class Piscifactoria {
     public void upgradeFood() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'upgradeFood'");
+    }
+
+    public void newFish() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'newFish'");
+    }
+
+    public void nuevoDia() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'nuevoDia'");
     }
 }
