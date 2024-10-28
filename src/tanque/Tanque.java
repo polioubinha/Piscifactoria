@@ -10,7 +10,7 @@ import peces.Pez;
 import piscifactoria.Piscifactoria;
 import stats.Stats;
 
-public class Tanque<T extends Pez> {
+public class Tanque extends Pez{
     /** Peces del tanque */
     private ArrayList<Pez> peces = new ArrayList<>();
     /** Capacidad del tanque */

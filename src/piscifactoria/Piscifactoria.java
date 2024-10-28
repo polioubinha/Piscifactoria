@@ -29,7 +29,7 @@ public class Piscifactoria {
     /** Cantidad maxima del almacen */
     private int almacenMax;
     /** Tanques de la piscifactoria */
-    private ArrayList<Tanque<Pez>> tanques = new ArrayList<>();
+    private ArrayList<Tanque> tanques = new ArrayList<>();
 
     /**
      * Constructor de la piscifactoria
@@ -41,12 +41,12 @@ public class Piscifactoria {
         this.rio = rio;
         if(this.rio){
             this.nombre = nombre;
-            this.tanques.add(new Tanque<Pez>(25));
+            this.tanques.add(new Tanque(25));
             this.almacen = 25;
             this.almacenMax = 25;
         }else{
             this.nombre = nombre;
-            this.tanques.add(new Tanque<Pez>(100));
+            this.tanques.add(new Tanque(100));
             this.almacen = 100;
             this.almacenMax = 100;
         }
@@ -80,19 +80,19 @@ public class Piscifactoria {
         this.almacenMax = alamacenMax;
     }
 
-    public ArrayList<Tanque<Pez>> getTanques() {
+    public ArrayList<Tanque> getTanques() {
         return tanques;
     }
 
-    public void setTanques(ArrayList<Tanque<Pez>> tanques) {
+    public void setTanques(ArrayList<Tanque> tanques) {
         this.tanques = tanques;
     }
 
     public void añadirTanque(){
         if (this.rio) {
-            this.tanques.add(new Tanque<Pez>(25));
+            this.tanques.add(new Tanque(25));
         }else{
-            this.tanques.add(new Tanque<Pez>(100));
+            this.tanques.add(new Tanque(100));
         }
     }
 
@@ -112,7 +112,7 @@ public class Piscifactoria {
         int ganancias = 0;
         int cantidad = 0;
 
-        for (Tanque<Pez> tanque : tanques) {
+        for (Tanque tanque : tanques) {
             cantidad += tanque.getVendidos();
             ganancias += tanque.getGanancias();
         }
@@ -150,7 +150,7 @@ public class Piscifactoria {
     public int adultosTotales(){
         int cantidad = 0;
 
-        for(Tanque<Pez> tanque: tanques){
+        for(Tanque tanque: tanques){
             cantidad += tanque.adultos();
         }
 
@@ -165,7 +165,7 @@ public class Piscifactoria {
     public int totalHembras(){
         int cantidad = 0;
 
-        for(Tanque<Pez> tanque: tanques){
+        for(Tanque tanque: tanques){
             cantidad += tanque.hembras();
         }
 
@@ -180,7 +180,7 @@ public class Piscifactoria {
     public int totalMachos(){
         int cantidad = 0;
 
-        for(Tanque<Pez> tanque: tanques){
+        for(Tanque tanque: tanques){
             cantidad += tanque.machos();
         }
 
@@ -195,7 +195,7 @@ public class Piscifactoria {
     public int totalPeces(){
         int cantidad = 0;
 
-        for (Tanque<Pez> tanque : tanques){
+        for (Tanque tanque : tanques){
             cantidad += tanque.getPeces().size();
         }
         return cantidad;
@@ -207,7 +207,7 @@ public class Piscifactoria {
     public int pecesVivos(){
         int cantidad = 0;
 
-        for(Tanque<Pez> tanque : tanques){
+        for(Tanque tanque : tanques){
             cantidad += tanque.vivos();
         }
 
@@ -220,7 +220,7 @@ public class Piscifactoria {
     public int totalAlimentados(){
         int cantidad = 0;
 
-        for(Tanque<Pez> tanque : tanques){
+        for(Tanque tanque : tanques){
             cantidad += tanque.alimentados();
         }
 
@@ -235,7 +235,7 @@ public class Piscifactoria {
     public int capacidadTotal(){
         int cantidad = 0;
 
-        for(Tanque<Pez> tanque : tanques){
+        for(Tanque tanque : tanques){
             cantidad += tanque.getCapacidad();
         }
 
@@ -279,7 +279,7 @@ public class Piscifactoria {
             if(Monedas.getInstance().comprobarCompra(150 * this.tanques.size())){
                 if(this.tanques.size() < 10){
                     Monedas.getInstance().compra(150 * this.tanques.size());
-                    this.tanques.add(new Tanque<Pez>(25));
+                    this.tanques.add(new Tanque(25));
                 }else{
                     System.out.println("No se puede comprar un tanque nuevo. Has alcanzado el límite.");
                 }
@@ -290,7 +290,7 @@ public class Piscifactoria {
             if(Monedas.getInstance().comprobarCompra(600 * this.tanques.size())){
                 if(this.tanques.size() < 10){
                     Monedas.getInstance().compra(600 * this.tanques.size());
-                    this.tanques.add(new Tanque<Pez>(100));
+                    this.tanques.add(new Tanque(100));
                 }else{
                     System.out.println("No se puede comprar un tanque nuevo. Has alcanzado el límite.");
                 }
@@ -301,14 +301,14 @@ public class Piscifactoria {
     }
 
     public void limpiarTanques() {
-        for(Tanque<Pez> tanque: tanques){
+        for(Tanque tanque: tanques){
             tanque.limpiarTanque();
         }      
   
     }
 
     public void vaciarTanques() {
-        for(Tanque<Pez> tanque: tanques){
+        for(Tanque tanque: tanques){
             tanque.vaciarTanque();
         }      
     }
@@ -336,7 +336,7 @@ public class Piscifactoria {
     }   
 
     public void venderAdultos() {
-        for(Tanque<Pez> tanque : tanques){
+        for(Tanque tanque : tanques){
             tanque.venderAdultos();
         }
     }
