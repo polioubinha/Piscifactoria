@@ -76,11 +76,11 @@ public class Dorada extends Omnivoro{
         System.out.println("Alimentado: " + (this.alimentado ? "Si" : "No"));
     }
 
-    public void comprobarMadurez(int edad){
+    public void comprobacionMadurez(int edad){
         this.setMaduro(this.edad >= this.datos.getMadurez());
     }
 
-    public boolean esOptimo(){
+    public boolean isOptimo(){
         return this.edad==this.datos.getOptimo();
     }
 
