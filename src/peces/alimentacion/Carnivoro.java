@@ -9,7 +9,6 @@ import tanque.Tanque;
 
 public class Carnivoro extends Pez{
 
-
     @Override
     public void comer(Tanque tanque, Piscifactoria piscifactoria, Boolean almacenCentral) {
         Random r = new Random();

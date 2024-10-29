@@ -3,8 +3,9 @@ package almacenCentral;
 import monedero.Monedas;
 
 public class AlmacenCentral {
-
+    /** Capacidad del almacén */
     int capacidad = 0;
+    /** Capacidad maxima del almacén */
     int capacidadMax = 0;
 
     /**
@@ -25,7 +26,7 @@ public class AlmacenCentral {
     }
 
     /**
-     * inicializamos la capacidad y la capacidad máxima
+     * Constructor de la clase, inicializamos la capacidad y la capacidad máxima
      */
     private AlmacenCentral(){
         this.capacidad = 200;
@@ -98,7 +99,7 @@ public class AlmacenCentral {
     /**
      * Mejora el almacen aumentando la capacidad máxima
      * 
-     * Para realizar la mejora se necesita 100 monedas
+     * Para realizar la mejora se necesita 200 monedas
      */
     public void upgrade(){
         if(Monedas.getInstance().comprobarCompra(200)){

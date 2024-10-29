@@ -7,21 +7,31 @@ import propiedades.PecesDatos;
 import tanque.Tanque;
 
 public abstract class Pez {
+    /** Datos del pez */
     protected PecesDatos datos;
+    /** Ciclo del pez */
     protected int ciclo = 0;
+    /** Edad del pez */
     protected int edad = 0;
+    /** True si el pez está vivo, false en caso contrario */
     protected boolean vivo = true;
+    /** True si el pez es macho, false si es hembra */
     protected boolean sexo = false;
+    /** True si el pez está alimentado, false en caso contrario */
     protected boolean alimentado = true;
+    /** True si el pez está maduro, false en caso contrario */
     protected boolean maduro = false;
 
+    /**
+     * Devuelve los datos del pez
+     * @return datos del pez
+     */
     public PecesDatos getDatos(){
         return datos;
     }
 
     /**
      * Comprobamos si el pez esta alimentado
-     * 
      * @return true si está alimentado, false si no
      */
     public boolean isAlimentado() {
@@ -29,8 +39,7 @@ public abstract class Pez {
     }
 
     /**
-     * Obtenemos la edad del pez
-     * 
+     * Devuelve la edad del pez
      * @return edad del pez
      */
     public int getEdad() {
@@ -39,7 +48,6 @@ public abstract class Pez {
 
     /**
      * Establecemos la edad del pez
-     * 
      * @param edad del pez
      */
     public void setEdad(int edad) {
@@ -57,7 +65,6 @@ public abstract class Pez {
 
     /**
      * Establecemos si el pez está vivo
-     * 
      * @param vivo true si está vivo, false si no
      */
     public void setVivo(boolean vivo) {
@@ -66,7 +73,6 @@ public abstract class Pez {
 
     /**
      * Comprobamos si el pez está maduro
-     * 
      * @return true si está maduro, false si no
      */
     public boolean isMaduro() {
@@ -75,7 +81,6 @@ public abstract class Pez {
 
     /**
      * Establecemos si el pez está maduro
-     * 
      * @return true si está maduro, false si no
      */
     public void setMaduro(boolean fertil) {
@@ -84,7 +89,6 @@ public abstract class Pez {
 
     /**
      * Comprobamos si el pez es macho o hembra
-     * 
      * @return true si es macho, false si es hembra
      */
     public boolean isSexo() {
@@ -93,7 +97,6 @@ public abstract class Pez {
 
     /**
      * Establecemos si el pez es macho o hembra
-     * 
      * @param sexo true si es macho, false si es hembra
      */
     public String getSexo() {
@@ -106,7 +109,6 @@ public abstract class Pez {
 
     /**
      * Comprobación de madurez del pez
-     * 
      * @return true si es maduro, false si no lo es
      */
     public void comprobacionMadurez(int edad){
@@ -119,7 +121,6 @@ public abstract class Pez {
 
     /**
      * Comprobación de crecimiento del pez en base a la comida
-     * 
      * @param tanque El tanque al que pertecene el pez
      * @param piscifactoria Piscifactoria a la que pertenece el pez
      */
@@ -156,6 +157,10 @@ public abstract class Pez {
         }
     }
 
+    /**
+     * Elimina un pez
+     * @return 
+     */
     public boolean eliminarPez() {
         Random comer = new Random();
         if (comer.nextBoolean()) {
@@ -167,7 +172,6 @@ public abstract class Pez {
 
     /**
      * Comprueba si el pez es optimo para reproducirse
-     * 
      * @return true si el pez está optimo para reproducirse, false si no lo está.
      */
     public boolean reproducirse() {
@@ -186,7 +190,6 @@ public abstract class Pez {
 
     /**
      * Comprobar si el pez es óptimo para vender
-     * 
      * @return true si es optimo, false si no lo es
      */
     public boolean isOptimo() {

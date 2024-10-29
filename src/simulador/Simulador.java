@@ -253,7 +253,7 @@ public class Simulador {
     }
     
 
-    /*
+    /**
      * Limpia los peces muertos de los tanques de las piscifactorias
      */
     public void cleanTank(){
@@ -579,7 +579,6 @@ public class Simulador {
 
     /**
      * Obtiene una opción del usuario con manejo de excepciones.
-     * 
      * @return Opción seleccionada por el usuario.
      */
     private int obtenerOpcion() {
@@ -615,7 +614,6 @@ public class Simulador {
 
     /**
      * Proporciona al usuario un menu para seleccionar el tipo de piscifactoría
-     * 
      * @return true si es piscifactoria de rio, false si es de mar
      */
     private boolean tipoPiscifactoria() {
@@ -644,7 +642,6 @@ public class Simulador {
 
     /**
      * Calcula el número de piscifactorías de tipo "mar".
-     *
      * @return Número de piscifactorías de tipo "mar".
      */
     public int mar() {
@@ -659,7 +656,6 @@ public class Simulador {
 
     /**
      * Calcula el número de piscifactorías de tipo "río".
-     *
      * @return Número de piscifactorías de tipo "río".
      */
     public int rio() {
@@ -675,7 +671,6 @@ public class Simulador {
     /**
      * Crea una nueva piscifactoria (rio o mar)
      * Si no tiene ninguna de mar, se añade un costo de 500 monedas
-     * 
      * @param tipo true si es piscifactoria de rio, false si es de mar
      */
     private void nuevaPiscifactoria(boolean tipo) {
@@ -710,7 +705,6 @@ public class Simulador {
 
     /**
      * Se le pide al usuario introducir el nombre de la piscifactoría
-     * 
      * @return El nombre de la piscifactoría
      */
     private String nombrePiscifactoria() {

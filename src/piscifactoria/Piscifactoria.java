@@ -31,7 +31,6 @@ public class Piscifactoria {
 
     /**
      * Constructor de la piscifactoria
-     * 
      * @param rio true si es un rio, false si es de mar
      * @param nombre nombre de la piscifactoria
      */
@@ -142,7 +141,6 @@ public class Piscifactoria {
 
     /**
      * Obtiene la cantidad total de peces adultos de la piscifactoria
-     * 
      * @return cantidad total de peces adultos
      */
     public int adultosTotales(){
@@ -155,9 +153,8 @@ public class Piscifactoria {
         return cantidad;
     }
 
-    /*
+    /**
      * Obtiene la cantidad total de hembras de la piscifactoria
-     * 
      * @return cantidad total de hembras
      */
     public int totalHembras(){
@@ -170,9 +167,8 @@ public class Piscifactoria {
         return cantidad;
     }
 
-    /*
+    /**
      * Obtiene la cantidad total de machos de la piscifactoria
-     * 
      * @return cantidad total de machos
      */
     public int totalMachos(){
@@ -185,9 +181,8 @@ public class Piscifactoria {
         return cantidad;
     }
 
-    /*
+    /**
      * Devuelve la cantidad total de peces en la piscifactoria
-     * 
      * @return cantidad total de peces
      */
     public int totalPeces(){
@@ -199,7 +194,7 @@ public class Piscifactoria {
         return cantidad;
     }
 
-    /*
+    /**
      * @return La cantidad total de peces vivos en la piscifactoria
      */
     public int pecesVivos(){
@@ -212,7 +207,7 @@ public class Piscifactoria {
         return cantidad;
     }
 
-    /*
+    /**
      * @return Cantidad total de peces alimentados de la piscifactoría
      */
     public int totalAlimentados(){
@@ -225,9 +220,8 @@ public class Piscifactoria {
         return cantidad;
     }
 
-    /*
+    /**
      * Devuelve la capacidad total de la piscifactoria
-     * 
      * @return capacidad total de la piscifactoria
      */
     public int capacidadTotal(){
@@ -256,7 +250,7 @@ public class Piscifactoria {
         return porcentaje;
     }
 
-    /*
+    /**
      * Se muestra la lista de tanques de la piscifactoría
      */
     public void listTanks(){
@@ -269,7 +263,7 @@ public class Piscifactoria {
         }
     }
 
-    /*
+    /**
      * Compra de un nuevo tanque de peces en la piscifactoria
      */
     public void comprarTanque(){

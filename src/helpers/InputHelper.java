@@ -14,7 +14,7 @@ public class InputHelper {
     /**
      * Obtiene un input de tipo String
      * @param prompt 
-     * @return
+     * @return 
      */
     public String getStringInput(String prompt) {
         String input = null;
