@@ -6,6 +6,12 @@ import propiedades.PecesDatos;
 
 public class SalmonChinook extends Carnivoro{
     private final PecesDatos datos = AlmacenPropiedades.SALMON_CHINOOK;
+    protected int edad = 0;
+    protected boolean maduro = false;
+    protected boolean sexo = false;
+    protected boolean vivo = true;
+    protected int ciclo = 0;
+    protected boolean alimentado = true;
 
     public PecesDatos getDatos(){
         return datos;
@@ -82,10 +88,13 @@ public class SalmonChinook extends Carnivoro{
     }
     
 
-    public boolean esOptimo() {
+    public boolean comprobacionMadurez() {
         return this.edad == this.datos.getOptimo();
     }
-    
+
+    public boolean isOptimo() {
+        return this.edad == this.datos.getOptimo();
+    }    
 
     public boolean reproducirse() {
         if (this.maduro && this.edad % this.datos.getCiclo() == 0 && !this.sexo) {

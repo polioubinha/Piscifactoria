@@ -1,8 +1,10 @@
 package peces.especies.mar;
 
 import peces.alimentacion.Filtrador;
+import piscifactoria.Piscifactoria;
 import propiedades.AlmacenPropiedades;
 import propiedades.PecesDatos;
+import tanque.Tanque;
 
 public class ArenqueDelAtlantico extends Filtrador{
     private final PecesDatos datos = AlmacenPropiedades.ARENQUE_ATLANTICO;
@@ -76,11 +78,11 @@ public class ArenqueDelAtlantico extends Filtrador{
         System.out.println("Alimentado: " + (this.alimentado ? "Si" : "No"));
     }
 
-    public void comprobarMadurez(int edad){
+    public void comprobacionMadurez(int edad){
         this.setMaduro(this.edad >= this.datos.getMadurez());
     }
 
-    public boolean esOptimo(){
+    public boolean isOptimo(){
         return this.edad==this.datos.getOptimo();
     }
 
@@ -92,4 +94,5 @@ public class ArenqueDelAtlantico extends Filtrador{
         this.ciclo--;
         return false;
     }
+
 }
