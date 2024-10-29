@@ -2,9 +2,7 @@ package piscifactoria;
 
 import java.io.Console;
 import java.util.ArrayList;
-import java.util.Scanner;
 import monedero.Monedas;
-import peces.Pez;
 import peces.especies.dobles.Dorada;
 import peces.especies.dobles.TruchaArcoiris;
 import peces.especies.mar.ArenqueDelAtlantico;

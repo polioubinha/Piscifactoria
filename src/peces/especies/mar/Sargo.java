@@ -6,12 +6,6 @@ import propiedades.PecesDatos;
 
 public class Sargo extends Omnivoro{
     private final PecesDatos datos = AlmacenPropiedades.SARGO;
-    protected int edad = 0;
-    protected boolean maduro = false;
-    protected boolean sexo = false;
-    protected boolean vivo = true;
-    protected int ciclo = 0;
-    protected boolean alimentado = true;
 
     public PecesDatos getDatos() {
         return datos;
