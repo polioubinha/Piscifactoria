@@ -6,12 +6,7 @@ import propiedades.PecesDatos;
 
 public class Carpa extends Omnivoro{
     private final PecesDatos datos = AlmacenPropiedades.CARPA;
-    protected int edad = 0;
-    protected boolean maduro = false;
-    protected boolean sexo = false;
-    protected boolean vivo = true;
-    protected int ciclo = 0;
-    protected boolean alimentado = true;
+
 
     public PecesDatos getDatos(){
         return datos;

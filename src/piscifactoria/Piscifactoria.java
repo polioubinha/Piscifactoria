@@ -2,12 +2,19 @@ package piscifactoria;
 
 import java.io.Console;
 import java.util.ArrayList;
-import java.util.Scanner;
 import monedero.Monedas;
-import peces.Pez;
-import peces.especies.dobles.*;
-import peces.especies.mar.*;
-import peces.especies.rio.*;
+import peces.especies.dobles.Dorada;
+import peces.especies.dobles.TruchaArcoiris;
+import peces.especies.mar.ArenqueDelAtlantico;
+import peces.especies.mar.Besugo;
+import peces.especies.mar.Caballa;
+import peces.especies.mar.Robalo;
+import peces.especies.mar.Sargo;
+import peces.especies.rio.Carpa;
+import peces.especies.rio.CarpaPlateada;
+import peces.especies.rio.Pejerrey;
+import peces.especies.rio.SalmonChinook;
+import peces.especies.rio.TilapiaDelNilo;
 import tanque.Tanque;
 
 public class Piscifactoria {

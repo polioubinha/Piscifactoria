@@ -5,7 +5,6 @@ import java.util.Random;
 import almacenCentral.AlmacenCentral;
 import peces.Pez;
 import piscifactoria.Piscifactoria;
-import propiedades.PecesDatos;
 import tanque.Tanque;
 
 public class Carnivoro extends Pez{
