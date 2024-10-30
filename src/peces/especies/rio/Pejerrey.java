@@ -76,11 +76,16 @@ public class Pejerrey extends Carnivoro{
         System.out.println("Alimentado: " + (this.alimentado ? "Si" : "No"));
     }
 
-    public void comprobarMadurez(int edad){
-        this.setMaduro(this.edad >= this.datos.getMadurez());
+    public void comprobacionMadurez(int años){
+        this.edad = años;
+        if(años >= this.datos.getMadurez()){
+            this.setMaduro(true);
+        }else{
+            this.setMaduro(false);
+        }
     }
 
-    public boolean esOptimo(){
+    public boolean isOptimo(){
         return this.edad==this.datos.getOptimo();
     }
 

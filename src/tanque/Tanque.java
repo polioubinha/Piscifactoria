@@ -10,7 +10,7 @@ import peces.Pez;
 import piscifactoria.Piscifactoria;
 import stats.Stats;
 
-public class Tanque<T extends Pez> {
+public class Tanque extends Pez{
     /** Peces del tanque */
     private ArrayList<Pez> peces = new ArrayList<>();
     /** Capacidad del tanque */
@@ -264,7 +264,7 @@ public class Tanque<T extends Pez> {
             Constructor<? extends Pez> contructor = tipoPez.getDeclaredConstructor(boolean.class);
             return contructor.newInstance(this.sexoNuevoPez());
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Error al generar un nuevo pez");
             return null;
         }
     }
@@ -275,7 +275,7 @@ public class Tanque<T extends Pez> {
 
         for(Pez pez : peces){
             if(pez.isVivo() && capacidadDisponible > 0){
-                if(pez.isMaduro() && pez.reproducirse()){
+                if(pez.reproducirse()){
                     int huevos = pez.getDatos().getHuevos();
 
                     if(huevos <= capacidadDisponible){
@@ -328,7 +328,7 @@ public class Tanque<T extends Pez> {
 
         while(iterator.hasNext()){
             Pez pez = iterator.next();
-            if(pez.isMaduro() && pez.isVivo()){
+            if(pez.isOptimo() && pez.isVivo()){
                 Monedas.getInstance().venta(pez.getDatos().getMonedas());
                 this.vendidos++;
                 this.ganancias += pez.getDatos().getMonedas();
@@ -336,6 +336,7 @@ public class Tanque<T extends Pez> {
             }
         }
     }
+
     public void comprarPez(Pez pez){
         if(Monedas.getInstance().comprobarCompra(pez.getDatos().getCoste())){
             Monedas.getInstance().compra(pez.getDatos().getCoste());;
@@ -350,6 +351,7 @@ public class Tanque<T extends Pez> {
     public void vaciarTanque() {
         this.peces.removeAll(peces);
     }
+
     public void limpiarTanque() {
         if (this.hasDead()) {
             Iterator<Integer> iterator = pecesMuertos.iterator();
@@ -368,30 +370,5 @@ public class Tanque<T extends Pez> {
         }
     }
 
-    public void addComida(int cantidad){
-        int coste;
-        if(cantidad <= 25){
-            coste = cantidad;
-        }else{
-            coste = cantidad - (cantidad / 25) *5;
-        }
-
-        if(Monedas.getInstance().comprobarCompra(coste)){
-            this.almacen += cantidad;
-            Monedas.getInstance().compra(coste);
-
-            if(this.almacen > this.almacenMax){
-                this.almacen = this.almacenMax;
-            }
-            System.out.println("Añadida " + cantidad + " de comida.");
-        }else{
-            System.out.println("No tienes las suficientes monedas para realizar la compra.");
-        }
-    }
-
-    public int nuevoDiaComer(int almacen) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'nuevoDiaComer'");
-    }
 
 }

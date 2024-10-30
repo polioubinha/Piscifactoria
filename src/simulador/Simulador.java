@@ -57,7 +57,7 @@ public class Simulador {
                 }
                 System.out.println("¿Qué desea hacer?");
                 
-                // Mostrar menú de opciones
+                
                 System.out.println("\n--- Menú ---");
                 System.out.println("1. Mostrar estado general");
                 System.out.println("2. Gestionar piscina");
@@ -170,8 +170,11 @@ public class Simulador {
     public void setNombreEmpresa(String nombreEmpresa) {
         this.nombreEmpresa = nombreEmpresa;
     }
+<<<<<<< HEAD
 
     
+=======
+>>>>>>> origin/poli
     
     /**
      * Menú principal del simulador
@@ -354,16 +357,12 @@ public class Simulador {
         }
     }
 
-    //Añadir este método al helper!! @Rober
-    public static int inputOption(int min, int max) {
-        return inputOption(min, max);
-    }
-
     //Metodo para añadir comida
     public void addFood(){
         if(!almacenCentral){
             this.selecPisc();
-            int piscifactoria = inputOption(0, piscifactorias.size());
+            int piscifactoria = Integer.parseInt(sc.nextLine());
+            this.piscifactorias.get(piscifactoria).getAlmacen();
 
             System.out.println("Opciones de comida:");
             System.out.println("1. Añadir 5");
@@ -373,7 +372,7 @@ public class Simulador {
             System.out.println("5. Salir");
             System.out.print("Elige una opción: ");
 
-            int opc = inputOption(1, 5);
+            int opc = Integer.parseInt(sc.nextLine());
 
             switch(opc){
                 case 1:
@@ -404,7 +403,7 @@ public class Simulador {
             System.out.println("5. Salir");
             System.out.print("Elige una opción: ");
 
-            int opcion = inputOption(1, 5);
+            int opcion = Integer.parseInt(sc.nextLine());
             switch (opcion) {
                 case 1:
                     AlmacenCentral.getInstance().comprarComida(5);
@@ -432,14 +431,15 @@ public class Simulador {
         int piscifactoria = 0;
         boolean salida = false;
         do{
+            System.out.println("====== PISCIFACTORÍAS ======");
             this.selecPisc();
-
-            piscifactoria = inputOption(0, piscifactorias.size());
-            if(piscifactoria < 0 || piscifactoria > this.piscifactorias.size()){
-                System.out.println("Índice incorrecto");
-            }else{
+            System.out.print("Selecciona una piscifactoría: ");
+            piscifactoria = Integer.parseInt(sc.nextLine());
+            if (piscifactoria < 0 || piscifactoria > this.piscifactorias.size()) {
+                System.out.println("Índice incorrecto, inserta un valor de los indicados");
+            } else {
                 this.piscifactorias.get(piscifactoria - 1).newFish();
-                salida=true;
+                salida = true;
             }
         }while(!salida);
     }
@@ -554,7 +554,7 @@ public class Simulador {
 
             if (pisc < 1 || pisc > this.piscifactorias.size()) {
                 System.out.println("Inserta un valor válido");
-                continue; // Continúa el bucle si la opción es inválida
+                continue; 
             }
 
             int mejoraOpcion;

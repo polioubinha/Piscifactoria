@@ -7,6 +7,8 @@ import propiedades.PecesDatos;
 public class Robalo extends Carnivoro{
     private final PecesDatos datos = AlmacenPropiedades.ROBALO;
 
+    
+    
     public PecesDatos getDatos(){
         return datos;
     }
@@ -76,11 +78,11 @@ public class Robalo extends Carnivoro{
         System.out.println("Alimentado: " + (this.alimentado ? "Si" : "No"));
     }
 
-    public void comprobarMadurez(int edad){
+    public void comprobacionMadurez(int edad){
         this.setMaduro(this.edad >= this.datos.getMadurez());
     }
 
-    public boolean esOptimo(){
+    public boolean isOptimo(){
         return this.edad==this.datos.getOptimo();
     }
 
