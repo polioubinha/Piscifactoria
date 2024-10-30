@@ -434,38 +434,7 @@ public class Piscifactoria {
                 System.out.println("El tanque está completo. No se pueden añadir más peces.");
             }
         }
-    }
-    public void opcionPez() {
-        Scanner sc = new Scanner(System.in);
-    
-        System.out.println("Seleccione un tanque para añadir el pez:");
-        for (int i = 0; i < tanques.size(); i++) {
-            System.out.println((i + 1) + ". Tanque " + (i + 1));  
-        }
-        int tanque = sc.nextInt() - 1; 
-        sc.nextLine();  
-    
-        System.out.println("Selecciona el tipo de pez para añadir:");
-        System.out.println("1. Carpa");
-        System.out.println("2. Carpa Plateada");
-        System.out.println("3. Pejerrey");
-        System.out.println("4. Salmón Chinook");
-        System.out.println("5. Tilapia del Nilo");
-        System.out.println("6. Dorada");
-        System.out.println("7. Trucha Arcoiris");
-    
-        int tipoPez = sc.nextInt();
-        sc.nextLine();  
-    
-        // Validación de selección de tanque y tipo de pez
-        if (tanque >= 0 && tanque < tanques.size() && tipoPez >= 1 && tipoPez <= 7) {
-            addFish(tanque, tipoPez);  // Llama al método addFish con los parámetros enteros
-        } else {
-            System.out.println("Opción de tanque o tipo de pez no válida.");
-        }
-        
-        sc.close();
-    }
+    }  
     
     
     
@@ -517,10 +486,9 @@ public class Piscifactoria {
             } while (!salida);
         } catch (Exception e) {
             System.out.println("Ocurrió un error inesperado: " + e.getMessage());
-        } finally {
-            scanner.close();
+        } 
         }
-    }
+    
 
     public void addComida(int cantidad){
         int coste;
