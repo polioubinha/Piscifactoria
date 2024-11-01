@@ -21,7 +21,7 @@ public class Monedas{
      */
     public static Monedas getInstance(){
         if(instance == null){
-            instance = new Monedas(1000);
+            instance = new Monedas(100);
         }
         return instance;
     }
@@ -71,7 +71,7 @@ public class Monedas{
      * Añade monedas
      * @param cantidad cantidad de monedas a añadir
      */
-    public void añadirMonedas(int cantidad){
-        this.cantidad += cantidad;
+    public static void añadirMonedas(int cantidad){
+        cantidad += cantidad;
     }
 }

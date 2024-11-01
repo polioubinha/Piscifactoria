@@ -61,13 +61,13 @@ public class Simulador {
                 System.out.println("\n--- Menú ---");
                 System.out.println("1. Mostrar estado general");
                 System.out.println("2. Gestionar piscina");
-                System.out.println("3. Opción 3...");
+                System.out.println("3. Estado tanque");
                 System.out.println("4. Mostrar estadísticas");
-                System.out.println("5. Mostrar ictio");
+                System.out.println("5. Mostrar ictiopedia");
                 System.out.println("6. Avanzar un día");
                 System.out.println("7. Agregar comida");
-                System.out.println("8. Agregar pez");
-                System.out.println("9. Vender");
+                System.out.println("8. Comprar peces");
+                System.out.println("9. Vender peces");
                 System.out.println("10. Limpiar tanque");
                 System.out.println("11. Vaciar tanque");
                 System.out.println("12. Mejorar instalaciones");
@@ -134,12 +134,13 @@ public class Simulador {
                         System.out.println("\n¡Gracias por jugar! ¡Hasta la próxima!");
                         break;
                     case 99:
-                        Monedas.getInstance().añadirMonedas(1000);
+                        Monedas.añadirMonedas(1000);
                         System.out.println("Añadidas 1000 monedas a la cuenta con la opción oculta.");
                     default:
                         System.out.println("\nOpción no válida. Inténtalo de nuevo.");
                         break;
-                }
+                    
+                    }
             } while (salida != 14);
         } catch (IllegalStateException e) {
             System.out.println("\n" + e.getMessage());
