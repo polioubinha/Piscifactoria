@@ -10,7 +10,6 @@ import peces.especies.mar.*;
 import peces.especies.rio.*;
 import piscifactoria.Piscifactoria;
 import propiedades.AlmacenPropiedades;
-import stats.Stats;
 
 public class Simulador {
     /** Array con los nombres de los peces */
@@ -133,6 +132,9 @@ public class Simulador {
                     case 14:
                         System.out.println("\n¡Gracias por jugar! ¡Hasta la próxima!");
                         break;
+                    case 99:
+                        Monedas.getInstance().añadirMonedas(1000);
+                        System.out.println("Añadidas 1000 monedas a la cuenta con la opción oculta.");
                     default:
                         System.out.println("\nOpción no válida. Inténtalo de nuevo.");
                         break;
