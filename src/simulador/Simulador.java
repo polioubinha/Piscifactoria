@@ -10,6 +10,7 @@ import peces.especies.mar.*;
 import peces.especies.rio.*;
 import piscifactoria.Piscifactoria;
 import propiedades.AlmacenPropiedades;
+import stats.Stats;
 
 public class Simulador {
     /** Array con los nombres de los peces */

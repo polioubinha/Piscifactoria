@@ -7,7 +7,8 @@ public class Monedas{
     private static Monedas instance=null;
 
     /**
-     * Constructor de la clase, privado para que no se pueda instanciar 
+     * Constructor privado que crea una instancia de Monedas
+     * 
      * @param cantidad cantidad de monedas
      */
     private Monedas(int cantidad){
