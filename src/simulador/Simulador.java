@@ -218,14 +218,12 @@ public class Simulador {
         System.out.println("--------------------------- Piscifactorías ---------------------------");
         System.out.println("[Peces vivos / Peces totales / Espacio total]");
         
-        // Listado de piscifactorías con el formato deseado
         for (Piscifactoria piscifactoria : piscifactorias) {
             System.out.println(contador + ".- " + piscifactoria.getNombre() + " [" + piscifactoria.pecesVivos() + "/"
                     + piscifactoria.totalPeces() + "/" + piscifactoria.capacidadTotal() + "]");
             contador++;
         }
     
-        // Opción para cancelar
         System.out.println("0.- Cancelar");
     
         try {
