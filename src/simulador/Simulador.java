@@ -103,11 +103,9 @@ public class Simulador {
                     break; 
                 case 98: simulador.pecesAleatorios();break;
                 case 99: Monedas.getInstance().añadirMonedas(1000);
-                
-              
-                
+                default: break;
             }
-        } while (salida != 100);
+        } while (salida != 13);
     }
     
     /**
