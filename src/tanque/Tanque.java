@@ -316,6 +316,8 @@ public class Tanque extends Pez{
                 iterator.remove();
             }
         }
+        System.out.println("Se han vendido " + this.vendidos + " peces óptimos y se han ganado " + this.ganancias + " monedas");
+
     }
 
     /**
@@ -328,13 +330,14 @@ public class Tanque extends Pez{
 
         while(iterator.hasNext()){
             Pez pez = iterator.next();
-            if(pez.isOptimo() && pez.isVivo()){
-                Monedas.getInstance().venta(pez.getDatos().getMonedas());
+            if(pez.isMaduro() && pez.isVivo()){
+                Monedas.getInstance().venta(pez.getDatos().getMonedas()/2);
                 this.vendidos++;
                 this.ganancias += pez.getDatos().getMonedas();
                 iterator.remove();
             }
         }
+        System.out.println("Se han vendido " + this.vendidos + " peces y se han ganado " + this.ganancias + " monedas");
     }
 
     public void comprarPez(Pez pez){

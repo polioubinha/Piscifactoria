@@ -71,7 +71,7 @@ public class Monedas{
      * Añade monedas
      * @param cantidad cantidad de monedas a añadir
      */
-    public static void añadirMonedas(int cantidad){
-        cantidad += cantidad;
+    public void añadirMonedas(int cantidad){
+        this.cantidad += cantidad;
     }
 }
