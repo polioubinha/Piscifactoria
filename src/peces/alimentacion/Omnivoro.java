@@ -8,12 +8,18 @@ import piscifactoria.Piscifactoria;
 import tanque.Tanque;
 
 public abstract class Omnivoro extends Pez{
-
+    /**
+     * Probabilidad de que el pez no coma
+     * @return probabilidad
+     */
     private boolean noComer(){
         Random r = new Random();
         return r.nextInt(1,4) == 1;
     }
 
+    /**
+     * Realiza la acción de crecer de un pez
+     */
     @Override
     public void grow(Tanque tanque, Piscifactoria piscifactoria, Boolean almacenCentral){
         if(!this.noComer()){
@@ -54,6 +60,9 @@ public abstract class Omnivoro extends Pez{
         }
     }
 
+    /**
+     * Realiza la acción de reproducirse de un pez
+     */
     @Override
     public boolean reproducirse(){
         return super.reproducirse();

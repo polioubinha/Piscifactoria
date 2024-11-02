@@ -9,6 +9,9 @@ import tanque.Tanque;
 
 public class Filtrador extends Pez{
     
+    /**
+     * Realiza la acción de crecer de un pez
+     */
     @Override
     public void grow(Tanque tanque, Piscifactoria piscifactoria, Boolean almacenCentral){
         Random r = new Random();
@@ -19,6 +22,15 @@ public class Filtrador extends Pez{
         }
     }
 
+    /**
+     * Método para alimentar al pez
+     * 
+     * @param tanque tanque en el que se encuentra el pez
+     * @param piscifactoria piscifactoria en la que se encuentra el pez
+     * @param almacenCentral si el pez se alimenta del almacen central
+     * 
+     * @return true si se ha alimentado, false si no
+     */
     @Override
     public void comer(Tanque tanque, Piscifactoria piscifactoria, Boolean almacenCentral){
         

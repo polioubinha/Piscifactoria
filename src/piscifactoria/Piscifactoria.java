@@ -31,7 +31,6 @@ public class Piscifactoria {
 
     /**
      * Constructor de la piscifactoria
-     * 
      * @param rio true si es un rio, false si es de mar
      * @param nombre nombre de la piscifactoria
      */
@@ -50,42 +49,81 @@ public class Piscifactoria {
         }
     }
 
+    /**
+     * Devuelve si la piscifacctoría es de rio
+     * @return true si es de rio, false en caso contrario
+     */
     public boolean isRio() {
         return rio;
     }
 
+    /**
+     * Devuelve el nombre de la piscifactoria
+     * @return nombre 
+     */
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     * Modifica el nombre
+     * @param nombre
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    /**
+     * Devuelve la cantidad en el almacen
+     * @return
+     */
     public int getAlmacen() {
         return almacen;
     }
 
+    /**
+     * Cambia la cantidad del almacen
+     * @param almacen
+     */
     public void setAlmacen(int almacen) {
         this.almacen = almacen;
     }
 
+    /**
+     * Obtiene la capacidad maxima del almacen
+     * @return almacenMax
+     */
     public int getAlmacenMax() {
         return almacenMax;
     }
 
+    /**
+     * Cambia la cantidad maxima del almacen
+     * @param alamacenMax
+     */
     public void setAlamacenMax(int alamacenMax) {
         this.almacenMax = alamacenMax;
     }
 
+    /**
+     * Devuelve la lista de tanques
+     * @return tanques
+     */
     public ArrayList<Tanque> getTanques() {
         return tanques;
     }
 
+    /**
+     * Cambia la lista de tanques
+     * @param tanques nueva lista de tanques
+     */
     public void setTanques(ArrayList<Tanque> tanques) {
         this.tanques = tanques;
     }
 
+    /**
+     * Añade un tanque a la lista
+     */
     public void añadirTanque(){
         if (this.rio) {
             this.tanques.add(new Tanque(25));
@@ -94,6 +132,10 @@ public class Piscifactoria {
         }
     }
 
+    /**
+     * Avanza un día
+     * @param almacenCentral
+     */
     public void nextDay(Boolean almacenCentral){
         for(int i=0; i < this.tanques.size(); i++){
             if(this.almacen != 0){
@@ -106,6 +148,9 @@ public class Piscifactoria {
         this.gananciasDiarias();
     }
 
+    /**
+     * Muestra las ganancias diarias
+     */
     private void gananciasDiarias() {
         int ganancias = 0;
         int cantidad = 0;
@@ -142,7 +187,6 @@ public class Piscifactoria {
 
     /**
      * Obtiene la cantidad total de peces adultos de la piscifactoria
-     * 
      * @return cantidad total de peces adultos
      */
     public int adultosTotales(){
@@ -155,9 +199,8 @@ public class Piscifactoria {
         return cantidad;
     }
 
-    /*
+    /**
      * Obtiene la cantidad total de hembras de la piscifactoria
-     * 
      * @return cantidad total de hembras
      */
     public int totalHembras(){
@@ -170,9 +213,8 @@ public class Piscifactoria {
         return cantidad;
     }
 
-    /*
+    /**
      * Obtiene la cantidad total de machos de la piscifactoria
-     * 
      * @return cantidad total de machos
      */
     public int totalMachos(){
@@ -185,9 +227,8 @@ public class Piscifactoria {
         return cantidad;
     }
 
-    /*
+    /**
      * Devuelve la cantidad total de peces en la piscifactoria
-     * 
      * @return cantidad total de peces
      */
     public int totalPeces(){
@@ -199,7 +240,7 @@ public class Piscifactoria {
         return cantidad;
     }
 
-    /*
+    /**
      * @return La cantidad total de peces vivos en la piscifactoria
      */
     public int pecesVivos(){
@@ -212,7 +253,7 @@ public class Piscifactoria {
         return cantidad;
     }
 
-    /*
+    /**
      * @return Cantidad total de peces alimentados de la piscifactoría
      */
     public int totalAlimentados(){
@@ -225,9 +266,8 @@ public class Piscifactoria {
         return cantidad;
     }
 
-    /*
+    /**
      * Devuelve la capacidad total de la piscifactoria
-     * 
      * @return capacidad total de la piscifactoria
      */
     public int capacidadTotal(){
@@ -256,7 +296,7 @@ public class Piscifactoria {
         return porcentaje;
     }
 
-    /*
+    /**
      * Se muestra la lista de tanques de la piscifactoría
      */
     public void listTanks() {
@@ -271,7 +311,7 @@ public class Piscifactoria {
     }
     
 
-    /*
+    /**
      * Compra de un nuevo tanque de peces en la piscifactoria
      */
     public void comprarTanque(){
@@ -300,6 +340,9 @@ public class Piscifactoria {
         }
     }
 
+    /**
+     * Elimina los peces muertos de la piscifactoría
+     */
     public void limpiarTanques() {
         for(Tanque tanque: tanques){
             tanque.limpiarTanque();
@@ -307,12 +350,18 @@ public class Piscifactoria {
   
     }
 
+    /**
+     * Vacía los tanques de la piscifactoría
+     */
     public void vaciarTanques() {
         for(Tanque tanque: tanques){
             tanque.vaciarTanque();
         }      
     }
 
+    /**
+     * Muestra las opciones de peces disponibles
+     */
     public void opcionPez(){
         if(this.rio){
             System.out.println("====== PECES RIO ======");
@@ -335,12 +384,18 @@ public class Piscifactoria {
         }
     }   
 
+    /**
+     * Vende los peces que sean adultos
+     */
     public void venderAdultos() {
         for(Tanque tanque : tanques){
             tanque.venderAdultos();
         }
     }
 
+    /**
+     * Aumenta la capacidad maxima del almacen
+     */
     public void upgradeFood() {
         if(this.rio){
             if(Monedas.getInstance().comprobarCompra(100)){
@@ -374,6 +429,12 @@ public class Piscifactoria {
             }
         }
     }
+
+    /**
+     * Añade un pez a la piscifactoria
+     * @param tanque
+     * @param pez
+     */
    public void addFish(int tanque, int pez){
         if(this.rio){
             if(this.tanques.get(tanque).getPeces().size() < this.tanques.get(tanque).getCapacidad()){
@@ -438,8 +499,9 @@ public class Piscifactoria {
         }
     }  
     
-    
-    
+    /**
+     * Añade un pez nuevo
+     */
     public void newFish() {
         Console c = System.console();
         int opcion = 0;
@@ -492,6 +554,10 @@ public class Piscifactoria {
         }
     
 
+    /**
+     * Añade comida al almacén
+     * @param cantidad cantidad de comida
+     */
     public void addComida(int cantidad){
         int coste;
         if(cantidad <= 25){

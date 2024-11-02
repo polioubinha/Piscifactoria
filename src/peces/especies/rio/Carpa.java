@@ -5,54 +5,91 @@ import propiedades.AlmacenPropiedades;
 import propiedades.PecesDatos;
 
 public class Carpa extends Omnivoro{
+    /** Datos del pez */
     private final PecesDatos datos = AlmacenPropiedades.CARPA;
 
-
+    /**
+     * Devuelve los datos del pez
+     */
     public PecesDatos getDatos(){
         return datos;
     }
 
+    /**
+     * Constructor de la clase
+     * @param sexo
+     */
     public Carpa(boolean sexo){
         this.sexo=sexo;
         this.ciclo=this.datos.getCiclo();
     }
 
+    /**
+     * Devuelve si el pez está alimentado
+     */
     public boolean isAlimentado(){
         return alimentado;
     }
 
+    /**
+     * Devuelve la edad del pez
+     */
     public int getEdad(){
         return edad;
     }
 
+    /**
+     * Modifica la edad del pez
+     */
     public void setEdad(int edad){
         this.edad=edad;
     }
 
-    public boolean isVivo(){
+    /**
+     * Devuelve si el pez está vivo
+     */
+    public boolean isVivo() {
         return vivo;
     }
 
-    public void setVivo(boolean vivo){
-        this.vivo=vivo;
+    /**
+     * Modifica el estado de vida del pez
+     */
+    public void setVivo(boolean vivo) {
+        this.vivo = vivo;
     }
 
-    public boolean isMaduro(){
+    /**
+     * Devuelve si el pez es maduro
+     */
+    public boolean isMaduro() {
         return maduro;
     }
 
-    public void setMaduro(boolean maduro){
-        this.maduro=maduro;
+    /**
+     * Modifica el estado de madurez del pez
+     */
+    public void setMaduro(boolean maduro) {
+        this.maduro = maduro;
     }
 
-    public boolean isSexo(){
+    /**
+     * Devuelve el sexo del pez
+     */
+    public boolean isSexo() {
         return sexo;
     }
 
-    public String getSexo(){
+    /**
+     * Devuelve un String del sexo del pez
+     */
+    public String getSexo() {
         return this.sexo ? "Macho" : "Hembra";
     }
 
+    /**
+     * Muestra los datos del pez
+     */
     public static void datos(){
         PecesDatos datos = AlmacenPropiedades.CARPA;
         System.out.println("------------");
@@ -67,6 +104,9 @@ public class Carpa extends Omnivoro{
         System.out.println("Óptimo: " + datos.getOptimo());
     }
 
+    /**
+     * Muestra el estado del pez
+     */
     public void showStatus(){
         System.out.println("------" + this.datos.getNombre() + "------");
         System.out.println("Edad: " + this.edad + " días");
@@ -77,21 +117,29 @@ public class Carpa extends Omnivoro{
         System.out.println("Alimentado: " + (this.alimentado ? "Si" : "No"));
     }
 
+    /**
+     * Comprueba la madurez del pez
+     */
     public void comprobacionMadurez(int edad){
         this.setMaduro(this.edad >= this.datos.getMadurez());
     }
 
+    /**
+     * Devuelve si el pez es optimo
+     */
     public boolean isOptimo(){
         return this.edad==this.datos.getOptimo();
     }
 
+    /**
+     * Devuelve si el pez puede reproducirse
+     */
     public boolean reproducirse(){
         if(this.maduro && this.edad % this.datos.getCiclo()==0 && !this.sexo){
             this.ciclo=this.datos.getCiclo();
             return true;
-        }else{
-            this.ciclo--;
-            return false;
         }
+        this.ciclo--;
+        return false;
     }
 }

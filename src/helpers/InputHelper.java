@@ -5,8 +5,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class InputHelper {
+    /** BufferedReader para leer entradasa */
     private BufferedReader reader;
 
+    /**
+     * Constructor de la clase
+     */
     public InputHelper() {
         this.reader = new BufferedReader(new InputStreamReader(System.in));
     }
@@ -14,7 +18,7 @@ public class InputHelper {
     /**
      * Obtiene un input de tipo String
      * @param prompt 
-     * @return
+     * @return 
      */
     public String getStringInput(String prompt) {
         String input = null;
