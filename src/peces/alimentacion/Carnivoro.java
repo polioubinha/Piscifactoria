@@ -8,7 +8,6 @@ import piscifactoria.Piscifactoria;
 import tanque.Tanque;
 
 public class Carnivoro extends Pez{
-
     /**
      * Método para alimentar al pez
      * 

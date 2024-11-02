@@ -232,6 +232,11 @@ public class Tanque extends Pez{
         return machos < hembras;
     }
 
+    /**
+     * Hace crecer al pez si está vivo
+     * @param piscifactoria
+     * @param almacenCentral
+     */
     public void nextFood(Piscifactoria piscifactoria, Boolean almacenCentral) {
         for(Pez pez :peces){
             if(pez.isVivo()){
@@ -269,6 +274,9 @@ public class Tanque extends Pez{
         }
     }
 
+    /**
+     * Realiza la logica de la reproduccion de los peces
+     */
     public void nextDayReproduccion() {
         int capacidadDisponible = this.capacidad - this.peces.size();
         List<Pez> nuevosPeces = new ArrayList<>();
@@ -340,6 +348,10 @@ public class Tanque extends Pez{
         System.out.println("Se han vendido " + this.vendidos + " peces y se han ganado " + this.ganancias + " monedas");
     }
 
+    /**
+     * Compra un pez
+     * @param pez comprado
+     */
     public void comprarPez(Pez pez){
         if(Monedas.getInstance().comprobarCompra(pez.getDatos().getCoste())){
             Monedas.getInstance().compra(pez.getDatos().getCoste());;
@@ -351,10 +363,17 @@ public class Tanque extends Pez{
             System.out.println("No se ha podido realizar la comprar, no tienes las suficientes monedas.");
         }
     }
+
+    /**
+     * Vacía un tanque 
+     */
     public void vaciarTanque() {
         this.peces.removeAll(peces);
     }
 
+    /**
+     * Limpia el tanque
+     */
     public void limpiarTanque() {
         if (this.hasDead()) {
             Iterator<Integer> iterator = pecesMuertos.iterator();
@@ -365,6 +384,12 @@ public class Tanque extends Pez{
             }
         }
     }
+
+    /**
+     * Realiza la logica de alimentación del nuevo día
+     * @param piscifactoria
+     * @param almacenCentral
+     */
     public void nuevoDiaComer(Piscifactoria piscifactoria, Boolean almacenCentral) {
         for(Pez pez : peces){
             if(pez.isVivo()){
@@ -372,7 +397,5 @@ public class Tanque extends Pez{
             }
         }
     }
-    
-    
 
 }

@@ -8,7 +8,6 @@ import piscifactoria.Piscifactoria;
 import tanque.Tanque;
 
 public abstract class Omnivoro extends Pez{
-
     /**
      * Probabilidad de que el pez no coma
      * @return probabilidad
