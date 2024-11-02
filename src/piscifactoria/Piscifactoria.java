@@ -428,8 +428,10 @@ public class Piscifactoria {
                 System.out.println("El tanque está completo. No se pueden añadir más peces.");
             }
         }
-    }
-   
+    }  
+    
+    
+    
     public void newFish() {
         Console c = System.console();
         int opcion = 0;
@@ -478,8 +480,9 @@ public class Piscifactoria {
             } while (!salida);
         } catch (Exception e) {
             System.out.println("Ocurrió un error inesperado: " + e.getMessage());
+        } 
         }
-    }
+    
 
     public void addComida(int cantidad){
         int coste;

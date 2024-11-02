@@ -8,7 +8,8 @@ public class Monedas{
     private static Monedas instance=null;
 
     /**
-     * Constructor de la clase, privado para que no se pueda instanciar 
+     * Constructor privado que crea una instancia de Monedas
+     * 
      * @param cantidad cantidad de monedas
      */
     private Monedas(int cantidad){
@@ -21,7 +22,7 @@ public class Monedas{
      */
     public static Monedas getInstance(){
         if(instance == null){
-            instance = new Monedas(1000);
+            instance = new Monedas(100);
         }
         return instance;
     }
@@ -71,7 +72,7 @@ public class Monedas{
      * Añade monedas
      * @param cantidad cantidad de monedas a añadir
      */
-    public void añadirMonedas(int cantidad){
-        this.cantidad += cantidad;
+    public static void añadirMonedas(int cantidad){
+        cantidad += cantidad;
     }
 }

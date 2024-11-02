@@ -111,9 +111,10 @@ public abstract class Pez {
      * Comprobación de madurez del pez
      * @return true si es maduro, false si no lo es
      */
-    public void comprobacionMadurez(int edad){
-        if(edad >= this.datos.getMadurez()){
+    public void comprobacionMadurez(int años) {
+        if (años >= this.datos.getMadurez()) {
             this.setMaduro(true);
+
         } else {
             this.setMaduro(false);
         }
