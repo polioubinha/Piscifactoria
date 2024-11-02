@@ -259,15 +259,17 @@ public class Piscifactoria {
     /*
      * Se muestra la lista de tanques de la piscifactoría
      */
-    public void listTanks(){
-        for(int i = 0; i < this.tanques.size(); i++){
-            if(this.tanques.get(i).getPeces().size() == 0){
-                System.out.println(i + ". Tanque vacío");
-            }else{
-                System.out.println(i + ". Pez: " + this.tanques.get(i).getPeces().get(0).getDatos().getNombre());
+    public void listTanks() {
+        for (int i = 0; i < this.tanques.size(); i++) {
+            // Ajustar la numeración para que comience desde 1
+            if (this.tanques.get(i).getPeces().size() == 0) {
+                System.out.println((i + 1) + ". Tanque vacío");
+            } else {
+                System.out.println((i + 1) + ". Pez: " + this.tanques.get(i).getPeces().get(0).getDatos().getNombre());
             }
         }
     }
+    
 
     /*
      * Compra de un nuevo tanque de peces en la piscifactoria
