@@ -3,8 +3,7 @@ package monedero;
 public class Monedas{
     /** Cantidad de monedas */
     private int cantidad;
-
-    // Singleton
+    /** Singleton */
     private static Monedas instance=null;
 
     /**

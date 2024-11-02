@@ -5,8 +5,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class InputHelper {
+    /** BufferedReader para leer entradasa */
     private BufferedReader reader;
 
+    /**
+     * Constructor de la clase
+     */
     public InputHelper() {
         this.reader = new BufferedReader(new InputStreamReader(System.in));
     }

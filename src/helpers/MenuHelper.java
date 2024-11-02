@@ -3,12 +3,15 @@ import java.util.Scanner;
 import java.util.List;
 
 public class MenuHelper {
+    /** Scanner para leer entradas */
     private Scanner scanner;
 
+    /**
+     * Constructor de la clase
+     */
     public MenuHelper() {
         this.scanner = new Scanner(System.in);
     }
-
     
     /**
      * Muestra un menú y obtiene la opción seleccionada

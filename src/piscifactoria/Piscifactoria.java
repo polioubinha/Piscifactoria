@@ -49,22 +49,42 @@ public class Piscifactoria {
         }
     }
 
+    /**
+     * Devuelve si la piscifacctoría es de rio
+     * @return true si es de rio, false en caso contrario
+     */
     public boolean isRio() {
         return rio;
     }
 
+    /**
+     * Devuelve el nombre de la piscifactoria
+     * @return nombre 
+     */
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     * Modifica el nombre
+     * @param nombre
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    /**
+     * Devuelve la cantidad en el almacen
+     * @return
+     */
     public int getAlmacen() {
         return almacen;
     }
 
+    /**
+     * Cambia la cantidad del almacen
+     * @param almacen
+     */
     public void setAlmacen(int almacen) {
         this.almacen = almacen;
     }
