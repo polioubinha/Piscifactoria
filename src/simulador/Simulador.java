@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import almacenCentral.AlmacenCentral;
 import monedero.Monedas;
 import helpers.InputHelper;
-import peces.Pez;
 import peces.especies.dobles.*;
 import peces.especies.mar.*;
 import peces.especies.rio.*;
@@ -83,18 +82,14 @@ public class Simulador {
                     break;
                 case 13:
                     System.out.println("\n¡Gracias por jugar! ¡Hasta la próxima!");
-                    break;
-                    
+                    break; 
+                case 99: Monedas.getInstance().añadirMonedas(1000); break;
+    
                 
+              
                 
-                
-                
-                
-                
-                
-                    case 99: Monedas.getInstance().añadirMonedas(1000); break;
             }
-        } while (salida != 13);
+        } while (salida != 99);
     }
     
     public void init(){
