@@ -3,6 +3,7 @@ import peces.especies.dobles.*;
 import peces.especies.mar.*;
 import peces.especies.rio.*;
 import almacenCentral.*;
+import registro.*;
 import helpers.MenuHelper;
 import monedero.Monedas;
 import piscifactoria.Piscifactoria;
@@ -10,17 +11,20 @@ import stats.Stats;
 import tanque.Tanque;
 import java.util.ArrayList;
 
+
 public class Simulador {
     private MenuHelper menuHelper;
     private ArrayList<Piscifactoria> piscifactorias;
     private int dias;
     private boolean almacenCentral;
+    private Registro registro;
 
     public Simulador() {
         menuHelper = new MenuHelper();
         piscifactorias = new ArrayList<>();
         dias = 0;
         almacenCentral = false;
+        registro = new Registro("transcripciones", "logs","partida1");
         try {
             init();
         } catch (IllegalArgumentException e) {
@@ -38,6 +42,7 @@ public class Simulador {
             throw new IllegalArgumentException("Error al inicializar las estadísticas: " + e.getMessage());
         }
         Monedas.getInstance();
+        registro.registrarAccion("Inicialización completada: Empresa - " + nombreEmpresa + ", Piscifactoría - " + nombrePiscifactoria);
     }
 
     public void mainLoop() {
@@ -116,12 +121,14 @@ public class Simulador {
         }
 
         menuHelper.cerrarScanner();
+        registro.cerrarRegistro();
     }
 
     private void addHiddenCoins() {
         Monedas.getInstance().añadirMonedas(1000);
         System.out.println("1000 monedas añadidas exitosamente.");
         System.out.println("Total de monedas actuales: " + Monedas.getInstance().getCantidad());
+        registro.registrarAccion("Añadir monedas ocultas: +1000");
     }
 
     private void showGeneralStatus() {
@@ -135,7 +142,7 @@ public class Simulador {
     private void menuPisc() {
         for (Piscifactoria piscifactoria : piscifactorias) {
             piscifactoria.listTanks();
-            for (Tanque tanque : piscifactoria.getTanques()) {
+            for (Tanque tanque : piscifactorias.get(0).getTanques()) {
                 tanque.showStatus();
             }
         }
@@ -171,11 +178,12 @@ public class Simulador {
         for (int i = 0; i < dias; i++) {
             for (Piscifactoria piscifactoria : piscifactorias) {
                 piscifactoria.nextDay(almacenCentral);
-                for (Tanque tanque : piscifactoria.getTanques()) {
-                    tanque.nextFood(piscifactoria, almacenCentral);
+                for (Tanque tanque : piscifactorias.get(0).getTanques()) {
+                    tanque.nextFood(piscifactorias.get(0), almacenCentral);
                 }
             }
             this.dias++;
+            registro.registrarAccion("Avanzar un día: Día " + this.dias);
         }
     }
 
@@ -211,16 +219,17 @@ public class Simulador {
     private void sell() {
         for (Piscifactoria piscifactoria : piscifactorias) {
             piscifactoria.venderAdultos();
-            for (Tanque tanque : piscifactoria.getTanques()) {
+            for (Tanque tanque : piscifactorias.get(0).getTanques()) {
                 tanque.venderOptimos();
             }
         }
+        registro.registrarAccion("Venta de peces adultos realizada.");
     }
 
     private void cleanTank() {
         for (Piscifactoria piscifactoria : piscifactorias) {
             piscifactoria.limpiarTanques();
-            for (Tanque tanque : piscifactoria.getTanques()) {
+            for (Tanque tanque : piscifactorias.get(0).getTanques()) {
                 tanque.limpiarTanque();
             }
         }
@@ -229,7 +238,7 @@ public class Simulador {
     private void emptyTank() {
         for (Piscifactoria piscifactoria : piscifactorias) {
             piscifactoria.vaciarTanques();
-            for (Tanque tanque : piscifactoria.getTanques()) {
+            for (Tanque tanque : piscifactorias.get(0).getTanques()) {
                 tanque.vaciarTanque();
             }
         }
@@ -239,8 +248,8 @@ public class Simulador {
         int pisc = menuHelper.pedirNumero("Seleccione la piscifactoría para mejorar: ", 1, piscifactorias.size());
         int mejoraOpcion = menuHelper.mostrarMenu(new String[]{"Comprar tanque", "Aumentar almacén", "Cancelar"});
         switch (mejoraOpcion) {
-            case 1: piscifactorias.get(pisc - 1).comprarTanque(); break;
-            case 2: piscifactorias.get(pisc - 1).upgradeFood(); break;
+            case 1: piscifactorias.get(pisc - 1).comprarTanque(); registro.registrarAccion("Compra de tanque realizada en piscifactoría: " + pisc); break;
+            case 2: piscifactorias.get(pisc - 1).upgradeFood(); registro.registrarAccion("Almacén mejorado en piscifactoría: " + pisc); break;
             case 3: break;
         }
     }
