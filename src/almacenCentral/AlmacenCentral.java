@@ -18,8 +18,8 @@ public class AlmacenCentral {
      * 
      * @return instancia de AlmacenCentral
      */
-    public static AlmacenCentral getInstance(){
-        if(instance==null){
+    public static AlmacenCentral getInstance() {
+        if (instance == null) {
             instance = new AlmacenCentral();
         }
         return instance;
@@ -28,7 +28,7 @@ public class AlmacenCentral {
     /**
      * Constructor de la clase, inicializamos la capacidad y la capacidad máxima
      */
-    private AlmacenCentral(){
+    private AlmacenCentral() {
         this.capacidad = 200;
         this.capacidadMax = 200;
     }
@@ -38,7 +38,7 @@ public class AlmacenCentral {
      * 
      * @return capacidad del almacen
      */
-    public int getCapacidad(){
+    public int getCapacidad() {
         return capacidad;
     }
 
@@ -47,8 +47,14 @@ public class AlmacenCentral {
      * 
      * @param capacidad del almacen
      */
-    public void setCapacidad(int capacidad){
-        this.capacidad = capacidad;
+    public void setCapacidad(int capacidad) {
+        if (capacidad > this.capacidadMax) {
+            this.capacidad = this.capacidadMax;
+        } else if (capacidad < 0) {
+            this.capacidad = 0;
+        } else {
+            this.capacidad = capacidad;
+        }
     }
 
     /**
@@ -56,7 +62,7 @@ public class AlmacenCentral {
      * 
      * @return capacidad máxima del almacen
      */
-    public int getCapacidadMax(){
+    public int getCapacidadMax() {
         return capacidadMax;
     }
 
@@ -65,17 +71,11 @@ public class AlmacenCentral {
      * 
      * @param capacidad máxima del almacen
      */
-    public void setCapacidadMax(int capacidadMax){
+    public void setCapacidadMax(int capacidadMax) {
+        if (capacidadMax < this.capacidad) {
+            throw new IllegalArgumentException("Capacidad máxima no puede ser menor a la capacidad actual.");
+        }
         this.capacidadMax = capacidadMax;
-    }
-
-    /**
-     * Añadimos capacidad al almacen
-     * 
-     * @param capacidad a añadir
-     */
-    public void añadirCapacidad(int capacidad){
-        this.capacidad += capacidad;
     }
 
     /**
@@ -83,7 +83,7 @@ public class AlmacenCentral {
      * 
      * @param cantidad a aumentar
      */
-    public void aumentarCapacidad(int cantidad){
+    public void aumentarCapacidad(int cantidad) {
         this.capacidadMax += cantidad;
     }
 
@@ -92,8 +92,12 @@ public class AlmacenCentral {
      * 
      * @param cantidad de comida a agregar
      */
-    public void agregarComida(int cantidad){
-        this.capacidad += cantidad;
+    public void agregarComida(int cantidad) {
+        if (capacidad + cantidad > capacidadMax) {
+            capacidad = capacidadMax;
+        } else {
+            capacidad += cantidad;
+        }
     }
 
     /**
@@ -101,37 +105,32 @@ public class AlmacenCentral {
      * 
      * Para realizar la mejora se necesita 200 monedas
      */
-    public void upgrade(){
-        if(Monedas.getInstance().comprobarCompra(200)){
+    public void upgrade() {
+        if (Monedas.getInstance().comprobarCompra(200)) {
             Monedas.getInstance().compra(200);
             this.aumentarCapacidad(50);
-        }else{
+        } else {
             System.out.println("No tienes suficientes monedas");
         }
     }
 
     /**
-     * Compramos una cantidad de  comida para el almacen
+     * Compramos una cantidad de comida para el almacen
      * 
      * @param cantidad de comida a comprar
      */
-    public void comprarComida(int cantidad){
-        int coste;
-        if(cantidad <= 25){
-            coste = cantidad;
-        }else{
-            coste = cantidad - (cantidad / 25) * 5;
-        }
+    public void comprarComida(int cantidad) {
+        int coste = (cantidad <= 25) ? cantidad : cantidad - (cantidad / 25) * 5;
 
-        if(Monedas.getInstance().comprobarCompra(coste)){
-            this.capacidad -= cantidad;
-            Monedas.getInstance().compra(coste);
-            if(this.capacidad > this.capacidadMax){
-                this.capacidad = this.capacidadMax;
+        if (Monedas.getInstance().comprobarCompra(coste)) {
+            if (this.capacidad + cantidad > this.capacidadMax) {
+                cantidad = this.capacidadMax - this.capacidad;
             }
-            System.out.println("Has comprado " + cantidad + " de comida");
-        }else{
-            System.out.println("No tienes suficientes monedas");
+            this.capacidad += cantidad;
+            Monedas.getInstance().compra(coste);
+            System.out.println("Has comprado " + cantidad + " de comida.");
+        } else {
+            System.out.println("No tienes suficientes monedas. El coste es: " + coste + ".");
         }
     }
 }
