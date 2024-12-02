@@ -43,7 +43,7 @@ public class Simulador {
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Error al inicializar las estadísticas: " + e.getMessage());
         }
-        Monedas.getInstance();
+       Monedas.getInstance();
         registro.registrarAccion("Inicialización completada: Empresa - " + nombreEmpresa + ", Piscifactoría - " + nombrePiscifactoria);
     }
 
@@ -61,8 +61,8 @@ public class Simulador {
             "Vaciar tanque",
             "Mejorar instalaciones",
             "Avanzar varios días",
+            "Añadir truco monedas",
             "Salir",
-            "Añadir monedas ocultas (99)"
         };
 
         boolean salir = false;
@@ -75,7 +75,7 @@ public class Simulador {
             registro.registrarAccion("Opción seleccionada en el menú: " + opcion);
 
             switch (opcion) {
-                case 99:
+                case 13:
                     addHiddenCoins();
                     break;
                 case 1:
@@ -117,7 +117,7 @@ public class Simulador {
                     registro.registrarAccion("Avanzar varios días: " + dias);
                     nextDay(dias);
                     break;
-                case 13:
+                case 14:
                     salir = true;
                     registro.registrarAccion("Salir del simulador");
                     break;
@@ -130,7 +130,7 @@ public class Simulador {
         registro.cerrarRegistro();
     }
 
-    private void addHiddenCoins() {
+    public void addHiddenCoins() {
         Monedas.getInstance().añadirMonedas(1000);
         System.out.println("1000 monedas añadidas exitosamente.");
         System.out.println("Total de monedas actuales: " + Monedas.getInstance().getCantidad());
