@@ -300,7 +300,6 @@ public class Piscifactoria {
      */
     public void listTanks() {
         for (int i = 0; i < this.tanques.size(); i++) {
-            // Ajustar la numeración para que comience desde 1
             if (this.tanques.get(i).getPeces().size() == 0) {
                 System.out.println((i + 1) + ". Tanque vacío");
             } else {
