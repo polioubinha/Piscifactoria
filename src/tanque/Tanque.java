@@ -89,18 +89,19 @@ public class Tanque extends Pez{
     }
 
     /**
-     * Calcula el porcentaje en función de dos números enteros.
-     *
-     * @param numero1 El primer número.
-     * @param numero2 El segundo número (denominador).
-     * @return El porcentaje calculado, redondeado a un decimal.
+     * Calcula un porcentaje 
+     * @param cantidad 
+     * @param total 
+     * @return porcentaje calculado
      */
-    public double porcentaje(int numero1, int numero2) {
-        if (numero2 == 0) {
-            return 0.0; // Evitamos la división por cero
+    public double porcentaje(int cantidad, int total) {
+        if (total == 0) {
+            return 0.0;
         }
-
-        return Math.round(((double) numero1 / numero2) * 1000) / 10.0;
+        double porcentaje = (double) cantidad / total * 100;
+        porcentaje = Math.round(porcentaje * 100.0) / 100.0;
+        
+        return porcentaje;
     }
 
     /**
