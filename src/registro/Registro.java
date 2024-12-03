@@ -8,12 +8,14 @@ import java.time.format.DateTimeFormatter;
 import java.io.File;
 
 public class Registro {
+    private static Registro instance;
     private BufferedWriter transcripcionWriter;
     private BufferedWriter logWriter;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    public Registro(String transcripcionDir, String logDir, String nombrePartida) {
+    private Registro(String transcripcionDir, String logDir, String nombrePartida) {
         try {
+            // Verificar y crear directorios si no existen
             File transDir = new File(transcripcionDir);
             if (!transDir.exists()) {
                 transDir.mkdirs();
@@ -29,7 +31,14 @@ public class Registro {
         }
     }
 
-    public void registrarAccion(String accion) {
+    public static Registro getInstance(String transcripcionDir, String logDir, String nombrePartida) {
+        if (instance == null) {
+            instance = new Registro(transcripcionDir, logDir, nombrePartida);
+        }
+        return instance;
+    }
+
+    public void registrarTranscripcion(String accion) {
         String tiempo = LocalDateTime.now().format(formatter);
         String registro = "[" + tiempo + "] " + accion;
         try {
@@ -37,12 +46,21 @@ public class Registro {
                 transcripcionWriter.write(registro + "\n");
                 transcripcionWriter.flush();
             }
+        } catch (IOException e) {
+            System.out.println("Error al registrar la acción en la transcripción: " + e.getMessage());
+        }
+    }
+
+    public void registrarLog(String accion) {
+        String tiempo = LocalDateTime.now().format(formatter);
+        String registro = "[" + tiempo + "] " + accion;
+        try {
             if (logWriter != null) {
                 logWriter.write(registro + "\n");
                 logWriter.flush();
             }
         } catch (IOException e) {
-            System.out.println("Error al registrar la acción: " + e.getMessage());
+            System.out.println("Error al registrar la acción en el log: " + e.getMessage());
         }
     }
 
