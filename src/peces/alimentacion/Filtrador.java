@@ -45,4 +45,8 @@ public class Filtrador extends Pez{
             }
         }
     }
+
+    public static void getTipoAlimentacion(){
+        System.out.println("Tipo de alimentación: Filtrador");
+    }
 }

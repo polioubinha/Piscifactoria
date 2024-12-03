@@ -103,6 +103,7 @@ public class TilapiaDelNilo extends Filtrador{
         System.out.println("Ciclo: "+ datos.getCiclo());
         System.out.println("Madurez: " + datos.getMadurez());
         System.out.println("Óptimo: " + datos.getOptimo());
+        getTipoAlimentacion();
     }
 
     /**

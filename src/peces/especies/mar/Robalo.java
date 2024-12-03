@@ -102,6 +102,7 @@ public class Robalo extends Carnivoro{
         System.out.println("Ciclo: " + datos.getCiclo());
         System.out.println("Madurez: " + datos.getMadurez());
         System.out.println("Óptimo: " + datos.getOptimo());
+        getTipoAlimentacion();
     }
 
     /**

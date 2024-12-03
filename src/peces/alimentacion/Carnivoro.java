@@ -46,4 +46,8 @@ public class Carnivoro extends Pez{
     public boolean reproducirse() {
         return super.reproducirse();
     }    
+
+    public static void getTipoAlimentacion(){
+        System.out.println("Tipo de alimentación: Carnívoro");
+    }
 }

@@ -71,7 +71,7 @@ public class Simulador {
             System.out.println("            Menú             ");
             System.out.println("===============================\n");
 
-            int opcion = menuHelper.mostrarMenu(opciones);
+            int opcion = menuHelper.mostrarMenu(opciones,false);
             registro.registrarAccion("Opción seleccionada en el menú: " + opcion);
 
             switch (opcion) {
@@ -162,7 +162,7 @@ public class Simulador {
         };
         int opcion;
         do {
-            opcion = menuHelper.mostrarMenu(peces);
+            opcion = menuHelper.mostrarMenu(peces,true);
             if (opcion > 0 && opcion <= peces.length) {
                 switch (opcion) {
                     case 1: Dorada.datos(); break;
@@ -177,6 +177,7 @@ public class Simulador {
                     case 10: Pejerrey.datos(); break;
                     case 11: SalmonChinook.datos(); break;
                     case 12: TilapiaDelNilo.datos(); break;
+                    
                 }
                 registro.registrarAccion("Mostrar información de: " + peces[opcion - 1]);
             }
@@ -198,23 +199,23 @@ public class Simulador {
 
     private void addFood() {
         if (!almacenCentral) {
-            int opcion = menuHelper.mostrarMenu(new String[]{"Agregar 5", "Agregar 10", "Agregar 25", "Llenar", "Salir"});
+            int opcion = menuHelper.mostrarMenu(new String[]{"Agregar 5", "Agregar 10", "Agregar 25", "Llenar"},true);
             switch (opcion) {
                 case 1: piscifactorias.get(0).addComida(5); registro.registrarAccion("Agregar 5 unidades de comida"); break;
                 case 2: piscifactorias.get(0).addComida(10); registro.registrarAccion("Agregar 10 unidades de comida"); break;
                 case 3: piscifactorias.get(0).addComida(25); registro.registrarAccion("Agregar 25 unidades de comida"); break;
                 case 4: piscifactorias.get(0).addComida(piscifactorias.get(0).getAlmacenMax() - piscifactorias.get(0).getAlmacen()); registro.registrarAccion("Llenar almacén de comida"); break;
-                case 5: break;
+                case 0: break;
                 default: System.out.println("Selecciona una opción válida");
             }
         } else {
-            int opcion = menuHelper.mostrarMenu(new String[]{"Agregar 5", "Agregar 10", "Agregar 25", "Llenar", "Salir"});
+            int opcion = menuHelper.mostrarMenu(new String[]{"Agregar 5", "Agregar 10", "Agregar 25", "Llenar"},true);
             switch (opcion) {
                 case 1: AlmacenCentral.getInstance().comprarComida(5); registro.registrarAccion("Comprar 5 unidades de comida"); break;
                 case 2: AlmacenCentral.getInstance().comprarComida(10); registro.registrarAccion("Comprar 10 unidades de comida"); break;
                 case 3: AlmacenCentral.getInstance().comprarComida(25); registro.registrarAccion("Comprar 25 unidades de comida"); break;
                 case 4: AlmacenCentral.getInstance().comprarComida(AlmacenCentral.getInstance().getCapacidadMax() - AlmacenCentral.getInstance().getCapacidad()); registro.registrarAccion("Llenar almacén central de comida"); break;
-                case 5: break;
+                case 0: break;
                 default: System.out.println("Selecciona una opción válida.");
             }
         }
@@ -258,11 +259,11 @@ public class Simulador {
 
     private void upgrade() {
         int pisc = menuHelper.pedirNumero("Seleccione la piscifactoría para mejorar: ", 1, piscifactorias.size());
-        int mejoraOpcion = menuHelper.mostrarMenu(new String[]{"Comprar tanque", "Aumentar almacén", "Cancelar"});
+        int mejoraOpcion = menuHelper.mostrarMenu(new String[]{"Comprar tanque", "Aumentar almacén"},true);
         switch (mejoraOpcion) {
             case 1: piscifactorias.get(pisc - 1).comprarTanque(); registro.registrarAccion("Compra de tanque realizada en piscifactoría: " + pisc); break;
             case 2: piscifactorias.get(pisc - 1).upgradeFood(); registro.registrarAccion("Almacén mejorado en piscifactoría: " + pisc); break;
-            case 3: break;
+            case 0: break;
         }
     }
 

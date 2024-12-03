@@ -67,4 +67,8 @@ public abstract class Omnivoro extends Pez{
     public boolean reproducirse(){
         return super.reproducirse();
     }
+
+    public static void getTipoAlimentacion(){
+        System.out.println("Tipo de alimentación: Omnívoro");
+    }
 }

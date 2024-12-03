@@ -15,10 +15,13 @@ public class MenuHelper {
      * @param opciones Array de opciones del menú
      * @return La opción seleccionada por el usuario (1 a n)
      */
-    public int mostrarMenu(String[] opciones) {
+    public int mostrarMenu(String[] opciones, boolean cancelar) {
         for (int i = 0; i < opciones.length; i++) {
             System.out.println((i + 1) + ". " + opciones[i]);
         }
+        if(cancelar){
+            System.out.println("0. Cancelar"); 
+        } 
         int seleccion;
         do {
             System.out.print("Introduce tu opción: ");
@@ -27,7 +30,7 @@ public class MenuHelper {
                 scanner.next();
             }
             seleccion = scanner.nextInt();
-        } while (seleccion < 1 || seleccion > opciones.length);
+        } while (seleccion < 0 || seleccion > opciones.length);
         return seleccion;
     }
 
