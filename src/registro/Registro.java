@@ -70,6 +70,28 @@ public class Registro {
         registrar(mensaje, logWriter);
     }
 
+
+    public void registrarLog(String nivel, String mensaje) {
+        try {
+            if (logWriter != null) {
+                String timestamp = "[" + LocalDateTime.now().format(formatter) + "] ";
+                String log = timestamp + nivel + ": " + mensaje;
+                logWriter.write(log + "\n");
+                logWriter.flush();
+            }
+        } catch (IOException e) {
+            System.out.println("Error al registrar en el log: " + e.getMessage());
+        }
+    }
+
+    public void registrarError(String mensaje) {
+        try (BufferedWriter errorWriter = new BufferedWriter(new FileWriter("src/logs/0_errors.log", true))) {
+            String timestamp = "[" + LocalDateTime.now().format(formatter) + "] ";
+            errorWriter.write(timestamp + "ERROR: " + mensaje + "\n");
+        } catch (IOException e) {
+            System.out.println("Error al registrar en el log de errores: " + e.getMessage());
+        }
+    }
     public void cerrarRegistro() {
         try {
             if (transcripcionWriter != null) transcripcionWriter.close();
