@@ -13,7 +13,7 @@ public class MenuHelper {
      * Muestra un menú con las opciones dadas y devuelve la opción seleccionada por el usuario
      * 
      * @param opciones Array de opciones del menú
-     * @return La opción seleccionada por el usuario (1 a n)
+     * @return La opción seleccionada por el usuario (1 a n) o 99 para la opción oculta
      */
     public int mostrarMenu(String[] opciones) {
         for (int i = 0; i < opciones.length; i++) {
@@ -24,12 +24,14 @@ public class MenuHelper {
             System.out.print("Introduce tu opción: ");
             while (!scanner.hasNextInt()) {
                 System.out.print("Por favor, introduce un número: ");
-                scanner.next();
+                scanner.nextLine(); 
             }
             seleccion = scanner.nextInt();
-        } while (seleccion < 1 || seleccion > opciones.length);
+            scanner.nextLine(); 
+        } while ((seleccion < 1 || seleccion > opciones.length) && seleccion != 97 && seleccion != 99);
         return seleccion;
     }
+
 
     /**
      * Pide al usuario que introduzca un número entero dentro de un rango.
