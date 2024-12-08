@@ -7,6 +7,7 @@ import peces.especies.rio.*;
 import almacenCentral.*;
 import registro.Registro;
 import rewards.Crear;
+import rewards.Eliminar;
 import helpers.MenuHelper;
 import monedero.Monedas;
 import piscifactoria.Piscifactoria;
@@ -80,7 +81,7 @@ public class Simulador {
 
                 // Preguntar al usuario qué partida quiere cargar
                 System.out.println("¿Qué partida quieres cargar?");
-                int opcion = menuHelper.pedirNumero("Selecciona una opción (0 para nueva partida)", 0, files.length);
+                int opcion = MenuHelper.pedirNumero("Selecciona una opción (0 para nueva partida)", 0, files.length);
 
                 if (opcion > 0) {
                     // Cargar la partida seleccionada
@@ -105,8 +106,8 @@ public class Simulador {
      * primera piscifactoría.
      */
     public void newGame() {
-        nombreEmpresa = menuHelper.pedirTexto("Introduce el nombre de la empresa: ");
-        String nombrePiscifactoria = menuHelper.pedirTexto("Introduce el nombre de la piscifactoría inicial: ");
+        nombreEmpresa = MenuHelper.pedirTexto("Introduce el nombre de la empresa: ");
+        String nombrePiscifactoria = MenuHelper.pedirTexto("Introduce el nombre de la piscifactoría inicial: ");
 
         registro.registrarTranscripcion(
                 "Inicialización completada: Empresa - " + nombreEmpresa + ", Piscifactoría - " + nombrePiscifactoria);
@@ -145,6 +146,7 @@ public class Simulador {
                 "Vaciar tanque",
                 "Mejorar instalaciones",
                 "Avanzar varios días",
+                "Cobrar recompensas",
                 "Salir"
         };
 
@@ -193,14 +195,16 @@ public class Simulador {
                     upgrade();
                     break;
                 case 12:
-                    int dias = menuHelper.pedirNumero("Cuántos días quieres avanzar? ", 1, 100);
+                    int dias = MenuHelper.pedirNumero("Cuántos días quieres avanzar? ", 1, 100);
                     nextDay(dias);
                     registro.registrarTranscripcion("Se han avanzado: " + dias + " días");
                     break;
                 case 13:
+                    cobrarRecompensas();
+                    break;
+                case 14:
                     registro.registrarTranscripcion("Salir del simulador");
                     save();
-
                     break;
                 case 97:
                     Crear.addAlmacen("A");
@@ -424,7 +428,7 @@ public class Simulador {
     }
 
     private void addFish() {
-        int piscifactoria = menuHelper.pedirNumero("Seleccione la piscifactoría a la que agregar el pez: ", 1,
+        int piscifactoria = MenuHelper.pedirNumero("Seleccione la piscifactoría a la que agregar el pez: ", 1,
                 piscifactorias.size());
         piscifactorias.get(piscifactoria - 1).newFish();
         registro.registrarAccion("Agregar pez a la piscifactoría: " + piscifactoria);
@@ -479,7 +483,7 @@ public class Simulador {
     }
 
     private void upgrade() {
-        int pisc = menuHelper.pedirNumero("Seleccione la piscifactoría para mejorar: ", 1, piscifactorias.size());
+        int pisc = MenuHelper.pedirNumero("Seleccione la piscifactoría para mejorar: ", 1, piscifactorias.size());
         int mejoraOpcion = menuHelper.mostrarMenu(new String[] { "Comprar tanque", "Aumentar almacén", "Cancelar" });
         switch (mejoraOpcion) {
             case 1:
@@ -498,10 +502,393 @@ public class Simulador {
         }
     }
 
+    /**
+     * Muestra las opciones de selección de piscifactorías disponibles.
+     */
+    public void selecPisc() {
+        for (int i = 0; i < this.piscifactorias.size(); i++) {
+            System.out.println((i + 1) + ". " + this.piscifactorias.get(i).getNombre());
+        }
+    }
+
+    /**
+     * Verifica la existencia de archivos de recompensas y muestra los resultados.
+     * Se crean valores booleanos en un array para cada tipo de recompensa,
+     * indicando si el archivo correspondiente existe o no.
+     * Luego, se muestra el estado de las recompensas en la consola.
+     */
+    public void cobrarRecompensas() {
+
+        boolean[] recompensas = new boolean[20];
+
+        recompensas[0] = new File("recompensas/almacen_a.xml").exists();
+        recompensas[1] = new File("recompensas/almacen_b.xml").exists();
+        recompensas[2] = new File("recompensas/almacen_c.xml").exists();
+        recompensas[3] = new File("recompensas/almacen_d.xml").exists();
+        recompensas[4] = new File("recompensas/comida_1.xml").exists();
+        recompensas[5] = new File("recompensas/comida_2.xml").exists();
+        recompensas[6] = new File("recompensas/comida_3.xml").exists();
+        recompensas[7] = new File("recompensas/comida_4.xml").exists();
+        recompensas[8] = new File("recompensas/comida_5.xml").exists();
+        recompensas[9] = new File("recompensas/monedas_1.xml").exists();
+        recompensas[10] = new File("recompensas/monedas_2.xml").exists();
+        recompensas[11] = new File("recompensas/monedas_3.xml").exists();
+        recompensas[12] = new File("recompensas/monedas_4.xml").exists();
+        recompensas[13] = new File("recompensas/monedas_5.xml").exists();
+        recompensas[14] = new File("recompensas/pisci_m_a.xml").exists();
+        recompensas[15] = new File("recompensas/pisci_m_b.xml").exists();
+        recompensas[16] = new File("recompensas/pisci_r_a.xml").exists();
+        recompensas[17] = new File("recompensas/pisci_r_b.xml").exists();
+        recompensas[18] = new File("recompensas/tanque_m.xml").exists();
+        recompensas[19] = new File("recompensas/tanque_r.xml").exists();
+
+        mostrar(recompensas);
+
+    }
+
+        /**
+     * Muestra el estado de las recompensas en la consola y proporciona opciones
+     * para reclamar cada recompensa.
+     * 
+     * @param recompensas Un array de booleanos que indica la existencia de cada
+     *                    tipo de recompensa.
+     */
+    public void mostrar(boolean[] recompensas) {
+
+        String almacenA = "x";
+        String almacenB = "x";
+        String almacenC = "x";
+        String almacenD = "x";
+
+        String PiscMA = "x";
+        String PiscMB = "x";
+
+        String PiscRA = "x";
+        String PiscRB = "x";
+
+        almacenA = (recompensas[0]) ? "A" : almacenA;
+        almacenB = (recompensas[1]) ? "B" : almacenB;
+        almacenC = (recompensas[2]) ? "C" : almacenC;
+        almacenD = (recompensas[3]) ? "D" : almacenD;
+
+        PiscMA = (recompensas[14]) ? "A" : PiscMA;
+        PiscMB = (recompensas[15]) ? "B" : PiscMB;
+
+        PiscRA = (recompensas[16]) ? "A" : PiscRA;
+        PiscRB = (recompensas[17]) ? "B" : PiscRB;
+
+        if (almacenA.contains("x") || almacenB.contains("x") || almacenC.contains("x") || almacenD.contains("x")) {
+            System.out.println("Faltan partes de almacén central: " + almacenA + almacenB + almacenC + almacenD);
+        } else {
+            System.out.println("1. Reclamar almacén " + almacenA + almacenB + almacenC + almacenD + ":");
+        }
+        System.out.print((recompensas[4]) ? "2. Reclamar comida I\n" : "");
+        System.out.print((recompensas[5]) ? "3. Reclamar comida II\n" : "");
+        System.out.print((recompensas[6]) ? "4. Reclamar comida III\n" : "");
+        System.out.print((recompensas[7]) ? "5. Reclamar comida IV\n" : "");
+        System.out.print((recompensas[8]) ? "6. Reclamar comida V\n" : "");
+        System.out.print((recompensas[9]) ? "7. Reclamar monedas I\n" : "");
+        System.out.print((recompensas[10]) ? "8. Reclamar monedas II\n" : "");
+        System.out.print((recompensas[11]) ? "9. Reclamar monedas III\n" : "");
+        System.out.print((recompensas[12]) ? "10. Reclamar monedas IV\n" : "");
+        System.out.print((recompensas[13]) ? "11. Reclamar monedas V" : "");
+        if (PiscMA.contains("x") || PiscMB.contains("x")) {
+            System.out.println("Faltan partes de la piscifactoría marina: " + PiscMA + PiscMB);
+        } else {
+            System.out.println("12. Reclamar piscifactoría de mar " + PiscMA + PiscMB + ":");
+        }
+        if (PiscRA.contains("x") || PiscRB.contains("x")) {
+            System.out.print("Faltan partes de la piscifactoria fluvial: " + PiscRA + PiscRB);
+        } else {
+            System.out.println("13. Reclamar piscifactoría de río " + PiscRA + PiscRB + ":");
+        }
+        System.out.print((recompensas[18]) ? "14. Reclamar tanque de mar" : "");
+        System.out.print((recompensas[19]) ? "15. Reclamar tanque de río" : "");
+
+        seleccionarOpcion(recompensas);
+
+    }
+    
+
+/**
+     * Permite al usuario seleccionar una opción para reclamar una recompensa
+     * específica.
+     * 
+     * @param recompensas Un array de booleanos que indica la existencia de cada
+     *                    tipo de recompensa.
+     */
+    public void seleccionarOpcion(boolean[] recompensas) {
+
+        boolean control = true;
+        int opcion;
+
+        do {
+            System.out.print("Selecciona una opción: ");
+            opcion = MenuHelper.pedirNumero("Selecciona una opción: ",0, 15);
+
+            switch (opcion) {
+                case 0:
+                    break;
+                case 1:
+                    if (Eliminar.obtenerDatos("recompensas/almacen_a.xml") >= 1
+                            && Eliminar.obtenerDatos("recompensas/almacen_b.xml") >= 1
+                            && Eliminar.obtenerDatos("recompensas/almacen_c.xml") >= 1
+                            && Eliminar.obtenerDatos("recompensas/almacen_d.xml") >= 1) {
+                        System.out.println("Reclamando almacén...");
+                        if (AlmacenCentral.getInstance() == null) {
+                            Eliminar.dismnuirRecompensas("recompensas/almacen_a.xml");
+                            Eliminar.dismnuirRecompensas("recompensas/almacen_b.xml");
+                            Eliminar.dismnuirRecompensas("recompensas/almacen_c.xml");
+                            Eliminar.dismnuirRecompensas("recompensas/almacen_d.xml");
+                            Eliminar.obtenerDatos("recompensas/almacen_a.xml");
+                            if (Eliminar.obtenerDatos("recompensas/almacen_a.xml") < 1) {
+                                Eliminar.borrarXML("recompensas/almacen_a.xml");
+                            }
+                            if (Eliminar.obtenerDatos("recompensas/almacen_b.xml") < 1) {
+                                Eliminar.borrarXML("recompensas/almacen_b.xml");
+                            }
+                            if (Eliminar.obtenerDatos("recompensas/almacen_c.xml") < 1) {
+                                Eliminar.borrarXML("recompensas/almacen_c.xml");
+                            }
+                            if (Eliminar.obtenerDatos("recompensas/almacen_d.xml") < 1) {
+                                Eliminar.borrarXML("recompensas/almacen_d.xml");
+                            }
+                        } else {
+                            System.out.println("Ya tienes el almacén central");
+                        }
+                    }
+                    control = false;
+                    break;
+                case 2:
+                    if (Eliminar.obtenerDatos("recompensas/comida_1.xml") >= 1) {
+                        System.out.println("Reclamando comida I...");
+                        int restante1 = AlmacenCentral.getInstance().getCapacidadMax()
+                                - AlmacenCentral.getInstance().getCapacidad();
+                        if (restante1 < 50) {
+                            AlmacenCentral.getInstance()
+                                    .agregarComida((AlmacenCentral.getInstance().getCapacidad() + restante1));
+                        } else {
+                            AlmacenCentral.getInstance()
+                                    .agregarComida((AlmacenCentral.getInstance().getCapacidad() + 50));
+                        }
+                        Eliminar.dismnuirRecompensas("recompensas/comida_1.xml");
+                        if (Eliminar.obtenerDatos("recompensas/comida_1.xml") < 1) {
+                            Eliminar.borrarXML("recompensas/comida_1.xml");
+                        }
+                    }
+                    control = false;
+                    break;
+                case 3:
+                    if (Eliminar.obtenerDatos("recompensas/comida_2.xml") >= 1) {
+                        System.out.println("Reclamando comida II...");
+                        int restante2 = AlmacenCentral.getInstance().getCapacidadMax()
+                                - AlmacenCentral.getInstance().getCapacidad();
+                        if (restante2 < 100) {
+                            AlmacenCentral.getInstance()
+                                    .agregarComida((AlmacenCentral.getInstance().getCapacidad() + restante2));
+                        } else {
+                            AlmacenCentral.getInstance()
+                                    .agregarComida((AlmacenCentral.getInstance().getCapacidad() + 100));
+                        }
+                        Eliminar.dismnuirRecompensas("recompensas/comida_2.xml");
+                        if (Eliminar.obtenerDatos("recompensas/comida_2.xml") < 1) {
+                            Eliminar.borrarXML("recompensas/comida_2.xml");
+                        }
+                    }
+                    control = false;
+                    break;
+                case 4:
+                    if (Eliminar.obtenerDatos("recompensas/comida_3.xml") >= 1) {
+                        System.out.println("Reclamando comida III...");
+                        int restante2 = AlmacenCentral.getInstance().getCapacidadMax()
+                                - AlmacenCentral.getInstance().getCapacidad();
+                        if (restante2 < 100) {
+                            AlmacenCentral.getInstance()
+                                    .agregarComida((AlmacenCentral.getInstance().getCapacidad() + restante2));
+                        } else {
+                            AlmacenCentral.getInstance()
+                                    .agregarComida((AlmacenCentral.getInstance().getCapacidad() + 250));
+                        }
+                        Eliminar.dismnuirRecompensas("recompensas/comida_3.xml");
+                        if (Eliminar.obtenerDatos("recompensas/comida_3.xml") < 1) {
+                            Eliminar.borrarXML("recompensas/comida_3.xml");
+                        }
+                    }
+                    control = false;
+                    break;
+                case 5:
+                    if (Eliminar.obtenerDatos("recompensas/comida_4.xml") >= 1) {
+                        System.out.println("Reclamando comida IV...");
+                        int restante2 = AlmacenCentral.getInstance().getCapacidadMax()
+                                - AlmacenCentral.getInstance().getCapacidad();
+                        if (restante2 < 100) {
+                            AlmacenCentral.getInstance()
+                                    .agregarComida((AlmacenCentral.getInstance().getCapacidad() + restante2));
+                        } else {
+                            AlmacenCentral.getInstance()
+                                    .agregarComida((AlmacenCentral.getInstance().getCapacidad() + 500));
+                        }
+                        Eliminar.dismnuirRecompensas("recompensas/comida_4.xml");
+                        if (Eliminar.obtenerDatos("recompensas/comida_4.xml") < 1) {
+                            Eliminar.borrarXML("recompensas/comida_4.xml");
+                        }
+                    }
+                    control = false;
+                    break;
+                case 6:
+                    if (Eliminar.obtenerDatos("recompensas/comida_5.xml") >= 1) {
+                        System.out.println("Reclamando comida V...");
+                        int restante2 = AlmacenCentral.getInstance().getCapacidadMax()
+                                - AlmacenCentral.getInstance().getCapacidad();
+                        if (restante2 < 100) {
+                            AlmacenCentral.getInstance()
+                                    .agregarComida((AlmacenCentral.getInstance().getCapacidad() + restante2));
+                        } else {
+                            AlmacenCentral.getInstance()
+                                    .agregarComida((AlmacenCentral.getInstance().getCapacidad() + 1000));
+                        }
+                        Eliminar.dismnuirRecompensas("recompensas/comida_5.xml");
+                        if (Eliminar.obtenerDatos("recompensas/comida_5.xml") < 1) {
+                            Eliminar.borrarXML("recompensas/comida_5.xml");
+                        }
+                    }
+                    control = false;
+                    break;
+                case 7:
+                    if (Eliminar.obtenerDatos("recompensas/monedas_1.xml") >= 1) {
+                        System.out.println("Reclamando monedas I...");
+                        Monedas.getInstance().setCantidad(Monedas.getInstance().getCantidad() + 100);
+                    }
+                    Eliminar.dismnuirRecompensas("recompensas/monedas_1.xml");
+                    if (Eliminar.obtenerDatos("recompensas/monedas_1.xml") < 1) {
+                        Eliminar.borrarXML("recompensas/monedas_1.xml");
+                    }
+                    control = false;
+                    break;
+                case 8:
+                    if (Eliminar.obtenerDatos("recompensas/monedas_2.xml") >= 1) {
+                        System.out.println("Reclamando monedas II...");
+                        Monedas.getInstance().setCantidad(Monedas.getInstance().getCantidad() + 300);
+                    }
+                    Eliminar.dismnuirRecompensas("recompensas/monedas_2.xml");
+                    if (Eliminar.obtenerDatos("recompensas/monedas_2.xml") < 1) {
+                        Eliminar.borrarXML("recompensas/monedas_2.xml");
+                    }
+                    control = false;
+                    break;
+                case 9:
+                    if (Eliminar.obtenerDatos("recompensas/monedas_3.xml") >= 1) {
+                        System.out.println("Reclamando monedas III...");
+                        Monedas.getInstance().setCantidad(Monedas.getInstance().getCantidad() + 500);
+                    }
+                    Eliminar.dismnuirRecompensas("recompensas/monedas_3.xml");
+                    if (Eliminar.obtenerDatos("recompensas/monedas_3.xml") < 1) {
+                        Eliminar.borrarXML("recompensas/monedas_3.xml");
+                    }
+                    control = false;
+                    break;
+                case 10:
+                    if (Eliminar.obtenerDatos("recompensas/monedas_4.xml") >= 1) {
+                        System.out.println("Reclamando monedas IV...");
+                        Monedas.getInstance().setCantidad(Monedas.getInstance().getCantidad() + 750);
+                    }
+                    Eliminar.dismnuirRecompensas("recompensas/monedas_4.xml");
+                    if (Eliminar.obtenerDatos("recompensas/monedas_4.xml") < 1) {
+                        Eliminar.borrarXML("recompensas/monedas_4.xml");
+                    }
+                    control = false;
+                    break;
+                case 11:
+                    if (Eliminar.obtenerDatos("recompensas/monedas_5.xml") >= 1) {
+                        System.out.println("Reclamando monedas V...");
+                        Monedas.getInstance().setCantidad(Monedas.getInstance().getCantidad() + 1000);
+                    }
+                    Eliminar.dismnuirRecompensas("recompensas/monedas_5.xml");
+                    if (Eliminar.obtenerDatos("recompensas/monedas_5.xml") < 1) {
+                        Eliminar.borrarXML("recompensas/monedas_5.xml");
+                    }
+                    control = false;
+                    break;
+                case 12:
+                    if (Eliminar.obtenerDatos("recompensas/pisci_m_a.xml") >= 1
+                            && Eliminar.obtenerDatos("recompensas/pisci_m_b.xml") >= 1) {
+                        System.out.println("Reclamando piscifactoría de mar...");
+                        System.out.print("Nombre de la Piscifactoria: ");
+                        String nombrePiscMar = MenuHelper.pedirTexto("");
+                        piscifactorias.add(new Piscifactoria(false, nombrePiscMar));
+                    }
+                    Eliminar.dismnuirRecompensas("recompensas/pisci_m_a.xml");
+                    Eliminar.dismnuirRecompensas("recompensas/pisci_m_b.xml");
+                    if (Eliminar.obtenerDatos("recompensas/pisci_m_a.xml") < 1) {
+                        Eliminar.borrarXML("recompensas/pisci_m_a.xml");
+                    }
+                    if (Eliminar.obtenerDatos("recompensas/pisci_m_b.xml") < 1) {
+                        Eliminar.borrarXML("recompensas/pisci_m_b.xml");
+                    }
+                    control = false;
+                    break;
+                case 13:
+                    if (Eliminar.obtenerDatos("recompensas/pisci_r_a.xml") >= 1
+                            && Eliminar.obtenerDatos("recompensas/pisci_r_b.xml") >= 1) {
+                        System.out.println("Reclamando piscifactoría de río...");
+                        System.out.print("Nombre de la Piscifactoria: ");
+                        String nombrePiscMar = MenuHelper.pedirTexto("");
+                        piscifactorias.add(new Piscifactoria(true, nombrePiscMar));
+                    }
+                    Eliminar.dismnuirRecompensas("recompensas/pisci_r_a.xml");
+                    Eliminar.dismnuirRecompensas("recompensas/pisci_r_b.xml");
+                    if (Eliminar.obtenerDatos("recompensas/pisci_r_a.xml") < 1) {
+                        Eliminar.borrarXML("recompensas/pisci_r_a.xml");
+                    }
+                    if (Eliminar.obtenerDatos("recompensas/pisci_r_b.xml") < 1) {
+                        Eliminar.borrarXML("recompensas/pisci_r_b.xml");
+                    }
+                    control = false;
+                    break;
+                case 14:
+                    if (Eliminar.obtenerDatos("recompensas/tanque_m.xml") >= 1) {
+                        System.out.println("Reclamando tanque de mar...");
+
+                        this.selecPisc();
+                        Piscifactoria pisc = this.piscifactorias
+                                .get(MenuHelper.pedirNumero("",0, piscifactorias.size()));
+                        if (pisc.getTanques().size() < 10) {
+                            pisc.añadirTanque();
+                        }
+                    }
+                    Eliminar.dismnuirRecompensas("recompensas/tanque_m.xml");
+                    if (Eliminar.obtenerDatos("recompensas/tanque_m.xml") < 1) {
+                        Eliminar.borrarXML("recompensas/tanque_m.xml");
+                    }
+                    control = false;
+                    break;
+                case 15:
+                    if (Eliminar.obtenerDatos("recompensas/tanque_r.xml") >= 1) {
+                        System.out.println("Reclamando tanque de río...");
+
+                        this.selecPisc();
+                        Piscifactoria pisc = this.piscifactorias
+                                .get(MenuHelper.pedirNumero("",0, piscifactorias.size()));
+                        if (pisc.getTanques().size() < 10) {
+                            pisc.añadirTanque();
+                        }
+                    }
+                    Eliminar.dismnuirRecompensas("recompensas/tanque_r.xml");
+                    if (Eliminar.obtenerDatos("recompensas/tanque_r.xml") < 1) {
+                        Eliminar.borrarXML("recompensas/tanque_r.xml");
+                    }
+                    control = false;
+                    break;
+                default:
+                    break;
+            }
+        } while (control);
+    }
+
     public void save() {
         guardarPartida();
         System.out.println("Guardado de partida");
-        return; // Se permite que el programa termine de forma natural
+        return;
     }
 
     public void guardarPartida() {
