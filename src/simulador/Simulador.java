@@ -126,7 +126,6 @@ public class Simulador {
                     salir = true;
                     registro.registrarTranscripcion("Salir del simulador");
                    // registro.registrarLog("Salir del simulador");
-
                     break;
                 default:
                     System.out.println("Opción no válida");

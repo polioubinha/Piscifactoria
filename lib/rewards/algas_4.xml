@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reward>
+	<name>Algas IV</name>
+	<origin>Adrián</origin>
+	<desc>1000 cápsulas de algas para alimentar peces filtradores y omnívoros.</desc>
+	<rarity>3</rarity>
+	<give>
+		<food type="algae">1000</food>
+	</give>
+	<quantity>1</quantity>
+</reward>

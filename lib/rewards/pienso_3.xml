@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reward>
+	<name>Pienso de peces III</name>
+	<origin>Adrián</origin>
+	<desc>500 unidades de pienso hecho a partir de peces, moluscos y otros seres marinos para alimentar a peces carnívoros y omnívoros.</desc>
+	<rarity>2</rarity>
+	<give>
+		<food type="animal">500</food>
+	</give>
+	<quantity>1</quantity>
+</reward>
