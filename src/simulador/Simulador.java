@@ -67,19 +67,16 @@ public class Simulador {
      */
     private void init() {
         try {
-            // Comprobar si existen archivos de guardado en la carpeta "saves/"
             File saves = new File("saves");
             if (saves.exists() && saves.isDirectory() && saves.listFiles().length > 0) {
                 File[] files = saves.listFiles();
                 System.out.println("---------- Partidas disponibles ---------");
                 System.out.println("0. Nueva Partida");
 
-                // Mostrar lista de partidas
                 for (int ind = 0; ind < files.length; ind++) {
                     System.out.println((ind + 1) + ". " + files[ind].getName());
                 }
 
-                // Preguntar al usuario qué partida quiere cargar
                 System.out.println("¿Qué partida quieres cargar?");
                 int opcion = MenuHelper.pedirNumero("Selecciona una opción (0 para nueva partida)", 0, files.length);
 
@@ -88,11 +85,9 @@ public class Simulador {
                     String partida = files[opcion - 1].getName();
                     this.load(partida);
                 } else {
-                    // Crear nueva partida
                     this.newGame();
                 }
             } else {
-                // No hay partidas guardadas, crear una nueva partida
                 this.newGame();
             }
 
@@ -114,7 +109,6 @@ public class Simulador {
         registro.registrarTranscripcion(
                 "Peces iniciales disponibles:\nRío: Dorada, Trucha Arcoiris\nMar: Tilapia del Nilo, Salmón Chinook");
 
-        // Agregar la primera piscifactoría
         piscifactorias.add(new Piscifactoria(true, nombrePiscifactoria));
 
         try {
@@ -127,8 +121,6 @@ public class Simulador {
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Error al inicializar las estadísticas: " + e.getMessage());
         }
-
-        // Inicializar la instancia de Monedas
         Monedas.getInstance();
     }
 
@@ -205,6 +197,7 @@ public class Simulador {
                 case 14:
                     registro.registrarTranscripcion("Salir del simulador");
                     save();
+                    salir = true;
                     break;
                 case 97:
                     Crear.addAlmacen("A");
