@@ -23,13 +23,17 @@ public class Tanque extends Pez{
     private int muertos = 0;
     /** Cantidad de ganancias */
     private int ganancias = 0;
+    /*Si es de Rio o de Mar */
+    private boolean esDeRio;
 
-    /**
+   /**
      * Constructor de la clase tanque
      * @param capacidad capacidad del tanque
+     * @param esDeRio indica si el tanque es de río
      */
-    public Tanque(int capacidad){
+    public Tanque(int capacidad, boolean esDeRio) {
         this.capacidad = capacidad;
+        this.esDeRio = esDeRio;
     }
 
     /**
@@ -55,7 +59,14 @@ public class Tanque extends Pez{
     public int getVendidos(){
         return vendidos;
     }
-
+ /**
+     * Indica si el tanque es de río
+     * @return true si es de río, false si es de mar
+     */
+    public boolean esDeRio() {
+        return esDeRio;
+    }
+   
     /**
      * Devuelve los peces del tanque 
      * @return peces del tanque 

@@ -33,11 +33,11 @@ public class Piscifactoria {
 
     private void inicializarPiscifactoria() {
         if (rio) {
-            tanques.add(new Tanque(25));
+            tanques.add(new Tanque(25,true));
             almacen = 25;
             almacenMax = 25;
         } else {
-            tanques.add(new Tanque(100));
+            tanques.add(new Tanque(100,false));
             almacen = 100;
             almacenMax = 100;
         }
@@ -122,11 +122,11 @@ public class Piscifactoria {
     /**
      * Añade un tanque a la lista
      */
-    public void añadirTanque(){
+    public void añadirTanque() {
         int capacidad = rio ? 25 : 100;
-        tanques.add(new Tanque(capacidad));
+        boolean esDeRio = rio; 
+        tanques.add(new Tanque(capacidad, esDeRio)); 
     }
-
     /**
      * Avanza un día
      * @param almacenCentral
@@ -316,7 +316,7 @@ public class Piscifactoria {
             if(Monedas.getInstance().comprobarCompra(150 * this.tanques.size())){
                 if(this.tanques.size() < 10){
                     Monedas.getInstance().compra(150 * this.tanques.size());
-                    this.tanques.add(new Tanque(25));
+                    this.tanques.add(new Tanque(25,true));
                 }else{
                     System.out.println("No se puede comprar un tanque nuevo. Has alcanzado el límite.");
                 }
@@ -327,7 +327,7 @@ public class Piscifactoria {
             if(Monedas.getInstance().comprobarCompra(600 * this.tanques.size())){
                 if(this.tanques.size() < 10){
                     Monedas.getInstance().compra(600 * this.tanques.size());
-                    this.tanques.add(new Tanque(100));
+                    this.tanques.add(new Tanque(100,false));
                 }else{
                     System.out.println("No se puede comprar un tanque nuevo. Has alcanzado el límite.");
                 }
