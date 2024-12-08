@@ -73,7 +73,7 @@ public class Simulador {
             System.out.println("            Menú             ");
             System.out.println("===============================\n");
 
-            int opcion = menuHelper.mostrarMenu(opciones);
+            int opcion = menuHelper.mostrarMenu(opciones,false);
             registro.registrarTranscripcion("Opción seleccionada en el menú: " + opcion);
 
             switch (opcion) {
@@ -265,34 +265,43 @@ public class Simulador {
                     System.out.println("Selecciona una opción válida");
             }
         } else {
-            int opcion = menuHelper.mostrarMenu(new String[]{"Agregar 5", "Agregar 10", "Agregar 25", "Llenar"},true);
-            switch (opcion) {
-                case 1: 
-                    AlmacenCentral.getInstance().comprarComida(5); 
-                    registro.registrarAccion("Comprar 5 unidades de comida");
-                    registro.registrarTranscripcion("5 unidades de comida añadidas al almacén central.");
-                    break;
-                case 2: 
-                    AlmacenCentral.getInstance().comprarComida(10); 
-                    registro.registrarAccion("Comprar 10 unidades de comida");
-                    registro.registrarTranscripcion("10 unidades de comida añadidas al almacén central.");
-                    break;
-                case 3: 
-                    AlmacenCentral.getInstance().comprarComida(25); 
-                    registro.registrarAccion("Comprar 25 unidades de comida");
-                    registro.registrarTranscripcion("25 unidades de comida añadidas al almacén central.");
-                    break;
-                case 4: 
-                    int cantidad = AlmacenCentral.getInstance().getCapacidadMax() - AlmacenCentral.getInstance().getCapacidad();
-                    AlmacenCentral.getInstance().comprarComida(cantidad); 
-                    registro.registrarAccion("Llenar almacén central de comida");
-                    registro.registrarTranscripcion("Almacén central lleno con " + cantidad + " unidades de comida.");
-                    break;
-                case 5:
-                    break;
-                default:
-                    System.out.println("Selecciona una opción válida.");
-            }
+        int tipoComida = menuHelper.mostrarMenu(new String[]{"Comida Animal", "Comida Vegetal"}, true);
+        if (tipoComida < 1 || tipoComida > 2) {
+            System.out.println("Selecciona un tipo de comida válido.");
+            return;
+        }
+
+        String tipo = tipoComida == 1 ? "animal" : "vegetal";
+        AlmacenCentral almacen = AlmacenCentral.getInstance(tipo);
+
+        int opcion = menuHelper.mostrarMenu(new String[]{"Agregar 5", "Agregar 10", "Agregar 25", "Llenar"}, true);
+        switch (opcion) {
+            case 1:
+                almacen.comprarComida(5);
+                registro.registrarAccion("Comprar 5 unidades de comida " + tipo);
+                registro.registrarTranscripcion("5 unidades de comida " + tipo + " añadidas al almacén central.");
+                break;
+            case 2:
+                almacen.comprarComida(10);
+                registro.registrarAccion("Comprar 10 unidades de comida " + tipo);
+                registro.registrarTranscripcion("10 unidades de comida " + tipo + " añadidas al almacén central.");
+                break;
+            case 3:
+                almacen.comprarComida(25);
+                registro.registrarAccion("Comprar 25 unidades de comida " + tipo);
+                registro.registrarTranscripcion("25 unidades de comida " + tipo + " añadidas al almacén central.");
+                break;
+            case 4:
+                int cantidad = almacen.getCapacidadMax() - almacen.getCapacidad();
+                almacen.comprarComida(cantidad);
+                registro.registrarAccion("Llenar almacén central de comida " + tipo);
+                registro.registrarTranscripcion("Almacén central de comida " + tipo + " lleno con " + cantidad + " unidades.");
+                break;
+            case 5:
+                break;
+            default:
+                System.out.println("Selecciona una opción válida.");
+        }
         }
     }
     

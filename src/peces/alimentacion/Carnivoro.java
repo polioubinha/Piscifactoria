@@ -14,14 +14,12 @@ public class Carnivoro extends Pez{
      * @param tanque tanque en el que se encuentra el pez
      * @param piscifactoria piscifactoria en la que se encuentra el pez
      * @param almacenCentral si el pez se alimenta del almacen central
-     * 
-     * @return true si se ha alimentado, false si no
      */
     @Override
-    public void comer(Tanque tanque, Piscifactoria piscifactoria, Boolean almacenCentral) {
+    public void comer(Tanque tanque, Piscifactoria piscifactoria, Boolean usarAlmacenCentral) {
         Random r = new Random();
 
-        if(this.alimentado == false){
+        if(!this.alimentado){
             if(tanque.hasDead()){
                 this.alimentado = true;
                 if(r.nextBoolean()){
@@ -31,9 +29,14 @@ public class Carnivoro extends Pez{
                 if(piscifactoria.getAlmacen() != 0){
                     this.alimentado = true;
                     piscifactoria.setAlmacen(piscifactoria.getAlmacen()-1);
-                }else if (almacenCentral) {
-                    AlmacenCentral.getInstance().setCapacidad(AlmacenCentral.getInstance().getCapacidad() - 1);
-                    this.alimentado = true;
+                }else if (usarAlmacenCentral) {
+                    AlmacenCentral almacenAnimal = AlmacenCentral.getInstance("animal");
+                    if(almacenAnimal.getCapacidad() > 0){
+                        almacenAnimal.setCapacidad(almacenAnimal.getCapacidad()-1);
+                        this.alimentado = true;
+                    } else {
+                        System.out.println("No hay suficiente comida animal en el almacén central");
+                    }
                 }
             }
         }
@@ -47,7 +50,7 @@ public class Carnivoro extends Pez{
         return super.reproducirse();
     }    
 
-    public static void getTipoAlimentacion(){
-        System.out.println("Tipo de alimentación: Carnívoro");
+    public static String getTipoComida() {
+        return "animal";
     }
 }
