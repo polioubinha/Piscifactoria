@@ -7,14 +7,14 @@ import peces.Pez;
 import piscifactoria.Piscifactoria;
 import tanque.Tanque;
 
-public abstract class Omnivoro extends Pez{
+public class Omnivoro extends Pez{
     /**
      * Probabilidad de que el pez no coma
      * @return probabilidad
      */
     private boolean noComer(){
         Random r = new Random();
-        return r.nextInt(1,4) == 1;
+        return r.nextInt(4) == 0; // 25% de probabilidad de no comer
     }
 
     /**
@@ -39,22 +39,41 @@ public abstract class Omnivoro extends Pez{
      * @return true si se ha alimentado, false si no
      */
     @Override
-    public void comer(Tanque tanque, Piscifactoria piscifactoria, Boolean almacenCentral){
+    public void comer(Tanque tanque, Piscifactoria piscifactoria, Boolean usarAlmacenCentral) {
         Random r = new Random();
 
-        if(this.alimentado == false){
-            if(tanque.hasDead()){
+        if (!this.alimentado) {
+            if (tanque.hasDead()) {
                 this.alimentado = true;
-                if(r.nextBoolean()){
+                if (r.nextBoolean()) {
                     tanque.eliminarMuerto();
                 }
-            }else{
-                if(piscifactoria.getAlmacen() != 0){
+            } else {
+                if (piscifactoria.getAlmacen() > 0) {
                     this.alimentado = true;
-                    piscifactoria.setAlmacen(piscifactoria.getAlmacen()-1);
-                }else if (almacenCentral) {
-                    AlmacenCentral.getInstance().setCapacidad(AlmacenCentral.getInstance().getCapacidad() - 1);
-                    this.alimentado = true;
+                    piscifactoria.setAlmacen(piscifactoria.getAlmacen() - 1);
+                } else if (usarAlmacenCentral) {
+                    boolean alimentoConsumido = false;
+
+                    AlmacenCentral almacenAnimal = AlmacenCentral.getInstance("animal");
+                    if (almacenAnimal.getCapacidad() > 0) {
+                        almacenAnimal.setCapacidad(almacenAnimal.getCapacidad() - 1);
+                        alimentoConsumido = true;
+                    }
+
+                    if (!alimentoConsumido) {
+                        AlmacenCentral almacenVegetal = AlmacenCentral.getInstance("vegetal");
+                        if (almacenVegetal.getCapacidad() > 0) {
+                            almacenVegetal.setCapacidad(almacenVegetal.getCapacidad() - 1);
+                            alimentoConsumido = true;
+                        }
+                    }
+
+                    if (alimentoConsumido) {
+                        this.alimentado = true;
+                    } else {
+                        System.out.println("No hay suficiente comida disponible en el almacén central.");
+                    }
                 }
             }
         }
@@ -66,5 +85,9 @@ public abstract class Omnivoro extends Pez{
     @Override
     public boolean reproducirse(){
         return super.reproducirse();
+    }
+
+    public static String getTipoComida() {
+        return "animal y vegetal";
     }
 }

@@ -4,38 +4,48 @@ import monedero.Monedas;
 
 public class AlmacenCentral {
     /** Capacidad del almacén */
-    int capacidad = 0;
+    private int capacidad = 0;
     /** Capacidad maxima del almacén */
-    int capacidadMax = 0;
+    private int capacidadMax = 0;
+    /** Tipo de comida del almacén */
+    private String tipoComida;
 
-    /**
-     * Singleton para que solo haya una instancia de AlmacenCentral
-     */
-    public static AlmacenCentral instance;
+    /** Instancias de almacenes por tipo */
+    private static AlmacenCentral almacenAnimal;
+    private static AlmacenCentral almacenVegetal;
 
     /**
      * Método para obtener la instancia, si no existe, la crea
-     * 
+     * @param tipoComida tipo de comida del almacén
      * @return instancia de AlmacenCentral
      */
-    public static AlmacenCentral getInstance() {
-        if (instance == null) {
-            instance = new AlmacenCentral();
+    public static AlmacenCentral getInstance(String tipoComida) {
+        if (tipoComida.equalsIgnoreCase("animal")) {
+            if (almacenAnimal == null) {
+                almacenAnimal = new AlmacenCentral("animal");
+            }
+            return almacenAnimal;
+        } else if (tipoComida.equalsIgnoreCase("vegetal")) {
+            if (almacenVegetal == null) {
+                almacenVegetal = new AlmacenCentral("vegetal");
+            }
+            return almacenVegetal;
+        } else {
+            throw new IllegalArgumentException("Tipo de comida no válido. Debe ser 'animal' o 'vegetal'.");
         }
-        return instance;
     }
 
     /**
-     * Constructor de la clase, inicializamos la capacidad y la capacidad máxima
+     * Constructor de la clase, inicializamos la capacidad y la capacidad máxima y el tipo de comida
      */
-    private AlmacenCentral() {
+    private AlmacenCentral(String tipoComida) {
         this.capacidad = 200;
         this.capacidadMax = 200;
+        this.tipoComida = tipoComida.toLowerCase();
     }
 
     /**
      * Obtenemos la capacidad del almacen
-     * 
      * @return capacidad del almacen
      */
     public int getCapacidad() {
@@ -44,7 +54,6 @@ public class AlmacenCentral {
 
     /**
      * Establecemos la capacidad del almacen
-     * 
      * @param capacidad del almacen
      */
     public void setCapacidad(int capacidad) {
@@ -59,7 +68,6 @@ public class AlmacenCentral {
 
     /**
      * Obtenemos la capacidad máxima del almacen
-     * 
      * @return capacidad máxima del almacen
      */
     public int getCapacidadMax() {
@@ -68,7 +76,6 @@ public class AlmacenCentral {
 
     /**
      * Establecemos la capacidad máxima del almacen
-     * 
      * @param capacidad máxima del almacen
      */
     public void setCapacidadMax(int capacidadMax) {
@@ -79,8 +86,15 @@ public class AlmacenCentral {
     }
 
     /**
+     * Obtenemos el tipo de comida del almacén
+     * @return tipo de comida (animal o vegetal)
+     */
+    public String getTipoComida() {
+        return tipoComida;
+    }
+
+    /**
      * Aumentamos la capacidad máxima del almacen
-     * 
      * @param cantidad a aumentar
      */
     public void aumentarCapacidad(int cantidad) {
@@ -89,7 +103,6 @@ public class AlmacenCentral {
 
     /**
      * Agregamos comida al almacen
-     * 
      * @param cantidad de comida a agregar
      */
     public void agregarComida(int cantidad) {
@@ -102,7 +115,6 @@ public class AlmacenCentral {
 
     /**
      * Mejora el almacen aumentando la capacidad máxima
-     * 
      * Para realizar la mejora se necesita 200 monedas
      */
     public void upgrade() {
@@ -116,7 +128,6 @@ public class AlmacenCentral {
 
     /**
      * Compramos una cantidad de comida para el almacen
-     * 
      * @param cantidad de comida a comprar
      */
     public void comprarComida(int cantidad) {
