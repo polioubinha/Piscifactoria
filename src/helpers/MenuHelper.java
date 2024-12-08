@@ -17,7 +17,7 @@ public class MenuHelper {
      * @param opciones Array de opciones del menú
      * @return La opción seleccionada por el usuario (1 a n) o 99 para la opción oculta
      */
-    public int mostrarMenu(String[] opciones, boolean cancelar) {
+    public static int mostrarMenu(String[] opciones, boolean cancelar) {
         for (int i = 0; i < opciones.length; i++) {
             System.out.println((i + 1) + ". " + opciones[i]);
         }
