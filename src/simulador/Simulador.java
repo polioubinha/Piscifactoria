@@ -1,5 +1,6 @@
 package simulador;
 
+import peces.Pez;
 import peces.especies.dobles.*;
 import peces.especies.mar.*;
 import peces.especies.rio.*;
@@ -209,8 +210,7 @@ public class Simulador {
                 for (Tanque tanque : piscifactoria.getTanques()) {
                     tanque.nextFood(piscifactoria, almacenCentral);
     
-                    // Contar peces según tipo de tanque
-                    if (tanque.esDeRio()) { // Supongo que hay un método `esDeRio()` para determinar el tipo de tanque
+                    if (tanque.esDeRio()) { 
                         pecesRio += tanque.getPeces().size();
                     } else {
                         pecesMar += tanque.getPeces().size();
@@ -228,6 +228,8 @@ public class Simulador {
                 "Monedas totales: " + Monedas.getInstance().getCantidad() + "\n" +
                 "-------------------------"
             );
+            registro.registrarLog("INFO", "Día " + this.dias + " finalizado con éxito. Peces Río: " +
+            pecesRio + ", Peces Mar: " + pecesMar + ", Monedas totales: " + Monedas.getInstance().getCantidad());
         }
     
         registro.registrarAccion("Avanzados " + dias + " días.");
@@ -238,141 +240,236 @@ public class Simulador {
             int opcion = menuHelper.mostrarMenu(new String[]{"Agregar 5", "Agregar 10", "Agregar 25", "Llenar", "Salir"});
             switch (opcion) {
                 case 1: 
-                    piscifactorias.get(0).addComida(5); 
-                    registro.registrarAccion("Agregar 5 unidades de comida");
-                    registro.registrarTranscripcion("5 unidades de comida añadidas a la piscifactoría " + piscifactorias.get(0).getNombre() + ".");
+                    piscifactorias.get(0).addComida(5);
+                    registro.registrarLog("INFO", "5 unidades de comida añadidas a la piscifactoría " + piscifactorias.get(0).getNombre());
                     break;
                 case 2: 
-                    piscifactorias.get(0).addComida(10); 
-                    registro.registrarAccion("Agregar 10 unidades de comida");
-                    registro.registrarTranscripcion("10 unidades de comida añadidas a la piscifactoría " + piscifactorias.get(0).getNombre() + ".");
+                    piscifactorias.get(0).addComida(10);
+                    registro.registrarLog("INFO", "10 unidades de comida añadidas a la piscifactoría " + piscifactorias.get(0).getNombre());
                     break;
                 case 3: 
-                    piscifactorias.get(0).addComida(25); 
-                    registro.registrarAccion("Agregar 25 unidades de comida");
-                    registro.registrarTranscripcion("25 unidades de comida añadidas a la piscifactoría " + piscifactorias.get(0).getNombre() + ".");
+                    piscifactorias.get(0).addComida(25);
+                    registro.registrarLog("INFO", "25 unidades de comida añadidas a la piscifactoría " + piscifactorias.get(0).getNombre());
                     break;
                 case 4: 
                     int cantidad = piscifactorias.get(0).getAlmacenMax() - piscifactorias.get(0).getAlmacen();
-                    piscifactorias.get(0).addComida(cantidad); 
-                    registro.registrarAccion("Llenar almacén de comida");
-                    registro.registrarTranscripcion("Almacén de la piscifactoría " + piscifactorias.get(0).getNombre() + " lleno con " + cantidad + " unidades de comida.");
+                    piscifactorias.get(0).addComida(cantidad);
+                    registro.registrarLog("INFO", "Almacén de comida llenado con " + cantidad + " unidades en la piscifactoría " + piscifactorias.get(0).getNombre());
                     break;
                 case 5:
+                    registro.registrarLog("INFO", "Se salió del menú de agregar comida sin realizar cambios.");
                     break;
                 default:
+                    registro.registrarLog("WARNING", "Selección inválida al intentar agregar comida.");
                     System.out.println("Selecciona una opción válida");
             }
         } else {
             int opcion = menuHelper.mostrarMenu(new String[]{"Agregar 5", "Agregar 10", "Agregar 25", "Llenar", "Salir"});
             switch (opcion) {
                 case 1: 
-                    AlmacenCentral.getInstance().comprarComida(5); 
-                    registro.registrarAccion("Comprar 5 unidades de comida");
-                    registro.registrarTranscripcion("5 unidades de comida añadidas al almacén central.");
+                    AlmacenCentral.getInstance().comprarComida(5);
+                    registro.registrarLog("INFO", "5 unidades de comida compradas para el almacén central.");
                     break;
                 case 2: 
-                    AlmacenCentral.getInstance().comprarComida(10); 
-                    registro.registrarAccion("Comprar 10 unidades de comida");
-                    registro.registrarTranscripcion("10 unidades de comida añadidas al almacén central.");
+                    AlmacenCentral.getInstance().comprarComida(10);
+                    registro.registrarLog("INFO", "10 unidades de comida compradas para el almacén central.");
                     break;
                 case 3: 
-                    AlmacenCentral.getInstance().comprarComida(25); 
-                    registro.registrarAccion("Comprar 25 unidades de comida");
-                    registro.registrarTranscripcion("25 unidades de comida añadidas al almacén central.");
+                    AlmacenCentral.getInstance().comprarComida(25);
+                    registro.registrarLog("INFO", "25 unidades de comida compradas para el almacén central.");
                     break;
                 case 4: 
                     int cantidad = AlmacenCentral.getInstance().getCapacidadMax() - AlmacenCentral.getInstance().getCapacidad();
-                    AlmacenCentral.getInstance().comprarComida(cantidad); 
-                    registro.registrarAccion("Llenar almacén central de comida");
-                    registro.registrarTranscripcion("Almacén central lleno con " + cantidad + " unidades de comida.");
+                    AlmacenCentral.getInstance().comprarComida(cantidad);
+                    registro.registrarLog("INFO", "Almacén central llenado con " + cantidad + " unidades de comida.");
                     break;
                 case 5:
+                    registro.registrarLog("INFO", "Se salió del menú de agregar comida sin realizar cambios.");
                     break;
                 default:
+                    registro.registrarLog("WARNING", "Selección inválida al intentar agregar comida al almacén central.");
                     System.out.println("Selecciona una opción válida.");
             }
         }
     }
     
+    
 
-    private void addFish() {
-        int piscifactoria = menuHelper.pedirNumero("Seleccione la piscifactoría a la que agregar el pez: ", 1, piscifactorias.size());
-        piscifactorias.get(piscifactoria - 1).newFish();
-        registro.registrarAccion("Agregar pez a la piscifactoría: " + piscifactoria);
+   private void addFish() {
+    // Solicitar al usuario la piscifactoría a la que desea agregar el pez
+    int piscifactoriaIndex = menuHelper.pedirNumero("Seleccione la piscifactoría a la que agregar el pez: ", 1, piscifactorias.size())-1;
+    Piscifactoria piscifactoria = piscifactorias.get(piscifactoriaIndex);
+
+    try {
+        // Agregar el pez usando el método `newFish` de Piscifactoria
+        piscifactoria.newFish();
+
+        // Obtener el último tanque modificado y el pez añadido
+        Tanque tanque = piscifactoria.getTanques().get(piscifactoria.getTanques().size() - 1);
+        Pez pez = tanque.getPeces().get(tanque.getPeces().size() - 1); // Último pez añadido
+
+        // Preparar el mensaje para los logs
+        String mensajeLog = String.format(
+            "[%s] %s (%s) comprado. Añadido al tanque de capacidad %d de la piscifactoría %s.",
+            java.time.LocalDateTime.now().format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+            pez.getDatos().getNombre(),
+            pez.isSexo() ? "M" : "H",
+            tanque.getCapacidad(),
+            piscifactoria.getNombre()
+        );
+
+        // Registrar en logs y transcripciones
+        registro.registrarLog("INFO", mensajeLog);
+        registro.registrarTranscripcion(mensajeLog);
+
+        System.out.println("Pez añadido correctamente: " + mensajeLog);
+    } catch (Exception e) {
+        String mensajeError = "Error al añadir pez a la piscifactoría " + piscifactoria.getNombre();
+        registro.registrarLog("ERROR", mensajeError);
+        registro.registrarError(mensajeError + " - " + e.getMessage());
+        System.out.println("No se pudo añadir el pez. Verifique los tanques y monedas disponibles.");
     }
+}
 
-    private void sell() {
-        for (Piscifactoria piscifactoria : piscifactorias) {
-            // Procesar la venta de peces adultos en la piscifactoría
-            piscifactoria.venderAdultos();
+private void sell() {
+    for (Piscifactoria piscifactoria : piscifactorias) {
+        int pecesVendidos = 0;
+        int gananciasTotales = 0;
+
+        // Vender peces adultos de la piscifactoría
+        piscifactoria.venderAdultos();
+        registro.registrarTranscripcion(
+            "Vendidos peces adultos de la piscifactoría " + piscifactoria.getNombre() + "."
+        );
+
+        // Procesar la venta de peces óptimos por tanque
+        for (Tanque tanque : piscifactoria.getTanques()) {
+            int pecesAntes = tanque.getPeces().size();
+            int gananciasAntes = tanque.getGanancias();
+
+            tanque.venderOptimos();
+
+            pecesVendidos += (pecesAntes - tanque.getPeces().size());
+            gananciasTotales += (tanque.getGanancias() - gananciasAntes);
+
             registro.registrarTranscripcion(
-                "Vendidos peces adultos de la piscifactoría " + piscifactoria.getNombre() + "."
+                "Vendidos " + (pecesAntes - tanque.getPeces().size()) + 
+                " peces óptimos del tanque (Capacidad: " + tanque.getCapacidad() + 
+                ") de la piscifactoría " + piscifactoria.getNombre() +
+                " por " + (tanque.getGanancias() - gananciasAntes) + " monedas."
             );
-    
-            for (Tanque tanque : piscifactoria.getTanques()) {
-                // Procesar la venta de peces óptimos por tanque
-                int pecesAntes = tanque.getPeces().size();
-                int gananciasAntes = tanque.getGanancias();
-    
-                tanque.venderOptimos();
-    
-                int pecesVendidos = pecesAntes - tanque.getPeces().size();
-                int gananciasObtenidas = tanque.getGanancias() - gananciasAntes;
-    
-                registro.registrarTranscripcion(
-                    "Vendidos " + pecesVendidos + " peces óptimos del tanque (Capacidad: " +
-                    tanque.getCapacidad() + ") de la piscifactoría " + piscifactoria.getNombre() +
-                    " por " + gananciasObtenidas + " monedas."
-                );
-            }
         }
-    
-        registro.registrarAccion("Venta de peces completada.");
-       // registro.registrarLog("Se completó la venta de peces en todas las piscifactorías.");
-    }
-    
-    
 
-    private void cleanTank() {
-        for (Piscifactoria piscifactoria : piscifactorias) {
-            piscifactoria.limpiarTanques();
-            for (Tanque tanque : piscifactorias.get(0).getTanques()) {
-                tanque.limpiarTanque();
-            }
-        }
-        registro.registrarAccion("Limpiar tanques realizada.");
-    }
-
-    private void emptyTank() {
-        for (Piscifactoria piscifactoria : piscifactorias) {
-            piscifactoria.vaciarTanques();
-            for (Tanque tanque : piscifactorias.get(0).getTanques()) {
-                tanque.vaciarTanque();
-                registro.registrarTranscripcion(
-                    "Tanques vaciados en la piscifactoría " + piscifactoria.getNombre() + "."
-                );
-            }
+        // Registrar log de venta
+        if (pecesVendidos > 0) {
+            registro.registrarLog(
+                "INFO", 
+                "Vendidos " + pecesVendidos + " peces de la piscifactoría " + piscifactoria.getNombre() + 
+                " de forma manual por un total de " + gananciasTotales + " monedas."
+            );
+        } else {
+            registro.registrarLog(
+                "INFO", 
+                "No se vendieron peces en la piscifactoría " + piscifactoria.getNombre() + "."
+            );
         }
     }
 
-    private void upgrade() {
-        int pisc = menuHelper.pedirNumero("Seleccione la piscifactoría para mejorar: ", 1, piscifactorias.size());
-        int mejoraOpcion = menuHelper.mostrarMenu(new String[]{"Comprar tanque", "Aumentar almacén", "Cancelar"});
-        switch (mejoraOpcion) {
-            case 1: 
-                piscifactorias.get(pisc - 1).comprarTanque();
-                registro.registrarTranscripcion("Tanque añadido a la piscifactoría " + piscifactorias.get(pisc - 1).getNombre() + ".");
-                break;
-            case 2: 
-                piscifactorias.get(pisc - 1).upgradeFood();
-                registro.registrarTranscripcion("Capacidad del almacén aumentada en la piscifactoría " + piscifactorias.get(pisc - 1).getNombre() + ".");
-                break;
-            case 3: 
-                registro.registrarTranscripcion("Mejora cancelada.");
-                break;
+    registro.registrarAccion("Venta de peces completada.");
+}
+
+    
+    
+
+private void cleanTank() {
+    for (Piscifactoria piscifactoria : piscifactorias) {
+        piscifactoria.limpiarTanques();
+
+        for (int i = 0; i < piscifactoria.getTanques().size(); i++) {
+            Tanque tanque = piscifactoria.getTanques().get(i);
+            tanque.limpiarTanque();
+
+            registro.registrarLog(
+                "INFO", 
+                "Tanque " + (i + 1) + " limpiado en la piscifactoría " + piscifactoria.getNombre()
+            );
+
+            registro.registrarTranscripcion(
+                "Tanque " + (i + 1) + " de la piscifactoría " + piscifactoria.getNombre() + " ha sido limpiado."
+            );
         }
     }
+
+    registro.registrarAccion("Limpieza de todos los tanques completada.");
+}
+
+
+private void emptyTank() {
+    for (Piscifactoria piscifactoria : piscifactorias) {
+        piscifactoria.vaciarTanques();
+
+        for (int i = 0; i < piscifactoria.getTanques().size(); i++) {
+            Tanque tanque = piscifactoria.getTanques().get(i);
+            tanque.vaciarTanque();
+
+            registro.registrarLog(
+                "INFO", 
+                "Tanque " + (i + 1) + " vaciado en la piscifactoría " + piscifactoria.getNombre()
+            );
+
+            registro.registrarTranscripcion(
+                "Tanque " + (i + 1) + " de la piscifactoría " + piscifactoria.getNombre() + " ha sido vaciado."
+            );
+        }
+    }
+
+    registro.registrarAccion("Vaciado de todos los tanques completado.");
+}
+
+
+private void upgrade() {
+    int pisc = menuHelper.pedirNumero("Seleccione la piscifactoría para mejorar: ", 1, piscifactorias.size());
+    int mejoraOpcion = menuHelper.mostrarMenu(new String[]{"Comprar tanque", "Aumentar almacén", "Cancelar"});
+    Piscifactoria piscifactoriaSeleccionada = piscifactorias.get(pisc - 1);
+
+    switch (mejoraOpcion) {
+        case 1: 
+            piscifactoriaSeleccionada.comprarTanque();
+            registro.registrarLog(
+                "INFO",
+                "Mejorada la piscifactoría " + piscifactoriaSeleccionada.getNombre() + " añadiendo un nuevo tanque."
+            );
+            registro.registrarTranscripcion(
+                "Se ha añadido un nuevo tanque a la piscifactoría " + piscifactoriaSeleccionada.getNombre() + "."
+            );
+            break;
+        case 2: 
+            int capacidadAntes = piscifactoriaSeleccionada.getAlmacenMax();
+            int coste = piscifactoriaSeleccionada.isRio() ? 100 : 200; 
+
+            piscifactoriaSeleccionada.upgradeFood();
+
+            int capacidadDespues = piscifactoriaSeleccionada.getAlmacenMax();
+            registro.registrarLog(
+                "INFO",
+                "Mejorada la piscifactoría " + piscifactoriaSeleccionada.getNombre() + " aumentando su capacidad de comida."
+            );
+            registro.registrarTranscripcion(
+                "Mejorada la piscifactoría " + piscifactoriaSeleccionada.getNombre() +
+                " aumentando su capacidad de comida hasta un total de " + capacidadDespues +
+                " por " + coste + " monedas. (Capacidad anterior: " + capacidadAntes + ")."
+            );
+            break;
+        case 3: 
+            registro.registrarLog("INFO", "Mejora cancelada en la piscifactoría " + piscifactoriaSeleccionada.getNombre() + ".");
+            registro.registrarTranscripcion("Se ha cancelado la mejora en la piscifactoría " + piscifactoriaSeleccionada.getNombre() + ".");
+            break;
+        default:
+            registro.registrarLog("WARNING", "Selección inválida en el menú de mejoras.");
+            System.out.println("Opción no válida");
+    }
+}
+
 
     public static void main(String[] args) {
         Simulador simulador = new Simulador();
