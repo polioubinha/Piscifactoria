@@ -116,14 +116,11 @@ public class Simulador {
                 case 11:
                     upgrade();
                     break;
-                case 13:
+                case 12:
                     int dias = menuHelper.pedirNumero("Cuántos días quieres avanzar? ", 1, 100);
                     nextDay(dias);
                     registro.registrarTranscripcion("Se han avanzado: " + dias + "dias");
-                    
-                    //registro.registrarLog("Se han avanzado: " + dias + "dias");
-
-                    
+                    //registro.registrarLog("Se han avanzado: " + dias + "dias");                   
                     break;
                 case 14:
                     salir = true;
