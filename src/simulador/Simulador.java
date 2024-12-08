@@ -9,6 +9,7 @@ import registro.Registro;
 import helpers.MenuHelper;
 import monedero.Monedas;
 import piscifactoria.Piscifactoria;
+import propiedades.AlmacenPropiedades;
 import stats.Stats;
 import tanque.Tanque;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class Simulador {
     private Registro registro;
 
     public Simulador() {
+        
         menuHelper = new MenuHelper();
         piscifactorias = new ArrayList<>();
         dias = 0;
@@ -33,22 +35,47 @@ public class Simulador {
         }
     }
 
-    private void init() {
-        String nombreEmpresa = menuHelper.pedirTexto("Introduce el nombre de la empresa: ");
-        String nombrePiscifactoria = menuHelper.pedirTexto("Introduce el nombre de la piscifactoría inicial: ");
+private void init() {
+    String nombreEmpresa = menuHelper.pedirTexto("Introduce el nombre de la empresa: ");
+    String nombrePiscifactoria = menuHelper.pedirTexto("Introduce el nombre de la piscifactoría inicial: ");
+    
+    registro.registrarTranscripcion("Inicialización completada: Empresa - " + nombreEmpresa + ", Piscifactoría - " + nombrePiscifactoria);
+    registro.registrarTranscripcion("Peces iniciales disponibles:\nRío: Dorada, Trucha Arcoiris\nMar: Tilapia del Nilo, Salmón Chinook");
 
-        registro.registrarTranscripcion("Inicialización completada: Empresa - " + nombreEmpresa + ", Piscifactoría - " + nombrePiscifactoria);
-        registro.registrarTranscripcion("Peces iniciales disponibles:\nRío: Dorada, Trucha Arcoiris\nMar: Tilapia del Nilo, Salmón Chinook");
+    piscifactorias.add(new Piscifactoria(true, nombrePiscifactoria));
 
-        // registro.registrarLog("Inicialización completada");
-        piscifactorias.add(new Piscifactoria(true, nombrePiscifactoria));
-        try {
-            Stats.getInstancia(new String[]{"Dorada", "Trucha Arcoiris", "Arenque del Atlántico", "Besugo", "Caballa", "Sargo", "Robalo", "Carpa", "Carpa Plateada", "Pejerrey", "Salmón Chinook", "Tilapia del Nilo"});
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Error al inicializar las estadísticas: " + e.getMessage());
+    // Lista de nombres de peces que queremos inicializar
+    String[] nombresPeces = new String[]{
+        "Carpa", "Carpa plateada", "Salmón chinook", "Tilapia del Nilo", "Pejerrey ",
+        "Arenque del Atlántico", "Besugo", "Caballa", "Róbalo", "Sargo",
+        "Dorada", "Trucha arcoíris"
+    };
+    
+
+    // Validar los nombres de los peces en AlmacenPropiedades
+    for (String nombre : nombresPeces) {
+        if (AlmacenPropiedades.getPropByName(nombre) == null) {
+            String error = "Error: El nombre del pez '" + nombre + "' no está definido en AlmacenPropiedades.";
+            registro.registrarError(error);
+            System.out.println(error);
+            System.exit(1); // Salir si no se encuentra un pez
         }
-       Monedas.getInstance();
     }
+
+    // Inicializar Stats con los nombres validados
+    try {
+        Stats.getInstancia(nombresPeces);
+        registro.registrarLog("INFO", "Stats inicializado correctamente.");
+    } catch (Exception e) {
+        registro.registrarError("Error al inicializar Stats: " + e.getMessage());
+        System.out.println("Error crítico al inicializar Stats: " + e.getMessage());
+        System.exit(1);
+    }
+
+    Monedas.getInstance();
+}
+
+    
 
     public void mainLoop() {
         String[] opciones = {
@@ -87,12 +114,16 @@ public class Simulador {
                 case 2:
                     menuPisc();
                     break;
-                case 3:
-                    Stats.getInstancia().mostrar();
-                    registro.registrarTranscripcion("Mostrar stats");
-                   // registro.registrarLog("Mostrar stats");
-
+                    case 3:
+                    if (Stats.getInstancia() != null) {
+                        Stats.getInstancia().mostrar();
+                        registro.registrarTranscripcion("Mostrar estadísticas completado.");
+                    } else {
+                        System.out.println("Error: Stats no está inicializado.");
+                        registro.registrarError("Error: Stats no está inicializado al intentar mostrar estadísticas.");
+                    }
                     break;
+                
                 case 4:
                     showIctio();
                     break;
