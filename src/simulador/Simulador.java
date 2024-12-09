@@ -53,7 +53,7 @@ public class Simulador {
         piscifactorias = new ArrayList<>();
         dias = 0;
         almacenCentral = false;
-        registro = Registro.getInstance("src/transcripciones", "src/logs", "Partida1");
+        registro = Registro.getInstance("transcripciones", "logs", "Partida1");
         try {
             init();
         } catch (IllegalArgumentException e) {
@@ -626,8 +626,8 @@ public class Simulador {
         } else {
             System.out.println("13. Reclamar piscifactoría de río " + PiscRA + PiscRB + ":");
         }
-        System.out.print((recompensas[18]) ? "14. Reclamar tanque de mar" : "");
-        System.out.print((recompensas[19]) ? "15. Reclamar tanque de río" : "");
+        System.out.println((recompensas[18]) ? "14. Reclamar tanque de mar" : "");
+        System.out.println((recompensas[19]) ? "15. Reclamar tanque de río" : "");
 
         seleccionarOpcion(recompensas);
 
@@ -646,9 +646,7 @@ public class Simulador {
         int opcion;
 
         do {
-            System.out.print("Selecciona una opción: ");
             opcion = MenuHelper.pedirNumero("Selecciona una opción: ", 0, 15);
-
             switch (opcion) {
                 case 0:
                     break;
