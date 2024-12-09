@@ -1,53 +1,83 @@
 package helpers;
-import java.util.Scanner;
-import java.util.List;
 
+import java.util.Scanner;
+
+/** Componente para gestionar los menús */
 public class MenuHelper {
-    /** Scanner para leer entradas */
-    private Scanner scanner;
+    private static final Scanner scanner = new Scanner(System.in); // Scanner único y compartido
 
     /**
-     * Constructor de la clase
+     * Constructor vacío. El Scanner estático se inicializa una vez.
      */
     public MenuHelper() {
-        this.scanner = new Scanner(System.in);
     }
-    
+
     /**
-     * Muestra un menú y obtiene la opción seleccionada
-     * @param options
-     * @param title
-     * @return
+     * Muestra un menú con las opciones dadas y devuelve la opción seleccionada por el usuario.
+     * 
+     * @param opciones Array de opciones del menú
+     * @return La opción seleccionada por el usuario (1 a n) o 99 para la opción oculta
      */
-    public int showMenu(List<String> options, String title) {
-        System.out.println("\n" + title);
-        for (int i = 0; i < options.size(); i++) {
-            System.out.println((i + 1) + ". " + options.get(i));
+    public static int mostrarMenu(String[] opciones, boolean cancelar) {
+        for (int i = 0; i < opciones.length; i++) {
+            System.out.println((i + 1) + ". " + opciones[i]);
         }
-        System.out.println("0. Cancelar");
+        if(cancelar){
+            System.out.println("0. Cancelar"); 
+        } 
+        int seleccion;
+        do {
+            System.out.print("Introduce tu opción: ");
+            while (!scanner.hasNextInt()) {
+                System.out.print("Por favor, introduce un número: ");
+                scanner.next(); 
+            }
+            seleccion = scanner.nextInt();
+            scanner.nextLine();
+        } while ((seleccion < 1 || seleccion > opciones.length) && seleccion != 97 && seleccion != 99 && seleccion != 0);
 
-        return getValidOption(options.size());
+        return seleccion;
     }
 
     /**
-     * Valida que la opción seleccionada sea válida
-     * @param maxOption
-     * @return
+     * Pide al usuario que introduzca un número entero dentro de un rango.
+     * 
+     * @param mensaje Mensaje para pedir el número
+     * @param min Valor mínimo
+     * @param max Valor máximo
+     * @return El número introducido por el usuario
      */
-    private int getValidOption(int maxOption) {
-        int choice;
-        while (true) {
-            try {
-                System.out.print("Seleccione una opción: ");
-                choice = Integer.parseInt(scanner.nextLine());
-                if (choice >= 0 && choice <= maxOption) {
-                    return choice;
-                } else {
-                    System.out.println("Opción no válida. Intente nuevamente.");
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Entrada no válida. Por favor, ingrese un número.");
+    public static int pedirNumero(String mensaje, int min, int max) {
+        int numero;
+        do {
+            System.out.print(mensaje);
+            while (!scanner.hasNextInt()) {
+                System.out.print("Por favor, introduce un número válido: ");
+                scanner.next(); 
             }
+            numero = scanner.nextInt();
+            scanner.nextLine();
+        } while (numero < min || numero > max);
+        return numero;
+    }
+
+    /**
+     * Muestra un mensaje para pedir una entrada de texto.
+     * 
+     * @param mensaje Mensaje para pedir el texto
+     * @return El texto introducido por el usuario
+     */
+    public static String pedirTexto(String mensaje) {
+        System.out.print(mensaje);
+        return scanner.nextLine(); 
+    }
+
+    /**
+     * Cierra el scanner (debe llamarse al final del programa).
+     */
+    public void cerrarScanner() {
+        if (scanner != null) {
+            scanner.close();
         }
     }
 }

@@ -1,5 +1,6 @@
 package monedero;
 
+/** Clase para gestionar las monedas */
 public class Monedas{
     /** Cantidad de monedas */
     private int cantidad;

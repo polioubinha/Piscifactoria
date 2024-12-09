@@ -10,6 +10,7 @@ import peces.Pez;
 import piscifactoria.Piscifactoria;
 import stats.Stats;
 
+/** Clase que gestiona los tanques de la piscifactoría */
 public class Tanque extends Pez{
     /** Peces del tanque */
     private ArrayList<Pez> peces = new ArrayList<>();
@@ -23,13 +24,17 @@ public class Tanque extends Pez{
     private int muertos = 0;
     /** Cantidad de ganancias */
     private int ganancias = 0;
+    /*Si es de Rio o de Mar */
+    private boolean esDeRio;
 
-    /**
+   /**
      * Constructor de la clase tanque
      * @param capacidad capacidad del tanque
+     * @param esDeRio indica si el tanque es de río
      */
-    public Tanque(int capacidad){
+    public Tanque(int capacidad, boolean esDeRio) {
         this.capacidad = capacidad;
+        this.esDeRio = esDeRio;
     }
 
     /**
@@ -55,7 +60,14 @@ public class Tanque extends Pez{
     public int getVendidos(){
         return vendidos;
     }
-
+ /**
+     * Indica si el tanque es de río
+     * @return true si es de río, false si es de mar
+     */
+    public boolean esDeRio() {
+        return esDeRio;
+    }
+   
     /**
      * Devuelve los peces del tanque 
      * @return peces del tanque 
@@ -89,18 +101,19 @@ public class Tanque extends Pez{
     }
 
     /**
-     * Calcula el porcentaje en función de dos números enteros.
-     *
-     * @param numero1 El primer número.
-     * @param numero2 El segundo número (denominador).
-     * @return El porcentaje calculado, redondeado a un decimal.
+     * Calcula un porcentaje 
+     * @param cantidad 
+     * @param total 
+     * @return porcentaje calculado
      */
-    public double porcentaje(int numero1, int numero2) {
-        if (numero2 == 0) {
-            return 0.0; // Evitamos la división por cero
+    public double porcentaje(int cantidad, int total) {
+        if (total == 0) {
+            return 0.0;
         }
-
-        return Math.round(((double) numero1 / numero2) * 1000) / 10.0;
+        double porcentaje = (double) cantidad / total * 100;
+        porcentaje = Math.round(porcentaje * 100.0) / 100.0;
+        
+        return porcentaje;
     }
 
     /**

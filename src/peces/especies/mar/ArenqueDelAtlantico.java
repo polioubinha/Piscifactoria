@@ -101,7 +101,8 @@ public class ArenqueDelAtlantico extends Filtrador{
         System.out.println("Huevos: " + datos.getHuevos());
         System.out.println("Ciclo: "+ datos.getCiclo());
         System.out.println("Madurez: " + datos.getMadurez());
-        System.out.println("Óptimo: " + datos.getOptimo());
+        System.out.println("Óptimo: " + datos.getOptimo());        
+        System.out.println("Tipo de comida: " + getTipoComida());
     }
 
     /**

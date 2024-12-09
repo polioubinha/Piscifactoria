@@ -6,6 +6,7 @@ import piscifactoria.Piscifactoria;
 import propiedades.PecesDatos;
 import tanque.Tanque;
 
+/** Clase que gestiona los peces */
 public abstract class Pez {
     /** Datos del pez */
     protected PecesDatos datos;

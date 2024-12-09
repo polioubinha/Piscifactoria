@@ -103,6 +103,7 @@ public class SalmonChinook extends Carnivoro{
         System.out.println("Ciclo: "+ datos.getCiclo());
         System.out.println("Madurez: " + datos.getMadurez());
         System.out.println("Óptimo: " + datos.getOptimo());
+        System.out.println("Tipo de comida: " + getTipoComida());
     }
     
     /**

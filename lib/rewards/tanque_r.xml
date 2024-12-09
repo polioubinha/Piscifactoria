@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reward>
+	<name>Tanque de río</name>
+	<origin>Adrián</origin>
+	<desc>Materiales para la construcción, de forma gratuita, de un tanque de una piscifactoría de río.</desc>
+	<rarity>2</rarity>
+	<give>
+		<building code="2">Tanque de río</building>
+		<part>A</part>
+		<total>A</total>
+	</give>
+	<quantity>1</quantity>
+</reward>
