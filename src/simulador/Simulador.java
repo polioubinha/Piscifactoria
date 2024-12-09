@@ -53,7 +53,7 @@ public class Simulador {
         piscifactorias = new ArrayList<>();
         dias = 0;
         almacenCentral = false;
-        registro = Registro.getInstance("src/transcripciones", "src/logs", "Partida1");
+        registro = Registro.getInstance("transcripciones", "logs", "Partida1");
         try {
             init();
         } catch (IllegalArgumentException e) {
@@ -79,10 +79,9 @@ public class Simulador {
                 }
 
                 System.out.println("¿Qué partida quieres cargar?");
-                int opcion = MenuHelper.pedirNumero("Selecciona una opción (0 para nueva partida)", 0, files.length);
+                int opcion = MenuHelper.pedirNumero("Selecciona una opción (0 para nueva partida): ", 0, files.length);
 
                 if (opcion > 0) {
-                    // Cargar la partida seleccionada
                     String partida = files[opcion - 1].getName();
                     this.load(partida);
                 } else {
@@ -112,15 +111,29 @@ public class Simulador {
 
         piscifactorias.add(new Piscifactoria(true, nombrePiscifactoria));
 
+        
+        String[] nombresPeces = new String[]{
+            "Carpa", "Carpa plateada", "Salmón chinook", "Tilapia del Nilo", "Pejerrey ",
+            "Arenque del Atlántico", "Besugo", "Caballa", "Róbalo", "Sargo",
+            "Dorada", "Trucha arcoíris"
+        };
+        
+        for (String nombre : nombresPeces) {
+            if (AlmacenPropiedades.getPropByName(nombre) == null) {
+                String error = "Error: El nombre del pez '" + nombre + "' no está definido en AlmacenPropiedades.";
+                registro.registrarError(error);
+                System.out.println(error);
+                System.exit(1); 
+            }
+        }
+
         try {
-            Stats.getInstancia(new String[] {
-                    "Dorada", "Trucha Arcoiris", "Arenque del Atlántico",
-                    "Besugo", "Caballa", "Sargo", "Robalo",
-                    "Carpa", "Carpa Plateada", "Pejerrey",
-                    "Salmón Chinook", "Tilapia del Nilo"
-            });
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Error al inicializar las estadísticas: " + e.getMessage());
+            Stats.getInstancia(nombresPeces);
+            registro.registrarLog("INFO", "Stats inicializado correctamente.");
+        } catch (Exception e) {
+            registro.registrarError("Error al inicializar Stats: " + e.getMessage());
+            System.out.println("Error crítico al inicializar Stats: " + e.getMessage());
+            System.exit(1);
         }
         Monedas.getInstance();
     }
@@ -613,8 +626,8 @@ public class Simulador {
         } else {
             System.out.println("13. Reclamar piscifactoría de río " + PiscRA + PiscRB + ":");
         }
-        System.out.print((recompensas[18]) ? "14. Reclamar tanque de mar" : "");
-        System.out.print((recompensas[19]) ? "15. Reclamar tanque de río" : "");
+        System.out.println((recompensas[18]) ? "14. Reclamar tanque de mar" : "");
+        System.out.println((recompensas[19]) ? "15. Reclamar tanque de río" : "");
 
         seleccionarOpcion(recompensas);
 
@@ -633,9 +646,7 @@ public class Simulador {
         int opcion;
 
         do {
-            System.out.print("Selecciona una opción: ");
             opcion = MenuHelper.pedirNumero("Selecciona una opción: ", 0, 15);
-
             switch (opcion) {
                 case 0:
                     break;
@@ -1010,7 +1021,6 @@ public class Simulador {
             reader = new JsonReader(new BufferedReader(new FileReader(file)));
             jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
 
-            // Cargar valores principales
             if (jsonObject.has("empresa")) {
                 Simulador.nombreEmpresa = jsonObject.get("empresa").getAsString();
             }
@@ -1018,13 +1028,11 @@ public class Simulador {
             int monedas = jsonObject.has("monedas") ? jsonObject.get("monedas").getAsInt() : 0;
             Monedas.getInstance().setCantidad(monedas);
 
-            // Extraer y cargar datos de edificios
             if (jsonObject.has("edificios")) {
                 JsonObject edificiosObjeto = jsonObject.getAsJsonObject("edificios");
                 if (edificiosObjeto.has("almacenes")) {
                     JsonObject almacenesObjeto = edificiosObjeto.getAsJsonObject("almacenes");
 
-                    // Cargar datos del almacén de comida animal
                     if (almacenesObjeto.has("animal")) {
                         JsonObject almacenAnimal = almacenesObjeto.getAsJsonObject("animal");
                         AlmacenCentral almacenCentralAnimal = AlmacenCentral.getInstance("animal");
@@ -1032,7 +1040,6 @@ public class Simulador {
                         almacenCentralAnimal.setCapacidad(almacenAnimal.get("capacidad").getAsInt());
                     }
 
-                    // Cargar datos del almacén de comida vegetal
                     if (almacenesObjeto.has("vegetal")) {
                         JsonObject almacenVegetal = almacenesObjeto.getAsJsonObject("vegetal");
                         AlmacenCentral almacenCentralVegetal = AlmacenCentral.getInstance("vegetal");
@@ -1055,9 +1062,6 @@ public class Simulador {
 
         } catch (FileNotFoundException ex) {
             System.out.println("Error al cargar la partida");
-
-        } catch (IOException e) {
-            System.out.println("Error de entrada/salida");
 
         } finally {
             try {

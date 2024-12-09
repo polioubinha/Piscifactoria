@@ -33,7 +33,8 @@ public class MenuHelper {
             }
             seleccion = scanner.nextInt();
             scanner.nextLine();
-        } while ((seleccion < 1 || seleccion > opciones.length) && seleccion != 97 && seleccion != 99);
+        } while ((seleccion < 1 || seleccion > opciones.length) && seleccion != 97 && seleccion != 99 && seleccion != 0);
+
         return seleccion;
     }
 
