@@ -1,7 +1,6 @@
 package simulador;
 
 import peces.Pez;
-import peces.Pez;
 import peces.especies.dobles.*;
 import peces.especies.mar.*;
 import peces.especies.rio.*;
@@ -150,7 +149,7 @@ public class Simulador {
             System.out.println("            Menú             ");
             System.out.println("===============================\n");
 
-            int opcion = menuHelper.mostrarMenu(opciones, false);
+            int opcion = MenuHelper.mostrarMenu(opciones, false);
             registro.registrarTranscripcion("Opción seleccionada en el menú: " + opcion);
 
             switch (opcion) {
@@ -281,7 +280,7 @@ public class Simulador {
         };
         int opcion;
         do {
-            opcion = menuHelper.mostrarMenu(peces, true);
+            opcion = MenuHelper.mostrarMenu(peces, true);
             if (opcion > 0 && opcion <= peces.length) {
                 switch (opcion) {
                     case 1:
@@ -364,7 +363,7 @@ public class Simulador {
 
     private void addFood() {
         if (!almacenCentral) {
-            int opcion = menuHelper.mostrarMenu(new String[] { "Agregar 5", "Agregar 10", "Agregar 25", "Llenar" },
+            int opcion = MenuHelper.mostrarMenu(new String[] { "Agregar 5", "Agregar 10", "Agregar 25", "Llenar" },
                     true);
             switch (opcion) {
                 case 1:
@@ -396,7 +395,7 @@ public class Simulador {
                     System.out.println("Selecciona una opción válida");
             }
         } else {
-            int tipoComida = menuHelper.mostrarMenu(new String[] { "Comida Animal", "Comida Vegetal" }, true);
+            int tipoComida = MenuHelper.mostrarMenu(new String[] { "Comida Animal", "Comida Vegetal" }, true);
             if (tipoComida < 1 || tipoComida > 2) {
                 System.out.println("Selecciona un tipo de comida válido.");
                 return;
@@ -404,7 +403,7 @@ public class Simulador {
             String tipo = tipoComida == 1 ? "animal" : "vegetal";
             AlmacenCentral almacen = AlmacenCentral.getInstance(tipo);
 
-            int opcion = menuHelper.mostrarMenu(new String[] { "Agregar 5", "Agregar 10", "Agregar 25", "Llenar" },
+            int opcion = MenuHelper.mostrarMenu(new String[] { "Agregar 5", "Agregar 10", "Agregar 25", "Llenar" },
                     true);
             switch (opcion) {
                 case 1:
