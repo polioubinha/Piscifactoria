@@ -2,6 +2,7 @@ package stats;
 
 import estadisticas.Estadisticas;
 
+/** Clase de las estadísticas de la partida */
 public class Stats extends Estadisticas {
 
     /**

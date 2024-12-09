@@ -8,6 +8,7 @@ import peces.especies.mar.*;
 import peces.especies.rio.*;
 import tanque.Tanque;
 
+/** Clase que gesrtiona la piscifactoria */
 public class Piscifactoria {
     /** Piscifactoria de rio o de mar */
     private final boolean rio;
@@ -31,6 +32,9 @@ public class Piscifactoria {
         inicializarPiscifactoria();
     }
 
+    /**
+     * Método para inicializar la piscifactoria según sea de río o de mar
+     */
     private void inicializarPiscifactoria() {
         if (rio) {
             tanques.add(new Tanque(25,true));

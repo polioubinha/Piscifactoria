@@ -6,7 +6,7 @@ import almacenCentral.AlmacenCentral;
 import peces.Pez;
 import piscifactoria.Piscifactoria;
 import tanque.Tanque;
-
+/** Clase para gestionar la alimentacion de un carnivoro */
 public class Carnivoro extends Pez{
     /**
      * Método para alimentar al pez
@@ -50,6 +50,10 @@ public class Carnivoro extends Pez{
         return super.reproducirse();
     }    
 
+    /**
+     * Devuelve el tipo de comida del que se alimentan
+     * @return tipo de comida
+     */
     public static String getTipoComida() {
         return "animal";
     }

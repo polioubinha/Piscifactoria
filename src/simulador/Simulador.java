@@ -31,22 +31,40 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/** Clase que gestiona la simulación de la piscifactoría */
 public class Simulador {
+    /** MenuHelper del sistema */
     private MenuHelper menuHelper;
+    /** Piscifactorias del sistema */
     private ArrayList<Piscifactoria> piscifactorias;
+    /** Nombre de la empresa */
     private static String nombreEmpresa = "";
+    /** Dias transcurridos */
     private int dias;
+    /** Almacen central */
     private boolean almacenCentral;
+    /** Registro del sistema */
     private Registro registro;
 
+    /**
+     * Devuelve el nombre de la empresa
+     * @return
+     */
     public String getNombreEmpresa() {
         return nombreEmpresa;
     }
 
+    /**
+     * Modifica el nombre de la empresa
+     * @param nombreEmpresa
+     */
     public void setNombreEmpresa(String nombreEmpresa) {
         Simulador.nombreEmpresa = nombreEmpresa;
     }
 
+    /**
+     * Constructor de la clase
+     */
     public Simulador() {
 
         menuHelper = new MenuHelper();
@@ -138,6 +156,9 @@ public class Simulador {
         Monedas.getInstance();
     }
 
+    /**
+     * Bucle principal
+     */
     public void mainLoop() {
         String[] opciones = {
                 "Mostrar estado general",
@@ -255,6 +276,9 @@ public class Simulador {
         registro.cerrarRegistro();
     }
 
+    /**
+     * Añade 1000 monedas como opcion oculta
+     */
     public void addHiddenCoins() {
         Monedas.getInstance().añadirMonedas(1000);
         System.out.println("1000 monedas añadidas exitosamente.");
@@ -263,6 +287,9 @@ public class Simulador {
         // registro.registrarLog("Añadir monedas ocultas");
     }
 
+    /**
+     * Muestra el estado general de las piscifactorias
+     */
     private void showGeneralStatus() {
         for (Piscifactoria piscifactoria : piscifactorias) {
             piscifactoria.showStatus();
@@ -276,6 +303,9 @@ public class Simulador {
                         "Monedas disponibles: " + Monedas.getInstance().getCantidad());
     }
 
+    /**
+     * Muestra el estado de los tanques de una piscifactoría
+     */
     private void menuPisc() {
         for (Piscifactoria piscifactoria : piscifactorias) {
             piscifactoria.listTanks();
@@ -286,6 +316,9 @@ public class Simulador {
         registro.registrarAccion("Mostrar estado de tanques");
     }
 
+    /**
+     * Muestra la ictiopedia
+     */
     private void showIctio() {
         String[] peces = {
                 "Dorada", "Trucha Arcoiris", "Arenque del Atlántico", "Besugo", "Caballa", "Sargo", "Robalo", "Carpa",
@@ -339,6 +372,10 @@ public class Simulador {
         } while (opcion != 0);
     }
 
+    /**
+     * Avanza un día en la simulación
+     * @param dias
+     */
     private void nextDay(int dias) {
         for (int i = 0; i < dias; i++) {
             int pecesRio = 0;
@@ -374,6 +411,9 @@ public class Simulador {
         registro.registrarAccion("Avanzados " + dias + " días.");
     }
 
+    /**
+     * Añade comida al simulador
+     */
     private void addFood() {
         if (!almacenCentral) {
             int opcion = MenuHelper.mostrarMenu(new String[] { "Agregar 5", "Agregar 10", "Agregar 25", "Llenar" },
@@ -448,6 +488,9 @@ public class Simulador {
 
     }
 
+    /**
+     * Compra un pez
+     */
     private void addFish() {
         // Solicitar al usuario la piscifactoría a la que desea agregar el pez
         int piscifactoriaIndex = MenuHelper.pedirNumero("Seleccione la piscifactoría a la que agregar el pez: ", 1,
@@ -485,6 +528,9 @@ public class Simulador {
         }
     }
 
+    /**
+     * Vende peces
+     */
     private void sell() {
         int pecesTotalesVendidos = 0;
         int gananciasTotales = 0;
@@ -900,12 +946,18 @@ public class Simulador {
         } while (control);
     }
 
+    /**
+     * Guarda la partida
+     */
     public void save() {
         guardarPartida();
         System.out.println("Guardado de partida");
         return;
     }
 
+    /**
+     * Realiza el guardado de partida
+     */
     public void guardarPartida() {
         JsonObject estructuraJson = new JsonObject();
 
@@ -1012,6 +1064,10 @@ public class Simulador {
         }
     }
 
+    /**
+     * Carga la partida
+     * @param partida
+     */
     public void load(String partida) {
         JsonReader reader = null;
         JsonObject jsonObject = null;
@@ -1073,6 +1129,9 @@ public class Simulador {
         }
     }
 
+    /**
+     * Limpia los tanques
+     */
     private void cleanTank() {
         for (Piscifactoria piscifactoria : piscifactorias) {
             piscifactoria.limpiarTanques();
@@ -1094,6 +1153,9 @@ public class Simulador {
         registro.registrarAccion("Limpieza de todos los tanques completada.");
     }
 
+    /**
+     * Vacía los tanques
+     */
     private void emptyTank() {
         for (Piscifactoria piscifactoria : piscifactorias) {
             piscifactoria.vaciarTanques();
@@ -1115,6 +1177,9 @@ public class Simulador {
         registro.registrarAccion("Vaciado de todos los tanques completado.");
     }
 
+    /**
+     * Lógica de mejoras
+     */
     private void upgrade() {
         int pisc = MenuHelper.pedirNumero("Seleccione la piscifactoría para mejorar: ", 1, piscifactorias.size());
         int mejoraOpcion = MenuHelper.mostrarMenu(new String[] { "Comprar tanque", "Aumentar almacén" }, true);
@@ -1159,6 +1224,10 @@ public class Simulador {
         }
     }
 
+    /**
+     * Main principal
+     * @param args
+     */
     public static void main(String[] args) {
         Simulador simulador = new Simulador();
         simulador.mainLoop();

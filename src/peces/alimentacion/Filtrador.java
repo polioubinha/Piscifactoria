@@ -7,6 +7,7 @@ import peces.Pez;
 import piscifactoria.Piscifactoria;
 import tanque.Tanque;
 
+/** Clase para gestionar la alimentacion de un filtrador */
 public class Filtrador extends Pez{
     /**
      * Probabilidad de que el pez no coma
@@ -53,6 +54,10 @@ public class Filtrador extends Pez{
         }
     }
 
+    /**
+     * Devuelve el tipo de comida del que se alimentan
+     * @return tipo de comida
+     */
     public static String getTipoComida() {
         return "vegetal";
     }

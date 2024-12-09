@@ -2,6 +2,7 @@ package helpers;
 
 import java.util.Scanner;
 
+/** Componente para gestionar los menús */
 public class MenuHelper {
     private static final Scanner scanner = new Scanner(System.in); // Scanner único y compartido
 

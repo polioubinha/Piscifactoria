@@ -7,6 +7,7 @@ import peces.Pez;
 import piscifactoria.Piscifactoria;
 import tanque.Tanque;
 
+/** Clase para gestionar la alimentacion de un omnivoro */
 public class Omnivoro extends Pez{
     /**
      * Probabilidad de que el pez no coma
@@ -87,6 +88,10 @@ public class Omnivoro extends Pez{
         return super.reproducirse();
     }
 
+    /**
+     * Devuelve el tipo de comida del que se alimentan
+     * @return tipo de comida
+     */
     public static String getTipoComida() {
         return "animal y vegetal";
     }

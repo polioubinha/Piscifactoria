@@ -2,6 +2,7 @@ package almacenCentral;
 
 import monedero.Monedas;
 
+/** Clase que representa el almacén central */
 public class AlmacenCentral {
     /** Capacidad del almacén */
     private int capacidad = 0;
