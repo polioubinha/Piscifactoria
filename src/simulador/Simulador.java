@@ -423,21 +423,26 @@ public class Simulador {
                     piscifactorias.get(0).addComida(5);
                     registro.registrarLog("INFO",
                             "5 unidades de comida añadidas a la piscifactoría " + piscifactorias.get(0).getNombre());
+                    registro.registrarTranscripcion("5 unidades de comida añadidas a la piscifactoria " + piscifactorias.get(0).getNombre());
                     break;
                 case 2:
                     piscifactorias.get(0).addComida(10);
                     registro.registrarLog("INFO",
                             "10 unidades de comida añadidas a la piscifactoría " + piscifactorias.get(0).getNombre());
+                    registro.registrarTranscripcion("10 unidades de comida añadidas a la piscifactoria " + piscifactorias.get(0).getNombre());
                     break;
                 case 3:
                     piscifactorias.get(0).addComida(25);
                     registro.registrarLog("INFO",
                             "25 unidades de comida añadidas a la piscifactoría " + piscifactorias.get(0).getNombre());
+                    registro.registrarTranscripcion("25 unidades de comida añadidas a la piscifactoria " + piscifactorias.get(0).getNombre());
                     break;
                 case 4:
                     int cantidad = piscifactorias.get(0).getAlmacenMax() - piscifactorias.get(0).getAlmacen();
                     piscifactorias.get(0).addComida(cantidad);
                     registro.registrarLog("INFO", "Almacén de comida llenado con " + cantidad
+                            + " unidades en la piscifactoría " + piscifactorias.get(0).getNombre());
+                    registro.registrarTranscripcion("Almacén de comida llenado con " + cantidad
                             + " unidades en la piscifactoría " + piscifactorias.get(0).getNombre());
                     break;
                 case 5:
@@ -461,20 +466,24 @@ public class Simulador {
             switch (opcion) {
                 case 1:
                     almacen.comprarComida(5);
-                    registro.registrarLog("INFO", "5 unidades de comida compradas para el almacén central.");
+                    registro.registrarLog("INFO", "5 unidades de comida " + tipo +" compradas para el almacén central.");
+                    registro.registrarTranscripcion("5 unidades de comida " + tipo + " compradas para el almacén central");
                     break;
                 case 2:
                     almacen.comprarComida(10);
-                    registro.registrarLog("INFO", "10 unidades de comida compradas para el almacén central.");
+                    registro.registrarLog("INFO", "10 unidades de comida " + tipo +" compradas para el almacén central.");
+                    registro.registrarTranscripcion("10 unidades de comida " + tipo + " compradas para el almacén central");
                     break;
                 case 3:
                     almacen.comprarComida(25);
-                    registro.registrarLog("INFO", "25 unidades de comida compradas para el almacén central.");
+                    registro.registrarLog("INFO", "25 unidades de comida " + tipo +" compradas para el almacén central.");
+                    registro.registrarTranscripcion("25 unidades de comida " + tipo + " compradas para el almacén central");
                     break;
                 case 4:
                     int cantidad = almacen.getCapacidadMax() - almacen.getCapacidad();
                     almacen.comprarComida(cantidad);
-                    registro.registrarLog("INFO", "Almacén central llenado con " + cantidad + " unidades de comida.");
+                    registro.registrarLog("INFO", "Almacén central llenado con " + cantidad + " unidades de comida " + tipo);
+                    registro.registrarTranscripcion("Almacén central llenado con " + cantidad + " unidades de comida " + tipo);
                     break;
                 case 5:
                     registro.registrarLog("INFO", "Se salió del menú de agregar comida sin realizar cambios.");
