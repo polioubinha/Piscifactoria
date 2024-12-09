@@ -60,7 +60,7 @@ public class Crear {
 
             rootElement.appendChild(createElement(document, "quantity", String.valueOf(almacenados)));
 
-            File folder = new File("Recompensas");
+            File folder = new File("recompensas");
             if (!folder.exists()) {
                 folder.mkdirs();
             }
